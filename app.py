@@ -1,0 +1,529 @@
+import streamlit as st
+import sqlite3
+import pandas as pd
+from datetime import datetime, date
+import plotly.graph_objects as go
+import plotly.express as px
+import os
+
+# ---- PAGE CONFIG ----
+st.set_page_config(
+    page_title="Tisha & Dawis 💜",
+    page_icon="💜",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+# ---- CUSTOM CSS ----
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+    --purple-deep: #3D1A6E;
+    --purple-mid: #6B3FA0;
+    --purple-light: #B08FD4;
+    --purple-pale: #F0E9FA;
+    --army-green: #4A5C3A;
+    --army-light: #7A8C6A;
+    --army-pale: #E8EDE4;
+    --gold: #C9A84C;
+    --white: #FAFAFA;
+    --text-dark: #1A1A2E;
+}
+
+* { font-family: 'Inter', sans-serif; }
+
+.stApp {
+    background: linear-gradient(135deg, #1A0A2E 0%, #2D1854 40%, #1E3A2A 100%);
+    min-height: 100vh;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, rgba(61,26,110,0.9), rgba(74,92,58,0.8));
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    border: 1px solid rgba(176,143,212,0.3);
+    backdrop-filter: blur(10px);
+    margin-bottom: 2rem;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #F0E9FA;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.hero-subtitle {
+    font-size: 1rem;
+    color: #B08FD4;
+    margin-top: 0.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.metric-card {
+    background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5));
+    border: 1px solid rgba(176,143,212,0.25);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    transition: transform 0.2s;
+}
+
+.metric-card:hover { transform: translateY(-4px); }
+
+.metric-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #C9A84C;
+    line-height: 1;
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    color: #B08FD4;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0.5rem;
+}
+
+.metric-desc {
+    font-size: 0.85rem;
+    color: #E0D4F5;
+    margin-top: 0.3rem;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: #F0E9FA;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(176,143,212,0.3);
+    padding-bottom: 0.5rem;
+}
+
+.memory-card {
+    background: rgba(61,26,110,0.5);
+    border: 1px solid rgba(176,143,212,0.2);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    backdrop-filter: blur(6px);
+}
+
+.memory-date {
+    font-size: 0.75rem;
+    color: #C9A84C;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.memory-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #F0E9FA;
+    margin: 0.25rem 0;
+}
+
+.memory-desc {
+    font-size: 0.85rem;
+    color: #B08FD4;
+}
+
+.emoji-tag {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.countdown-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(176,143,212,0.1));
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.countdown-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #C9A84C;
+    font-weight: 700;
+}
+
+.countdown-label {
+    font-size: 0.8rem;
+    color: #B08FD4;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.army-badge {
+    background: linear-gradient(135deg, rgba(74,92,58,0.8), rgba(122,140,106,0.4));
+    border: 1px solid rgba(122,140,106,0.5);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    color: #E8EDE4;
+}
+
+.stTextInput input, .stTextArea textarea, .stSelectbox select {
+    background: rgba(61,26,110,0.5) !important;
+    border: 1px solid rgba(176,143,212,0.3) !important;
+    color: #F0E9FA !important;
+    border-radius: 8px !important;
+}
+
+.stButton button {
+    background: linear-gradient(135deg, #6B3FA0, #4A5C3A) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    padding: 0.5rem 1.5rem !important;
+}
+
+.stButton button:hover {
+    background: linear-gradient(135deg, #8B5CC0, #5A7048) !important;
+    transform: translateY(-1px) !important;
+}
+
+div[data-testid="stMetricValue"] {
+    color: #C9A84C !important;
+    font-family: 'Playfair Display', serif !important;
+}
+
+.stTabs [data-baseweb="tab"] {
+    color: #B08FD4 !important;
+}
+
+.stTabs [aria-selected="true"] {
+    color: #F0E9FA !important;
+    border-bottom: 2px solid #C9A84C !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ---- DATABASE ----
+def init_db():
+    conn = sqlite3.connect('anniversary.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS memories (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        description TEXT,
+        date TEXT NOT NULL,
+        category TEXT DEFAULT 'memory',
+        emoji TEXT DEFAULT '💜',
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    )''')
+    c.execute('''CREATE TABLE IF NOT EXISTS milestones (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        date TEXT NOT NULL,
+        description TEXT,
+        type TEXT DEFAULT 'milestone'
+    )''')
+    # Insert default milestones if empty
+    c.execute("SELECT COUNT(*) FROM milestones")
+    if c.fetchone()[0] == 0:
+        default_milestones = [
+            ("First Like on Story 🚌", "2025-07-27", "กดไลค์สตอรี่ครั้งแรก — บนรถบัส", "start"),
+            ("Official Couple 💜", "2025-08-22", "วันที่เป็นแฟนกันอย่างเป็นทางการ", "anniversary"),
+            ("Dawis Enlists Army 🪖", "2026-04-20", "วันที่ Dawis เข้า Australian Army", "milestone"),
+        ]
+        c.executemany("INSERT INTO milestones (title, date, description, type) VALUES (?,?,?,?)", default_milestones)
+    conn.commit()
+    conn.close()
+
+def get_memories():
+    conn = sqlite3.connect('anniversary.db')
+    df = pd.read_sql_query("SELECT * FROM memories ORDER BY date DESC", conn)
+    conn.close()
+    return df
+
+def add_memory(title, description, date_val, category, emoji):
+    conn = sqlite3.connect('anniversary.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO memories (title, description, date, category, emoji) VALUES (?,?,?,?,?)",
+              (title, description, str(date_val), category, emoji))
+    conn.commit()
+    conn.close()
+
+def delete_memory(memory_id):
+    conn = sqlite3.connect('anniversary.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM memories WHERE id=?", (memory_id,))
+    conn.commit()
+    conn.close()
+
+def get_milestones():
+    conn = sqlite3.connect('anniversary.db')
+    df = pd.read_sql_query("SELECT * FROM milestones ORDER BY date ASC", conn)
+    conn.close()
+    return df
+
+# ---- CALCULATIONS ----
+def calculate_stats():
+    today = date.today()
+    start_date = date(2025, 7, 27)
+    official_date = date(2025, 8, 22)
+    army_date = date(2026, 4, 20)
+    next_anniversary = date(2026, 8, 22)
+    if today > next_anniversary:
+        next_anniversary = date(today.year + 1, 8, 22)
+
+    days_since_first = (today - start_date).days
+    days_together = (today - official_date).days
+    days_to_anniversary = (next_anniversary - today).days
+    days_since_army = (today - army_date).days if today >= army_date else 0
+
+    weeks_together = days_together // 7
+    months_together = days_together // 30
+
+    return {
+        "days_since_first": days_since_first,
+        "days_together": days_together,
+        "weeks_together": weeks_together,
+        "months_together": months_together,
+        "days_to_anniversary": days_to_anniversary,
+        "days_since_army": days_since_army,
+        "next_anniversary": next_anniversary,
+        "official_date": official_date,
+    }
+
+# ---- INIT ----
+init_db()
+stats = calculate_stats()
+
+# ---- HERO ----
+st.markdown(f"""
+<div class="hero-section">
+    <div style="font-size:3rem; margin-bottom:0.5rem">💜 🪖</div>
+    <div class="hero-title">Tisha & Dawis</div>
+    <div class="hero-subtitle">Our Story · Since 27 July 2025</div>
+    <div style="margin-top:1.5rem; color:#C9A84C; font-family:'Playfair Display',serif; font-size:1.1rem; font-style:italic;">
+        "{stats['days_together']} days of loving you — and counting."
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# ---- TABS ----
+tab1, tab2, tab3, tab4 = st.tabs(["📊 Our Stats", "💜 Memories", "🗓️ Timeline", "➕ Add Memory"])
+
+# ======== TAB 1: STATS ========
+with tab1:
+    st.markdown('<div class="section-title">Our Story in Numbers</div>', unsafe_allow_html=True)
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-number">{stats['days_together']}</div>
+            <div class="metric-label">Days Together</div>
+            <div class="metric-desc">Since 22 Aug 2025 💜</div>
+        </div>""", unsafe_allow_html=True)
+
+    with col2:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-number">{stats['weeks_together']}</div>
+            <div class="metric-label">Weeks Together</div>
+            <div class="metric-desc">{stats['months_together']} months of us 🌙</div>
+        </div>""", unsafe_allow_html=True)
+
+    with col3:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-number">{stats['days_to_anniversary']}</div>
+            <div class="metric-label">Days to Anniversary</div>
+            <div class="metric-desc">22 Aug {stats['next_anniversary'].year} 🎉</div>
+        </div>""", unsafe_allow_html=True)
+
+    with col4:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-number">{stats['days_since_first']}</div>
+            <div class="metric-label">Days Since We Met</div>
+            <div class="metric-desc">27 Jul 2025 on the bus 🚌</div>
+        </div>""", unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Army section
+    col_a, col_b = st.columns([1, 2])
+    with col_a:
+        st.markdown(f"""
+        <div class="army-badge">
+            <div style="font-size:2.5rem">🪖</div>
+            <div style="font-size:1.8rem; font-family:'Playfair Display',serif; color:#C9A84C; font-weight:700;">{stats['days_since_army']}</div>
+            <div style="font-size:0.8rem; letter-spacing:1.5px; text-transform:uppercase; color:#7A8C6A; margin-top:0.3rem;">Days in Service</div>
+            <div style="font-size:0.85rem; margin-top:0.5rem; color:#E8EDE4;">Dawis joined Australian Army<br>20 April 2026</div>
+        </div>""", unsafe_allow_html=True)
+
+    with col_b:
+        # Timeline chart
+        milestones_df = get_milestones()
+        if not milestones_df.empty:
+            milestones_df['date'] = pd.to_datetime(milestones_df['date'])
+            milestones_df['y'] = 1
+
+            fig = go.Figure()
+            colors = ['#C9A84C', '#B08FD4', '#7A8C6A']
+            for i, row in milestones_df.iterrows():
+                color = colors[i % len(colors)]
+                fig.add_trace(go.Scatter(
+                    x=[row['date']], y=[1],
+                    mode='markers+text',
+                    marker=dict(size=16, color=color, symbol='diamond'),
+                    text=[row['title']],
+                    textposition='top center',
+                    textfont=dict(color='#F0E9FA', size=11),
+                    hovertemplate=f"<b>{row['title']}</b><br>{row['description']}<extra></extra>",
+                    showlegend=False
+                ))
+
+            fig.add_shape(type='line',
+                x0=milestones_df['date'].min(), x1=date.today(),
+                y0=1, y1=1,
+                line=dict(color='rgba(176,143,212,0.4)', width=2))
+
+            fig.update_layout(
+                title=dict(text='Our Journey Together', font=dict(color='#F0E9FA', size=14, family='Playfair Display')),
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)',
+                yaxis=dict(visible=False, range=[0.8, 1.4]),
+                xaxis=dict(showgrid=False, color='#B08FD4'),
+                height=220,
+                margin=dict(l=10, r=10, t=40, b=10)
+            )
+            st.plotly_chart(fig, use_container_width=True)
+
+    # Progress to next anniversary
+    st.markdown('<div class="section-title" style="margin-top:1rem">Countdown to Anniversary 🎉</div>', unsafe_allow_html=True)
+    progress = max(0, min(1, 1 - (stats['days_to_anniversary'] / 365)))
+    st.progress(progress)
+    st.markdown(f'<div style="color:#B08FD4; font-size:0.85rem; text-align:center;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_allow_html=True)
+
+# ======== TAB 2: MEMORIES ========
+with tab2:
+    st.markdown('<div class="section-title">Our Memories 💜</div>', unsafe_allow_html=True)
+    memories_df = get_memories()
+
+    if memories_df.empty:
+        st.markdown("""
+        <div style="text-align:center; color:#B08FD4; padding:3rem;">
+            <div style="font-size:3rem">💜</div>
+            <div style="font-size:1.1rem; margin-top:1rem;">No memories yet — add your first one!</div>
+        </div>""", unsafe_allow_html=True)
+    else:
+        # Filter by category
+        categories = ['All'] + list(memories_df['category'].unique())
+        selected_cat = st.selectbox("Filter by category", categories)
+        if selected_cat != 'All':
+            filtered_df = memories_df[memories_df['category'] == selected_cat]
+        else:
+            filtered_df = memories_df
+
+        for _, row in filtered_df.iterrows():
+            col_mem, col_del = st.columns([10, 1])
+            with col_mem:
+                st.markdown(f"""
+                <div class="memory-card">
+                    <div class="memory-date">{row['date']}</div>
+                    <div class="memory-title"><span class="emoji-tag">{row['emoji']}</span>{row['title']}</div>
+                    <div class="memory-desc">{row['description'] or ''}</div>
+                    <div style="margin-top:0.5rem; display:inline-block; background:rgba(176,143,212,0.2); border-radius:20px; padding:2px 10px; font-size:0.75rem; color:#B08FD4;">{row['category']}</div>
+                </div>""", unsafe_allow_html=True)
+            with col_del:
+                if st.button("🗑️", key=f"del_{row['id']}", help="Delete this memory"):
+                    delete_memory(row['id'])
+                    st.rerun()
+
+# ======== TAB 3: TIMELINE ========
+with tab3:
+    st.markdown('<div class="section-title">Our Timeline 🗓️</div>', unsafe_allow_html=True)
+    milestones_df = get_milestones()
+    memories_df = get_memories()
+
+    all_events = []
+    for _, row in milestones_df.iterrows():
+        all_events.append({
+            'date': row['date'],
+            'title': row['title'],
+            'desc': row['description'],
+            'type': 'milestone',
+            'color': '#C9A84C'
+        })
+
+    for _, row in memories_df.iterrows():
+        all_events.append({
+            'date': row['date'],
+            'title': f"{row['emoji']} {row['title']}",
+            'desc': row['description'],
+            'type': row['category'],
+            'color': '#B08FD4'
+        })
+
+    all_events = sorted(all_events, key=lambda x: x['date'], reverse=True)
+
+    for event in all_events:
+        border_color = event['color']
+        st.markdown(f"""
+        <div style="border-left: 3px solid {border_color}; padding: 0.75rem 1rem; margin-bottom: 1rem; background: rgba(61,26,110,0.3); border-radius: 0 12px 12px 0;">
+            <div style="font-size:0.75rem; color:{border_color}; text-transform:uppercase; letter-spacing:1px;">{event['date']} · {event['type']}</div>
+            <div style="font-size:1rem; font-weight:600; color:#F0E9FA; margin-top:0.2rem;">{event['title']}</div>
+            <div style="font-size:0.85rem; color:#B08FD4; margin-top:0.2rem;">{event['desc'] or ''}</div>
+        </div>""", unsafe_allow_html=True)
+
+# ======== TAB 4: ADD MEMORY ========
+with tab4:
+    st.markdown('<div class="section-title">Add a New Memory ➕</div>', unsafe_allow_html=True)
+
+    col_form1, col_form2 = st.columns([3, 2])
+    with col_form1:
+        mem_title = st.text_input("Memory title *", placeholder="e.g. First trip to Queenstown")
+        mem_desc = st.text_area("Description", placeholder="Tell the story...", height=100)
+        mem_date = st.date_input("Date", value=date.today())
+
+    with col_form2:
+        mem_category = st.selectbox("Category", [
+            "date night", "travel", "milestone", "everyday",
+            "food", "special occasion", "army life", "other"
+        ])
+        mem_emoji = st.selectbox("Emoji", [
+            "💜", "🥰", "✈️", "🍜", "🎉", "🌙", "🪖", "🏔️", "🌸", "⭐", "🎂", "🏖️"
+        ])
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Save Memory 💜", use_container_width=True):
+            if mem_title:
+                add_memory(mem_title, mem_desc, mem_date, mem_category, mem_emoji)
+                st.success("Memory saved! 💜")
+                st.balloons()
+                st.rerun()
+            else:
+                st.error("Please add a title!")
+
+    # Quick memory suggestions
+    st.markdown('<div class="section-title" style="margin-top:1.5rem">Quick Add Suggestions</div>', unsafe_allow_html=True)
+    suggestions = [
+        ("🚌", "Met on the bus", "date night"),
+        ("💜", "First date", "date night"),
+        ("🏔️", "Queenstown trip", "travel"),
+        ("🪖", "Saying goodbye before Army", "army life"),
+        ("🇨🇳", "Yunnan trip", "travel"),
+    ]
+    cols = st.columns(len(suggestions))
+    for i, (emoji, title, cat) in enumerate(suggestions):
+        with cols[i]:
+            if st.button(f"{emoji} {title}", key=f"quick_{i}", use_container_width=True):
+                add_memory(title, "", date.today(), cat, emoji)
+                st.success(f"Added: {title}!")
+                st.rerun()
