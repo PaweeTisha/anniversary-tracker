@@ -1,4 +1,4 @@
-# 💜 Tisha & Dawis Anniversary Tracker
+# 💜 Anniversary Tracker
 
 A personal relationship tracker built with Python, Streamlit, SQLite, and Plotly.
 
