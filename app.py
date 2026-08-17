@@ -377,18 +377,29 @@ with tab1:
 
             fig = go.Figure()
             colors = ['#C9A84C', '#B08FD4', '#7A8C6A']
+            # สลับ y position และ text position เพื่อไม่ให้ซ้อนทับกัน
+            y_positions = [1.0, 1.15, 0.85, 1.2, 0.8]
+            text_positions = ['top center', 'top center', 'bottom center', 'top center', 'bottom center']
+            
             for i, row in milestones_df.iterrows():
                 color = colors[i % len(colors)]
+                y_pos = y_positions[i % len(y_positions)]
+                txt_pos = text_positions[i % len(text_positions)]
                 fig.add_trace(go.Scatter(
-                    x=[row['date']], y=[1],
+                    x=[row['date']], y=[y_pos],
                     mode='markers+text',
                     marker=dict(size=16, color=color, symbol='diamond'),
                     text=[row['title']],
-                    textposition='top center',
-                    textfont=dict(color='#F0E9FA', size=11),
+                    textposition=txt_pos,
+                    textfont=dict(color='#F0E9FA', size=10),
                     hovertemplate=f"<b>{row['title']}</b><br>{row['description']}<extra></extra>",
                     showlegend=False
                 ))
+                # เส้นเชื่อมจาก marker ลงมาที่ baseline
+                fig.add_shape(type='line',
+                    x0=row['date'], x1=row['date'],
+                    y0=1.0, y1=y_pos,
+                    line=dict(color=color, width=1, dash='dot'))
 
             fig.add_shape(type='line',
                 x0=milestones_df['date'].min(), x1=date.today(),
@@ -399,9 +410,9 @@ with tab1:
                 title=dict(text='Our Journey Together', font=dict(color='#F0E9FA', size=14, family='Playfair Display')),
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
-                yaxis=dict(visible=False, range=[0.8, 1.4]),
+                yaxis=dict(visible=False, range=[0.6, 1.5]),
                 xaxis=dict(showgrid=False, color='#B08FD4'),
-                height=220,
+                height=260,
                 margin=dict(l=10, r=10, t=40, b=10)
             )
             st.plotly_chart(fig, use_container_width=True)
