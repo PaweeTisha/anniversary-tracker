@@ -308,7 +308,7 @@ stats = calculate_stats()
 st.markdown(f"""
 <div class="hero-section">
     <div style="font-size:3rem; margin-bottom:0.5rem">💜 🪖</div>
-    <div class="hero-title">Tisha & Dawis</div>
+    <div class="hero-title">Paweetida & Mr Dawisssss 💜</div>
     <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
     <div style="margin-top:1.5rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:1.1rem; font-style:italic; font-weight:300; letter-spacing:0.3px;">
         "{stats['days_together']} days of loving you — and counting."
