@@ -8,7 +8,7 @@ import os
 
 # ---- PAGE CONFIG ----
 st.set_page_config(
-    page_title="Paweetida & Mr Dawisssss 💜",
+    page_title="Tisha & Dawis 💜",
     page_icon="💜",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -300,6 +300,46 @@ def calculate_stats():
         "official_date": official_date,
     }
 
+# ---- PASSWORD LOGIN ----
+def check_password():
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+        st.markdown("""
+        <style>
+        .login-wrap {
+            max-width: 400px;
+            margin: 8rem auto;
+            background: linear-gradient(135deg, rgba(61,26,110,0.85), rgba(74,92,58,0.7));
+            border: 1px solid rgba(176,143,212,0.3);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+        }
+        .login-emoji { font-size: 3rem; margin-bottom: 1rem; }
+        .login-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.8rem; font-weight: 700; color: #F0E9FA; }
+        .login-subtitle { font-size: 0.85rem; color: #B08FD4; margin-bottom: 2rem; letter-spacing: 1px; }
+        .login-hint { font-size: 0.75rem; color: rgba(176,143,212,0.5); margin-top: 1rem; font-style: italic; }
+        </style>
+        """, unsafe_allow_html=True)
+        st.markdown('<div class="login-wrap"><div class="login-emoji">💜 🪖</div><div class="login-title">Tisha & Dawis</div><div class="login-subtitle">OUR PRIVATE SPACE</div></div>', unsafe_allow_html=True)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            password = st.text_input("Enter the secret code 🔑", type="password", placeholder="••••••")
+            if st.button("Enter Our World 💜", use_container_width=True):
+                if password == "220825":
+                    st.session_state.authenticated = True
+                    st.rerun()
+                else:
+                    st.error("Hmm, that's not right... 💔 Try again!")
+            st.markdown('<div class="login-hint">hint: our special date 💜</div>', unsafe_allow_html=True)
+        return False
+    return True
+
+if not check_password():
+    st.stop()
+
 # ---- INIT ----
 init_db()
 stats = calculate_stats()
@@ -308,7 +348,7 @@ stats = calculate_stats()
 st.markdown(f"""
 <div class="hero-section">
     <div style="font-size:3rem; margin-bottom:0.5rem">💜 🪖</div>
-    <div class="hero-title">Paweetida & Mr Dawisssss 💜</div>
+    <div class="hero-title">Tisha & Dawis</div>
     <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
     <div style="margin-top:1.5rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:1.1rem; font-style:italic; font-weight:300; letter-spacing:0.3px;">
         "{stats['days_together']} days of loving you — and counting."
