@@ -8,7 +8,7 @@ import os
 
 # ---- PAGE CONFIG ----
 st.set_page_config(
-    page_title="Tisha & Dawis 💜",
+    page_title="Paweetida & Mr Dawisssss 💜",
     page_icon="💜",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -17,7 +17,7 @@ st.set_page_config(
 # ---- CUSTOM CSS ----
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
     --purple-deep: #3D1A6E;
@@ -32,7 +32,7 @@ st.markdown("""
     --text-dark: #1A1A2E;
 }
 
-* { font-family: 'Inter', sans-serif; }
+* { font-family: 'DM Sans', sans-serif; }
 
 .stApp {
     background: linear-gradient(135deg, #1A0A2E 0%, #2D1854 40%, #1E3A2A 100%);
@@ -50,12 +50,12 @@ st.markdown("""
 }
 
 .hero-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 3rem;
     font-weight: 700;
     color: #F0E9FA;
     margin: 0;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
 }
 
 .hero-subtitle {
@@ -79,7 +79,7 @@ st.markdown("""
 .metric-card:hover { transform: translateY(-4px); }
 
 .metric-number {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 3.5rem;
     font-weight: 700;
     color: #C9A84C;
@@ -101,12 +101,14 @@ st.markdown("""
 }
 
 .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
     color: #F0E9FA;
     margin-bottom: 1rem;
     border-bottom: 1px solid rgba(176,143,212,0.3);
     padding-bottom: 0.5rem;
+    letter-spacing: -0.3px;
 }
 
 .memory-card {
@@ -307,8 +309,8 @@ st.markdown(f"""
 <div class="hero-section">
     <div style="font-size:3rem; margin-bottom:0.5rem">💜 🪖</div>
     <div class="hero-title">Tisha & Dawis</div>
-    <div class="hero-subtitle">Our Story · Since 27 July 2025</div>
-    <div style="margin-top:1.5rem; color:#C9A84C; font-family:'Playfair Display',serif; font-size:1.1rem; font-style:italic;">
+    <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
+    <div style="margin-top:1.5rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:1.1rem; font-style:italic; font-weight:300; letter-spacing:0.3px;">
         "{stats['days_together']} days of loving you — and counting."
     </div>
 </div>
@@ -407,7 +409,7 @@ with tab1:
                 line=dict(color='rgba(176,143,212,0.4)', width=2))
 
             fig.update_layout(
-                title=dict(text='Our Journey Together', font=dict(color='#F0E9FA', size=14, family='Playfair Display')),
+                title=dict(text='Our Journey Together', font=dict(color='#F0E9FA', size=14, family='Plus Jakarta Sans')),
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
                 yaxis=dict(visible=False, range=[0.6, 1.5]),
