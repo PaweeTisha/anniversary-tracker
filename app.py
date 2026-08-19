@@ -308,32 +308,166 @@ def check_password():
     if not st.session_state.authenticated:
         st.markdown("""
         <style>
-        .login-wrap {
-            max-width: 400px;
-            margin: 8rem auto;
-            background: linear-gradient(135deg, rgba(61,26,110,0.85), rgba(74,92,58,0.7));
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px) rotate(-3deg); }
+            25% { transform: translateY(-20px) rotate(3deg); }
+            50% { transform: translateY(-10px) rotate(-2deg); }
+            75% { transform: translateY(-25px) rotate(4deg); }
+        }
+        @keyframes bounce2 {
+            0%, 100% { transform: translateY(0px) rotate(3deg); }
+            25% { transform: translateY(-25px) rotate(-3deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+            75% { transform: translateY(-18px) rotate(-4deg); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes shimmer {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        .login-page {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .characters-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .char-girl {
+            font-size: 6rem;
+            animation: bounce 1.4s ease-in-out infinite;
+            display: inline-block;
+            filter: drop-shadow(0 0 20px rgba(176,143,212,0.5));
+        }
+
+        .char-heart {
+            font-size: 4rem;
+            animation: heartbeat 1.2s ease-in-out infinite;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .char-soldier {
+            font-size: 6rem;
+            animation: bounce2 1.6s ease-in-out infinite;
+            display: inline-block;
+            filter: drop-shadow(0 0 20px rgba(74,92,58,0.5));
+        }
+
+        .login-main-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 5rem;
+            background: linear-gradient(135deg, #B08FD4, #C9A84C, #7A8C6A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .login-and {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: #C9A84C;
+            margin: 0 0.5rem;
+        }
+
+        .login-subtitle {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.9rem;
+            color: #B08FD4;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        .login-box {
+            background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5));
             border: 1px solid rgba(176,143,212,0.3);
             border-radius: 24px;
-            padding: 3rem 2.5rem;
-            text-align: center;
+            padding: 2rem 2.5rem;
+            max-width: 380px;
+            width: 100%;
+            margin: 2rem auto 0;
+            backdrop-filter: blur(10px);
         }
-        .login-emoji { font-size: 3rem; margin-bottom: 1rem; }
-        .login-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.8rem; font-weight: 700; color: #F0E9FA; }
-        .login-subtitle { font-size: 0.85rem; color: #B08FD4; margin-bottom: 2rem; letter-spacing: 1px; }
-        .login-hint { font-size: 0.75rem; color: rgba(176,143,212,0.5); margin-top: 1rem; font-style: italic; }
+
+        .lock-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            animation: float 2.5s ease-in-out infinite;
+            display: block;
+        }
+
+        .login-hint {
+            font-size: 0.75rem;
+            color: rgba(176,143,212,0.5);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .stars {
+            font-size: 1.5rem;
+            letter-spacing: 0.5rem;
+            margin-bottom: 1rem;
+            animation: shimmer 2s ease-in-out infinite;
+        }
         </style>
+
+        <div class="login-page">
+            <div class="characters-row">
+                <div class="char-girl">👩‍🦱</div>
+                <div class="char-heart">💜</div>
+                <div class="char-soldier">🪖</div>
+            </div>
+
+            <div class="stars">✨ ✨ ✨</div>
+
+            <div class="login-main-title">Paweetida</div>
+            <div class="login-and">&</div>
+            <div class="login-main-title">Mr. Dawis</div>
+
+            <div class="login-subtitle" style="margin-top:1rem;">Our Private Little World 💜</div>
+        </div>
         """, unsafe_allow_html=True)
-        st.markdown('<div class="login-wrap"><div class="login-emoji">💜 🪖</div><div class="login-title">Tisha & Dawis</div><div class="login-subtitle">OUR PRIVATE SPACE</div></div>', unsafe_allow_html=True)
+
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            password = st.text_input("Enter the secret code 🔑", type="password", placeholder="••••••")
+            st.markdown('<div class="login-box"><span class="lock-icon">🔐</span>', unsafe_allow_html=True)
+            password = st.text_input("", type="password", placeholder="Enter our secret code...")
             if st.button("Enter Our World 💜", use_container_width=True):
                 if password == "220825":
                     st.session_state.authenticated = True
                     st.rerun()
                 else:
                     st.error("Hmm, that's not right... 💔 Try again!")
-            st.markdown('<div class="login-hint">hint: our special date 💜</div>', unsafe_allow_html=True)
+            st.markdown('<div class="login-hint">hint: our special date 💜</div></div>', unsafe_allow_html=True)
         return False
     return True
 
@@ -348,7 +482,7 @@ stats = calculate_stats()
 st.markdown(f"""
 <div class="hero-section">
     <div style="font-size:3rem; margin-bottom:0.5rem">💜 🪖</div>
-    <div class="hero-title">Tisha & Dawis</div>
+    <div class="hero-title">Paweetida & Mr. Dawis</div>
     <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
     <div style="margin-top:1.5rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:1.1rem; font-style:italic; font-weight:300; letter-spacing:0.3px;">
         "{stats['days_together']} days of loving you — and counting."
