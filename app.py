@@ -459,7 +459,7 @@ def check_password():
 
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            st.markdown('<div class="login-box"><span class="lock-icon">🔐</span>', unsafe_allow_html=True)
+            st.markdown('<div style="text-align:center; font-size:2.5rem; margin-bottom:0.5rem;">🔐</div>', unsafe_allow_html=True)
             password = st.text_input("", type="password", placeholder="Enter our secret code...")
             if st.button("Enter Our World 💜", use_container_width=True):
                 if password == "220825":
@@ -467,7 +467,7 @@ def check_password():
                     st.rerun()
                 else:
                     st.error("Hmm, that's not right... 💔 Try again!")
-            st.markdown('<div class="login-hint">hint: our special date 💜</div></div>', unsafe_allow_html=True)
+            st.markdown('<div style="font-size:0.75rem; color:rgba(176,143,212,0.5); margin-top:0.5rem; text-align:center; font-style:italic;">hint: our special date 💜</div>', unsafe_allow_html=True)
         return False
     return True
 
