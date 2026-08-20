@@ -15,7 +15,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# ---- CUSTOM CSS (TRUE ZERO SCROLL) ----
+# ---- CUSTOM CSS (BALANCED & COMFORTABLE) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
@@ -41,33 +41,33 @@ st.markdown("""
 }
 
 .block-container {
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
-    max-width: 1300px !important;
+    padding-top: 1.2rem !important;
+    padding-bottom: 2rem !important;
+    max-width: 1250px !important;
 }
 
 .hero-section {
     background: linear-gradient(135deg, rgba(61,26,110,0.9), rgba(74,92,58,0.8));
-    border-radius: 10px;
-    padding: 0.6rem 1rem;
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
     text-align: center;
     border: 1px solid rgba(176,143,212,0.3);
     backdrop-filter: blur(10px);
-    margin-bottom: 0.4rem;
+    margin-bottom: 1rem;
 }
 
 .hero-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.4rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #F0E9FA;
     margin: 0;
 }
 
 .hero-subtitle {
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     color: #B08FD4;
-    margin-top: 0.1rem;
+    margin-top: 0.2rem;
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
@@ -75,57 +75,57 @@ st.markdown("""
 .metric-card {
     background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5));
     border: 1px solid rgba(176,143,212,0.25);
-    border-radius: 8px;
-    padding: 0.4rem;
+    border-radius: 12px;
+    padding: 1rem;
     text-align: center;
     backdrop-filter: blur(8px);
 }
 
 .metric-number {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.7rem;
+    font-size: 2.4rem;
     font-weight: 700;
     color: #C9A84C;
     line-height: 1;
 }
 
 .metric-label {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     color: #B08FD4;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-top: 0.1rem;
+    letter-spacing: 1px;
+    margin-top: 0.3rem;
 }
 
 .metric-desc {
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     color: #E0D4F5;
-    margin-top: 0.1rem;
+    margin-top: 0.2rem;
 }
 
 .section-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #F0E9FA;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.6rem;
     border-bottom: 1px solid rgba(176,143,212,0.3);
-    padding-bottom: 0.1rem;
+    padding-bottom: 0.2rem;
 }
 
 .memory-card {
     background: rgba(61,26,110,0.5);
     border: 1px solid rgba(176,143,212,0.2);
-    border-radius: 6px;
-    padding: 0.4rem 0.6rem;
-    margin-bottom: 0.2rem;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .army-badge {
     background: linear-gradient(135deg, rgba(74,92,58,0.8), rgba(122,140,106,0.4));
     border: 1px solid rgba(122,140,106,0.5);
-    border-radius: 8px;
-    padding: 0.4rem 0.5rem;
+    border-radius: 12px;
+    padding: 1rem;
     text-align: center;
     color: #E8EDE4;
 }
@@ -134,16 +134,16 @@ st.markdown("""
     background: rgba(61,26,110,0.5) !important;
     border: 1px solid rgba(176,143,212,0.3) !important;
     color: #F0E9FA !important;
-    border-radius: 6px !important;
+    border-radius: 8px !important;
 }
 
 .stButton button {
     background: linear-gradient(135deg, #6B3FA0, #4A5C3A) !important;
     color: white !important;
     border: none !important;
-    border-radius: 6px !important;
+    border-radius: 8px !important;
     font-weight: 500 !important;
-    padding: 0.2rem 0.6rem !important;
+    padding: 0.4rem 1.2rem !important;
 }
 
 div[data-testid="stMetricValue"] {
@@ -153,8 +153,6 @@ div[data-testid="stMetricValue"] {
 
 .stTabs [data-baseweb="tab"] {
     color: #B08FD4 !important;
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
 }
 
 .stTabs [aria-selected="true"] {
@@ -475,13 +473,13 @@ if not check_password():
 init_db()
 stats = calculate_stats()
 
-# ---- HERO (True Zero Scroll Compact) ----
+# ---- HERO (Balanced & Readable) ----
 st.markdown(f"""
 <div class="hero-section">
-    <div style="font-size:1.3rem; margin-bottom:0px">💜 🪖</div>
+    <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
     <div class="hero-title">Paweetida & Mr. Dawis</div>
     <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
-    <div style="margin-top:0.15rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:0.7rem; font-style:italic;">
+    <div style="margin-top:0.5rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-style:italic;">
         "{stats['days_together']} days of loving you — and counting."
     </div>
 </div>
@@ -490,7 +488,7 @@ st.markdown(f"""
 # ---- TABS ----
 tab1, tab2, tab3, tab4 = st.tabs(["📊 Our Stats", "💜 Memories", "🗓️ Timeline", "➕ Add Memory"])
 
-# ======== TAB 1: STATS (Zero Scroll + Journey Line) ========
+# ======== TAB 1: STATS (Balanced View) ========
 with tab1:
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -502,16 +500,16 @@ with tab1:
     with col4:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div class="metric-desc">27 Jul 2025 on the bus 🚌</div></div>', unsafe_allow_html=True)
 
-    st.markdown("<div style='margin-top:0.2rem'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top:0.6rem'></div>", unsafe_allow_html=True)
 
     col_a, col_b = st.columns([1, 2])
     with col_a:
         st.markdown(f"""
         <div class="army-badge">
-            <div style="font-size:1.2rem">🪖</div>
-            <div style="font-size:1rem; font-family:'Playfair Display',serif; color:#C9A84C; font-weight:700;">{stats['days_since_army']}</div>
-            <div style="font-size:0.55rem; letter-spacing:0.8px; text-transform:uppercase; color:#7A8C6A;">Days in Service</div>
-            <div style="font-size:0.65rem; margin-top:0.1rem; color:#E8EDE4;">Dawis in Australian Army (20 Apr 2026)</div>
+            <div style="font-size:1.8rem">🪖</div>
+            <div style="font-size:1.4rem; font-family:'Playfair Display',serif; color:#C9A84C; font-weight:700;">{stats['days_since_army']}</div>
+            <div style="font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; color:#7A8C6A;">Days in Service</div>
+            <div style="font-size:0.8rem; margin-top:0.2rem; color:#E8EDE4;">Dawis in Australian Army (20 Apr 2026)</div>
         </div>""", unsafe_allow_html=True)
 
     with col_b:
@@ -526,9 +524,9 @@ with tab1:
                 fig.add_trace(go.Scatter(
                     x=[row['date']], y=[y_pos_list[i % 3]],
                     mode='markers+text',
-                    marker=dict(size=9, color=colors[i % 3], symbol='diamond'),
+                    marker=dict(size=12, color=colors[i % 3], symbol='diamond'),
                     text=[row['title']], textposition='top center',
-                    textfont=dict(color='#F0E9FA', size=6.5),
+                    textfont=dict(color='#F0E9FA', size=8.5),
                     showlegend=False
                 ))
             
@@ -538,24 +536,23 @@ with tab1:
                 line=dict(color='rgba(176,143,212,0.5)', width=2))
 
             fig.update_layout(
-                title=dict(text='Our Journey Together', font=dict(color='#F0E9FA', size=9)),
+                title=dict(text='Our Journey Together', font=dict(color='#F0E9FA', size=11)),
                 paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
                 yaxis=dict(visible=False, range=[0.5, 1.5]), xaxis=dict(showgrid=False, color='#B08FD4'),
-                height=95, margin=dict(l=5, r=5, t=18, b=0)
+                height=150, margin=dict(l=10, r=10, t=25, b=5)
             )
             st.plotly_chart(fig, use_container_width=True)
 
-    # แฟนๆ ขยับ Progress Bar ให้กะทัดรัดลงสุดๆ เพื่อไม่ให้ล้นหน้าจอ
     progress = max(0, min(1, 1 - (stats['days_to_anniversary'] / 365)))
     st.progress(progress)
-    st.markdown(f'<div style="color:#B08FD4; font-size:0.6rem; text-align:center; margin-top:-0.2rem;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="color:#B08FD4; font-size:0.75rem; text-align:center; margin-top:0.3rem;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_allow_html=True)
 
 # ======== TAB 2: MEMORIES ========
 with tab2:
     st.markdown('<div class="section-title">Our Memories 💜</div>', unsafe_allow_html=True)
     memories_df = get_memories()
     if memories_df.empty:
-        st.markdown('<div style="text-align:center; color:#B08FD4; padding:1rem;">No memories yet — add your first one!</div>', unsafe_allow_html=True)
+        st.markdown('<div style="text-align:center; color:#B08FD4; padding:1.5rem;">No memories yet — add your first one!</div>', unsafe_allow_html=True)
     else:
         categories = ['All'] + list(memories_df['category'].unique())
         selected_cat = st.selectbox("Filter by category", categories, label_visibility="collapsed")
@@ -563,7 +560,7 @@ with tab2:
         for _, row in filtered_df.iterrows():
             col_mem, col_del = st.columns([11, 1])
             with col_mem:
-                st.markdown(f'<div class="memory-card"><span style="color:#C9A84C; font-size:0.55rem;">{row["date"]}</span> <b>{row["emoji"]} {row["title"]}</b> — <span style="color:#B08FD4">{row["description"] or ""}</span></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="memory-card"><span style="color:#C9A84C; font-size:0.7rem;">{row["date"]}</span> <b style="font-size:0.95rem;">{row["emoji"]} {row["title"]}</b> — <span style="color:#B08FD4">{row["description"] or ""}</span></div>', unsafe_allow_html=True)
             with col_del:
                 if st.button("🗑️", key=f"del_{row['id']}"):
                     delete_memory(row['id'])
@@ -580,8 +577,8 @@ with tab3:
     for _, row in memories_df.iterrows():
         all_events.append({'date': row['date'], 'title': f"{row['emoji']} {row['title']}", 'desc': row['description'], 'color': '#B08FD4'})
     all_events = sorted(all_events, key=lambda x: x['date'], reverse=True)
-    for event in all_events[:3]:
-        st.markdown(f'<div style="border-left: 3px solid {event["color"]}; padding: 0.15rem 0.4rem; margin-bottom: 0.25rem; background: rgba(61,26,110,0.3); border-radius: 0 6px 6px 0;"><span style="font-size:0.55rem; color:{event["color"]};">{event["date"]}</span> <b style="font-size:0.75rem; color:#F0E9FA;">{event["title"]}</b></div>', unsafe_allow_html=True)
+    for event in all_events:
+        st.markdown(f'<div style="border-left: 3px solid {event["color"]}; padding: 0.4rem 0.7rem; margin-bottom: 0.5rem; background: rgba(61,26,110,0.3); border-radius: 0 8px 8px 0;"><span style="font-size:0.7rem; color:{event["color"]};">{event["date"]}</span> <b style="font-size:0.9rem; color:#F0E9FA;">{event["title"]}</b></div>', unsafe_allow_html=True)
 
 # ======== TAB 4: ADD MEMORY ========
 with tab4:
@@ -593,7 +590,7 @@ with tab4:
     with col_f2:
         mem_category = st.selectbox("Category", ["date night", "travel", "milestone", "everyday", "food", "army life"])
         mem_emoji = st.selectbox("Emoji", ["💜", "🥰", "✈️", "🍜", "🎉", "🪖", "🏔️"])
-    mem_desc = st.text_area("Description", placeholder="Tell the story...", height=35)
+    mem_desc = st.text_area("Description", placeholder="Tell the story...", height=60)
     if st.button("Save Memory 💜", use_container_width=True):
         if mem_title:
             add_memory(mem_title, mem_desc, mem_date, mem_category, mem_emoji)
