@@ -15,7 +15,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# ---- CUSTOM CSS (BALANCED & COMFORTABLE) ----
+# ---- CUSTOM CSS ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
@@ -473,7 +473,7 @@ if not check_password():
 init_db()
 stats = calculate_stats()
 
-# ---- HERO (Balanced & Readable) ----
+# ---- HERO ----
 st.markdown(f"""
 <div class="hero-section">
     <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
@@ -488,7 +488,7 @@ st.markdown(f"""
 # ---- TABS ----
 tab1, tab2, tab3, tab4 = st.tabs(["📊 Our Stats", "💜 Memories", "🗓️ Timeline", "➕ Add Memory"])
 
-# ======== TAB 1: STATS (Balanced View) ========
+# ======== TAB 1: STATS ========
 with tab1:
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -518,28 +518,31 @@ with tab1:
             milestones_df['date'] = pd.to_datetime(milestones_df['date'])
             fig = go.Figure()
             colors = ['#C9A84C', '#B08FD4', '#7A8C6A']
-            y_pos_list = [1.0, 1.15, 0.85]
+            
+            # จัดตำแหน่งข้อความสลับให้อยู่ บน-ล่าง-บน เพื่อไม่ให้ทับกัน
+            positions = ['top center', 'bottom center', 'top center']
             
             for i, row in milestones_df.iterrows():
                 fig.add_trace(go.Scatter(
-                    x=[row['date']], y=[y_pos_list[i % 3]],
+                    x=[row['date']], y=[1.0],
                     mode='markers+text',
                     marker=dict(size=12, color=colors[i % 3], symbol='diamond'),
-                    text=[row['title']], textposition='top center',
+                    text=[row['title']], 
+                    textposition=positions[i % 3], # สลับตำแหน่งข้อความอัตโนมัติ
                     textfont=dict(color='#F0E9FA', size=8.5),
                     showlegend=False
                 ))
             
             fig.add_shape(type='line',
                 x0=milestones_df['date'].min(), x1=date.today(),
-                y0=1, y1=1,
+                y0=1.0, y1=1.0,
                 line=dict(color='rgba(176,143,212,0.5)', width=2))
 
             fig.update_layout(
                 title=dict(text='Our Journey Together', font=dict(color='#F0E9FA', size=11)),
                 paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-                yaxis=dict(visible=False, range=[0.5, 1.5]), xaxis=dict(showgrid=False, color='#B08FD4'),
-                height=150, margin=dict(l=10, r=10, t=25, b=5)
+                yaxis=dict(visible=False, range=[0.3, 1.7]), xaxis=dict(showgrid=False, color='#B08FD4'),
+                height=150, margin=dict(l=10, r=10, t=30, b=10)
             )
             st.plotly_chart(fig, use_container_width=True)
 
