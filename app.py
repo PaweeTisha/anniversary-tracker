@@ -4,7 +4,7 @@ import sqlite3
 import pandas as pd
 from datetime import datetime, date
 import plotly.graph_objects as go
-import os
+import base64
 
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Tisha & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
@@ -136,7 +136,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ---- DATABASE & AUTO-UPDATE TO ENG ----
+# ---- DATABASE & IMAGE SUPPORT ----
 def init_db():
     conn = sqlite3.connect('anniversary.db')
     c = conn.cursor()
@@ -147,6 +147,7 @@ def init_db():
         date TEXT NOT NULL,
         category TEXT DEFAULT 'memory',
         emoji TEXT DEFAULT '💜',
+        image_data TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP
     )''')
     c.execute('''CREATE TABLE IF NOT EXISTS milestones (
@@ -154,8 +155,20 @@ def init_db():
         title TEXT NOT NULL,
         date TEXT NOT NULL,
         description TEXT,
-        type TEXT DEFAULT 'milestone'
+        type TEXT DEFAULT 'milestone',
+        image_data TEXT
     )''')
+    
+    # ตรวจสอบและเพิ่ม column image_data ถ้าฐานข้อมูลเก่าไม่มี
+    try:
+        c.execute("ALTER TABLE memories ADD COLUMN image_data TEXT")
+    except:
+        pass
+    try:
+        c.execute("ALTER TABLE milestones ADD COLUMN image_data TEXT")
+    except:
+        pass
+
     c.execute("SELECT COUNT(*) FROM milestones")
     if c.fetchone()[0] == 0:
         default_milestones = [
@@ -173,11 +186,11 @@ def get_memories():
     conn.close()
     return df
 
-def add_memory(title, description, date_val, category, emoji):
+def add_memory(title, description, date_val, category, emoji, image_data):
     conn = sqlite3.connect('anniversary.db')
     c = conn.cursor()
-    c.execute("INSERT INTO memories (title, description, date, category, emoji) VALUES (?,?,?,?,?)",
-              (title, description, str(date_val), category, emoji))
+    c.execute("INSERT INTO memories (title, description, date, category, emoji, image_data) VALUES (?,?,?,?,?,?)",
+              (title, description, str(date_val), category, emoji, image_data))
     conn.commit()
     conn.close()
 
@@ -339,7 +352,7 @@ body {
     <div class="subtitle">Our Private Little World 💜</div>
     </div>
     <script>
-    const emojis = ['🪐','🌜','','🌟','💜','💚','💙','⭐','🤍','💛','🧡','❤️','🍀','🌐','💻','📡','🛜','🍀','💜','🤍','❄️'];
+    const emojis = ['💐','🪐','🌜','','🌟','💜','💚','🌷','🌹','💙','⭐','🤍','💛','🧡','❤️','🍀','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
     const container = document.getElementById('floaters');
     for (let i = 0; i < 25; i++) {
         const el = document.createElement('div');
@@ -519,7 +532,7 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE (Fixed Hover Polaroid Popup) ========
+# ======== TAB 3: TIMELINE (Hover Polaroid with safe padding & dropup/dropdown logic) ========
 with tab3:
     st.markdown('<div class="section-title">Our Timeline Scrapbook 📸 (Hover to view Polaroid)</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
@@ -527,23 +540,28 @@ with tab3:
     
     all_events = []
     for _, row in milestones_df.iterrows():
-        all_events.append({'date': row['date'], 'title': row['title'], 'emoji': '⭐'})
+        img_content = f'<img src="data:image/jpeg;base64,{row["image_data"]}" style="width:100%; height:100%; object-fit:cover; border-radius:2px;">' if row.get('image_data') else row['emoji']
+        all_events.append({'date': row['date'], 'title': row['title'], 'img_html': img_content})
     for _, row in memories_df.iterrows():
-        all_events.append({'date': row['date'], 'title': row['title'], 'emoji': row['emoji']})
+        img_content = f'<img src="data:image/jpeg;base64,{row["image_data"]}" style="width:100%; height:100%; object-fit:cover; border-radius:2px;">' if row.get('image_data') else row['emoji']
+        all_events.append({'date': row['date'], 'title': row['title'], 'img_html': img_content})
     
     all_events = sorted(all_events, key=lambda x: x['date'])
 
     timeline_items_html = ""
     for idx, event in enumerate(all_events):
         item_class = "left-item" if idx % 2 == 0 else "right-item"
+        # ถ้ารายการแรกสุด ให้โพลารอยด์เด้งลงด้านล่าง (drop-down) เพื่อไม่ให้ชนขอบบนสุดของ iframe
+        popup_dir = "polaroid-popup-down" if idx == 0 else "polaroid-popup"
+        
         timeline_items_html += f"""
         <div class="timeline-item {item_class}">
             <div class="timeline-content">
                 <div class="timeline-date">{event['date']}</div>
-                <div class="timeline-title">{event['emoji']} {event['title']}</div>
+                <div class="timeline-title">{event['title']}</div>
                 <!-- Polaroid Popup Card on Hover -->
-                <div class="polaroid-popup">
-                    <div class="polaroid-img">{event['emoji']}</div>
+                <div class="{popup_dir}">
+                    <div class="polaroid-img">{event['img_html']}</div>
                     <div class="polaroid-caption">{event['title']}</div>
                 </div>
             </div>
@@ -557,12 +575,12 @@ with tab3:
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
     * {{ font-family: 'DM Sans', sans-serif; box-sizing: border-box; }}
-    body {{ background: transparent; margin: 0; padding: 60px 15px; overflow: visible; }}
+    body {{ background: transparent; margin: 0; padding: 70px 20px; overflow: visible; }}
     .scrapbook-timeline {{
         position: relative;
         max-width: 800px;
         margin: 0 auto;
-        padding: 40px 0;
+        padding: 50px 0;
     }}
     .scrapbook-timeline::after {{
         content: '';
@@ -576,7 +594,7 @@ with tab3:
         border-radius: 2px;
     }}
     .timeline-item {{
-        padding: 25px 40px;
+        padding: 30px 40px;
         position: relative;
         background: inherit;
         width: 50%;
@@ -589,7 +607,7 @@ with tab3:
         right: -7px;
         background-color: #C9A84C;
         border: 3px solid #3D1A6E;
-        top: 35px;
+        top: 40px;
         border-radius: 50%;
         z-index: 1;
     }}
@@ -627,7 +645,7 @@ with tab3:
         color: #F0E9FA;
     }}
 
-    /* Fixed Polaroid Popup Style with Overflow Safety */
+    /* Standard Polaroid Popup (Drop-up) */
     .polaroid-popup {{
         visibility: hidden;
         opacity: 0;
@@ -639,7 +657,7 @@ with tab3:
         padding: 10px 10px 18px 10px;
         border-radius: 4px;
         box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-        width: 150px;
+        width: 160px;
         text-align: center;
         z-index: 9999;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -650,20 +668,49 @@ with tab3:
         opacity: 1;
         transform: translateX(-50%) scale(1) rotate(-3deg);
     }}
+
+    /* Special Drop-down for the first item to prevent top clipping */
+    .polaroid-popup-down {{
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 140%;
+        left: 50%;
+        transform: translateX(-50%) scale(0.8);
+        background: #FAFAFA;
+        padding: 10px 10px 18px 10px;
+        border-radius: 4px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        width: 160px;
+        text-align: center;
+        z-index: 9999;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        pointer-events: none;
+    }}
+    .timeline-content:hover .polaroid-popup-down {{
+        visibility: visible;
+        opacity: 1;
+        transform: translateX(-50%) scale(1) rotate(3deg);
+    }}
+
     .polaroid-img {{
         background: #2D1854;
-        height: 100px;
+        height: 110px;
         border-radius: 2px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 3rem;
         margin-bottom: 8px;
+        overflow: hidden;
     }}
     .polaroid-caption {{
         font-size: 0.75rem;
         font-weight: 700;
         color: #1A1A2E;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }}
     </style>
     </head>
@@ -673,9 +720,9 @@ with tab3:
         </div>
     </body>
     </html>
-    """, height=600, scrolling=True)
+    """, height=650, scrolling=True)
 
-# ======== TAB 4: ADD MEMORY (English Version) ========
+# ======== TAB 4: ADD MEMORY (English Version with Image Uploader) ========
 with tab4:
     st.markdown('<div class="section-title">Add a New Memory ➕</div>', unsafe_allow_html=True)
     col_f1, col_f2 = st.columns(2)
@@ -685,10 +732,19 @@ with tab4:
     with col_f2:
         mem_category = st.selectbox("Category", ["Date Night", "Travel", "Milestone", "Everyday", "Food", "Army Life", "Other"])
         mem_emoji = st.selectbox("Emoji", ["💜", "🥰", "✈️", "🍜", "🎉", "🪖", "🏔️", "🌸", "⭐", "🎂", "🏖️"])
+    
+    uploaded_image = st.file_uploader("Upload Polaroid Photo (Optional)", type=["jpg", "jpeg", "png"])
+    
     mem_desc = st.text_area("Description (English)", placeholder="Write something sweet in English...", height=60)
+    
     if st.button("Save Memory 💜", use_container_width=True):
         if mem_title:
-            add_memory(mem_title, mem_desc, mem_date, mem_category, mem_emoji)
+            img_base64 = None
+            if uploaded_image is not None:
+                bytes_data = uploaded_image.getvalue()
+                img_base64 = base64.b64encode(bytes_data).decode('utf-8')
+            
+            add_memory(mem_title, mem_desc, mem_date, mem_category, mem_emoji, img_base64)
             st.success("Memory saved successfully!")
             st.rerun()
         else:
