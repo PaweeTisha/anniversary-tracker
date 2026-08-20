@@ -600,7 +600,7 @@ body {
     </script>
 </body>
 </html>
-""", height=680, scrolling=False)
+""", height=900, scrolling=False)
 
         # ช่องกรอกรหัสของ Streamlit (ที่ถูก CSS ด้านบนซ่อนเอาไว้จนมิด)
         password = st.text_input("hidden_pin", type="password", key="pwd_backup", label_visibility="collapsed")
