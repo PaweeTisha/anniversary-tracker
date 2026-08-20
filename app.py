@@ -15,10 +15,10 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# ---- CUSTOM CSS ----
+# ---- CUSTOM CSS (POLAROID TIMELINE STYLE) ----
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Sacramento&display=swap');
 
 :root {
     --purple-deep: #3D1A6E;
@@ -27,10 +27,7 @@ st.markdown("""
     --purple-pale: #F0E9FA;
     --army-green: #4A5C3A;
     --army-light: #7A8C6A;
-    --army-pale: #E8EDE4;
     --gold: #C9A84C;
-    --white: #FAFAFA;
-    --text-dark: #1A1A2E;
 }
 
 * { font-family: 'DM Sans', sans-serif; }
@@ -113,14 +110,6 @@ st.markdown("""
     padding-bottom: 0.2rem;
 }
 
-.memory-card {
-    background: rgba(61,26,110,0.5);
-    border: 1px solid rgba(176,143,212,0.2);
-    border-radius: 10px;
-    padding: 0.8rem 1rem;
-    margin-bottom: 0.5rem;
-}
-
 .army-badge {
     background: linear-gradient(135deg, rgba(74,92,58,0.8), rgba(122,140,106,0.4));
     border: 1px solid rgba(122,140,106,0.5);
@@ -128,6 +117,87 @@ st.markdown("""
     padding: 1rem;
     text-align: center;
     color: #E8EDE4;
+}
+
+/* --- POLAROID SCRAPBOOK TIMELINE STYLES --- */
+.scrapbook-container {
+    position: relative;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px 0;
+}
+.scrapbook-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #C9A84C, #B08FD4, #7A8C6A);
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+.polaroid-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    position: relative;
+}
+.polaroid-card {
+    background: #FAFAFA;
+    color: #1A1A2E;
+    padding: 12px 12px 22px 12px;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    width: 42%;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+.polaroid-card:hover {
+    transform: scale(1.03) rotate(0deg) !important;
+    z-index: 10;
+}
+.polaroid-left { transform: rotate(-3deg); }
+.polaroid-right { transform: rotate(3deg); }
+
+.polaroid-img-box {
+    background: #2D1854;
+    height: 150px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+.polaroid-date {
+    font-size: 0.7rem;
+    color: #C9A84C;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.polaroid-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1A1A2E;
+    margin: 4px 0;
+}
+.polaroid-desc {
+    font-size: 0.75rem;
+    color: #555555;
+}
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background: #C9A84C;
+    border: 3px solid #3D1A6E;
+    border-radius: 50%;
+    z-index: 5;
 }
 
 .stTextInput input, .stTextArea textarea, .stSelectbox select {
@@ -249,7 +319,7 @@ def calculate_stats():
         "official_date": official_date,
     }
 
-# ---- PASSWORD LOGIN (Original Size Preserved) ----
+# ---- PASSWORD LOGIN ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -519,7 +589,6 @@ with tab1:
             fig = go.Figure()
             colors = ['#C9A84C', '#B08FD4', '#7A8C6A']
             
-            # จัดตำแหน่งข้อความสลับให้อยู่ บน-ล่าง-บน เพื่อไม่ให้ทับกัน
             positions = ['top center', 'bottom center', 'top center']
             
             for i, row in milestones_df.iterrows():
@@ -528,7 +597,7 @@ with tab1:
                     mode='markers+text',
                     marker=dict(size=12, color=colors[i % 3], symbol='diamond'),
                     text=[row['title']], 
-                    textposition=positions[i % 3], # สลับตำแหน่งข้อความอัตโนมัติ
+                    textposition=positions[i % 3],
                     textfont=dict(color='#F0E9FA', size=8.5),
                     showlegend=False
                 ))
@@ -569,19 +638,41 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE ========
+# ======== TAB 3: TIMELINE (Polaroid Scrapbook Style) ========
 with tab3:
-    st.markdown('<div class="section-title">Our Timeline 🗓️</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Our Timeline Scrapbook 📸</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
     memories_df = get_memories()
+    
+    # รวมข้อมูลทั้งหมดมาเรียงตามวันที่
     all_events = []
     for _, row in milestones_df.iterrows():
-        all_events.append({'date': row['date'], 'title': row['title'], 'desc': row['description'], 'color': '#C9A84C'})
+        all_events.append({'date': row['date'], 'title': row['title'], 'desc': row['description'], 'emoji': '⭐'})
     for _, row in memories_df.iterrows():
-        all_events.append({'date': row['date'], 'title': f"{row['emoji']} {row['title']}", 'desc': row['description'], 'color': '#B08FD4'})
-    all_events = sorted(all_events, key=lambda x: x['date'], reverse=True)
-    for event in all_events:
-        st.markdown(f'<div style="border-left: 3px solid {event["color"]}; padding: 0.4rem 0.7rem; margin-bottom: 0.5rem; background: rgba(61,26,110,0.3); border-radius: 0 8px 8px 0;"><span style="font-size:0.7rem; color:{event["color"]};">{event["date"]}</span> <b style="font-size:0.9rem; color:#F0E9FA;">{event["title"]}</b></div>', unsafe_allow_html=True)
+        all_events.append({'date': row['date'], 'title': row['title'], 'desc': row['description'], 'emoji': row['emoji']})
+    
+    # เรียงจากใหม่ไปเก่า หรือเก่าไปใหม่ตามชอบ (อันนี้เรียงจากเก่าไปใหม่เพื่อทำไทม์ไลน์)
+    all_events = sorted(all_events, key=lambda x: x['date'])
+
+    # แสดงผลเป็นแบบ Polaroid Scrapbook แนวตั้งสลับซ้ายขวาตามเรฟใน TikTok
+    st.markdown('<div class="scrapbook-container">', unsafe_allow_html=True)
+    for idx, event in enumerate(all_events):
+        card_class = "polaroid-left" if idx % 2 == 0 else "polaroid-right"
+        st.markdown(f"""
+        <div class="polaroid-row">
+            <div style="width: 46%; {'order: 2;' if idx % 2 != 0 else ''}">
+                <div class="polaroid-card {card_class}">
+                    <div class="polaroid-img-box">{event['emoji']}</div>
+                    <div class="polaroid-date">{event['date']}</div>
+                    <div class="polaroid-title">{event['title']}</div>
+                    <div class="polaroid-desc">{event['desc'] or ''}</div>
+                </div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div style="width: 46%;"></div>
+        </div>
+        """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ======== TAB 4: ADD MEMORY ========
 with tab4:
