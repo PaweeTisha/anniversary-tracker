@@ -352,13 +352,25 @@ body {
     0%, 100% { opacity: 0.6; }
     50% { opacity: 1; }
 }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-8px); }
+    80% { transform: translateX(8px); }
+}
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
 .chars { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 1.5rem; }
 .girl { font-size: 5rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
 .heart { font-size: 3.5rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
 .soldier { font-size: 5rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
 .title {
     font-family: 'Pacifico', cursive;
-    font-size: 4.5rem;
+    font-size: 4rem;
     background: linear-gradient(135deg, #B08FD4, #C9A84C);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -376,34 +388,205 @@ body {
     animation: shimmer 2s ease-in-out infinite;
 }
 .stars { font-size: 1.5rem; letter-spacing: 0.5rem; margin: 1rem 0; animation: shimmer 2s ease-in-out infinite; }
+
+.pin-section {
+    margin-top: 2rem;
+    background: rgba(61,26,110,0.6);
+    border: 1px solid rgba(176,143,212,0.3);
+    border-radius: 24px;
+    padding: 2rem 2.5rem;
+    max-width: 420px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+}
+.pin-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.4rem;
+    color: #C9A84C;
+    margin-bottom: 0.5rem;
+}
+.pin-hint {
+    font-size: 0.8rem;
+    color: rgba(176,143,212,0.6);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+.pin-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+.pin-box {
+    width: 52px;
+    height: 62px;
+    border: 2px solid rgba(176,143,212,0.4);
+    border-radius: 12px;
+    background: rgba(61,26,110,0.5);
+    font-size: 1.8rem;
+    color: #C9A84C;
+    text-align: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    outline: none;
+    transition: all 0.2s;
+    caret-color: transparent;
+}
+.pin-box:focus {
+    border-color: #B08FD4;
+    background: rgba(107,63,160,0.4);
+    box-shadow: 0 0 12px rgba(176,143,212,0.3);
+    transform: scale(1.05);
+}
+.pin-box.filled {
+    border-color: #C9A84C;
+    animation: pop 0.2s ease;
+}
+.pin-box.error {
+    border-color: #E24B4A;
+    animation: shake 0.4s ease;
+}
+.enter-btn {
+    background: linear-gradient(135deg, #6B3FA0, #4A5C3A);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.85rem 3rem;
+    font-size: 1rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+}
+.enter-btn:hover {
+    background: linear-gradient(135deg, #8B5CC0, #5A7048);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(107,63,160,0.4);
+}
+.error-msg {
+    color: #E24B4A;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    display: none;
+}
+.lock-icon { font-size: 2rem; margin-bottom: 1rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
 </head>
+<style>
+.floating-emoji {
+    position: fixed;
+    font-size: 1.5rem;
+    animation: floatUp linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.7;
+}
+@keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+</style>
 <body>
+    <!-- Floating emojis background -->
+    <div id="floaters"></div>
+
+    <div style="position:relative; z-index:1;">
     <div class="chars">
-        <span class="girl">👩‍🦱</span>
+        <span class="girl">💻</span>
         <span class="heart">💜</span>
         <span class="soldier">🪖</span>
     </div>
-    <div class="stars">✨ ✨ ✨</div>
+    <div class="stars">🍀 💜 🍀 💚 🍀</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
     <div class="title">Mr. Dawis</div>
     <div class="subtitle">Our Private Little World 💜</div>
+    </div>
+
+    <script>
+    const emojis = ['💜','💚','💙','🤍','💛','🧡','❤️','🍀','🌐','💻','📡','🛜','🍀','💜','💚'];
+    const container = document.getElementById('floaters');
+    for (let i = 0; i < 25; i++) {
+        const el = document.createElement('div');
+        el.className = 'floating-emoji';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = (5 + Math.random() * 8) + 's';
+        el.style.animationDelay = (Math.random() * 8) + 's';
+        el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+        container.appendChild(el);
+    }
+    </script>
+
+    <div class="pin-section">
+        <span class="lock-icon">🔐</span>
+        <div class="pin-title">Enter our secret code</div>
+        <div class="pin-hint">hint: our special date 💜</div>
+        <div class="pin-boxes">
+            <input class="pin-box" maxlength="1" type="password" id="p0" inputmode="numeric">
+            <input class="pin-box" maxlength="1" type="password" id="p1" inputmode="numeric">
+            <input class="pin-box" maxlength="1" type="password" id="p2" inputmode="numeric">
+            <input class="pin-box" maxlength="1" type="password" id="p3" inputmode="numeric">
+            <input class="pin-box" maxlength="1" type="password" id="p4" inputmode="numeric">
+            <input class="pin-box" maxlength="1" type="password" id="p5" inputmode="numeric">
+        </div>
+        <button class="enter-btn" onclick="checkPin()">Enter Our World 💜</button>
+        <div class="error-msg" id="errMsg">Hmm, that's not right... 💔 Try again!</div>
+    </div>
+
+    <script>
+    const boxes = document.querySelectorAll('.pin-box');
+    boxes[0].focus();
+
+    boxes.forEach((box, i) => {
+        box.addEventListener('input', (e) => {
+            if (box.value) {
+                box.classList.add('filled');
+                box.classList.remove('error');
+                if (i < 5) boxes[i+1].focus();
+            }
+        });
+        box.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !box.value && i > 0) {
+                boxes[i-1].focus();
+                boxes[i-1].value = '';
+                boxes[i-1].classList.remove('filled');
+            }
+            if (e.key === 'Enter') checkPin();
+        });
+    });
+
+    function checkPin() {
+        let pin = Array.from(boxes).map(b => b.value).join('');
+        if (pin === '220825') {
+            window.parent.postMessage({type: 'streamlit:setComponentValue', value: 'correct'}, '*');
+        } else {
+            boxes.forEach(b => { b.classList.add('error'); b.classList.remove('filled'); });
+            setTimeout(() => { boxes.forEach(b => b.classList.remove('error')); }, 500);
+            document.getElementById('errMsg').style.display = 'block';
+            boxes.forEach(b => b.value = '');
+            boxes[0].focus();
+        }
+    }
+    </script>
 </body>
 </html>
-""", height=480, scrolling=False)
+""", height=680, scrolling=False)
 
-        col1, col2, col3 = st.columns([1, 2, 1])
-        with col2:
-            st.markdown('<div style="text-align:center; font-size:2rem;">🔐</div>', unsafe_allow_html=True)
-            password = st.text_input("", type="password", placeholder="Enter our secret code...")
-            if st.button("Enter Our World 💜", use_container_width=True):
-                if password == "220825":
-                    st.session_state.authenticated = True
-                    st.rerun()
-                else:
-                    st.error("Hmm, that's not right... 💔 Try again!")
-            st.markdown('<div style="font-size:0.75rem; color:rgba(176,143,212,0.5); margin-top:0.5rem; text-align:center; font-style:italic;">hint: our special date 💜</div>', unsafe_allow_html=True)
+        # รับ value จาก component
+        if "pin_submitted" not in st.session_state:
+            st.session_state.pin_submitted = False
+
+        # fallback input ซ่อนไว้
+        password = st.text_input("backup", type="password", key="pwd_backup", label_visibility="collapsed")
+        if password == "220825":
+            st.session_state.authenticated = True
+            st.rerun()
+
         return False
     return True
 
