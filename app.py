@@ -225,7 +225,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN (Original Full Gorgeous Version with Added Emojis) ----
+# ---- PASSWORD LOGIN (Updated Emojis Version) ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -356,14 +356,14 @@ body {
         <span class="heart">💜</span>
         <span class="soldier">🪖</span>
     </div>
-    <div class="stars">💐 🪐 🌙 🌟 🌷 🌹 🌻 ⭐ ❄️</div>
+    <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
     <div class="title">Mr. Dawis</div>
     <div class="subtitle">Our Private Little World 💜</div>
     </div>
     <script>
-    const emojis = ['💐','🪐','🌜','','🌟','💜','💚','🌷','🌹','💙','⭐','🤍','💛','🧡','❤️','🍀','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
+    const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
     const container = document.getElementById('floaters');
     for (let i = 0; i < 25; i++) {
         const el = document.createElement('div');
@@ -543,7 +543,7 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE (Perfect Alignment to top node) ========
+# ======== TAB 3: TIMELINE (All Drop-down to prevent top clipping) ========
 with tab3:
     st.markdown('<div class="section-title">Our Timeline Scrapbook 📸 (Hover to view Polaroid)</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
@@ -566,15 +566,14 @@ with tab3:
     timeline_items_html = ""
     for idx, event in enumerate(all_events):
         item_class = "left-item" if idx % 2 == 0 else "right-item"
-        popup_dir = "polaroid-popup-down" if idx == 0 else "polaroid-popup"
         
         timeline_items_html += f"""
         <div class="timeline-item {item_class}">
             <div class="timeline-content">
                 <div class="timeline-date">{event['date']}</div>
                 <div class="timeline-title">{event['title']}</div>
-                <!-- Polaroid Popup Card on Hover -->
-                <div class="{popup_dir}">
+                <!-- Polaroid Popup Card on Hover (All Drop-down) -->
+                <div class="polaroid-popup-down">
                     <div class="polaroid-img">{event['img_html']}</div>
                     <div class="polaroid-caption">{event['title']}</div>
                 </div>
@@ -589,7 +588,7 @@ with tab3:
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
     * {{ font-family: 'DM Sans', sans-serif; box-sizing: border-box; }}
-    body {{ background: transparent; margin: 0; padding: 20px 20px 60px 20px; overflow: visible; }}
+    body {{ background: transparent; margin: 0; padding: 20px 20px 100px 20px; overflow: visible; }}
     .scrapbook-timeline {{
         position: relative;
         max-width: 800px;
@@ -608,7 +607,7 @@ with tab3:
         border-radius: 2px;
     }}
     .timeline-item {{
-        padding: 0 40px 30px 40px;
+        padding: 0 40px 60px 40px;
         position: relative;
         background: inherit;
         width: 50%;
@@ -632,7 +631,7 @@ with tab3:
     .timeline-content {{
         padding: 12px 18px;
         background: rgba(61, 26, 110, 0.85);
-        border: 1px solid rgba(176,143,212,0.3);
+        border: 1px solid rgba(176, 143, 212, 0.3);
         border-radius: 12px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         display: inline-block;
@@ -659,31 +658,7 @@ with tab3:
         color: #F0E9FA;
     }}
 
-    /* Standard Polaroid Popup (Drop-up) */
-    .polaroid-popup {{
-        visibility: hidden;
-        opacity: 0;
-        position: absolute;
-        bottom: 140%;
-        left: 50%;
-        transform: translateX(-50%) scale(0.8);
-        background: #FAFAFA;
-        padding: 10px 10px 18px 10px;
-        border-radius: 4px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-        width: 160px;
-        text-align: center;
-        z-index: 9999;
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        pointer-events: none;
-    }}
-    .timeline-content:hover .polaroid-popup {{
-        visibility: visible;
-        opacity: 1;
-        transform: translateX(-50%) scale(1) rotate(-3deg);
-    }}
-
-    /* Special Drop-down for the first item */
+    /* Drop-down Polaroid Popup for ALL items */
     .polaroid-popup-down {{
         visibility: hidden;
         opacity: 0;
@@ -734,7 +709,7 @@ with tab3:
         </div>
     </body>
     </html>
-    """, height=650, scrolling=True)
+    """, height=700, scrolling=True)
 
 # ======== TAB 4: ADD MEMORY (English Version with Image Uploader) ========
 with tab4:
