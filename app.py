@@ -308,10 +308,16 @@ def check_password():
 
     if not st.session_state.authenticated:
         
-        # [เทคนิคพิเศษ] ซ่อน fallback input ของ Streamlit ให้หายวับไป 100% 
+        # [เทคนิคพิเศษ 1] ดันเนื้อหา Streamlit ขึ้นไปชิดขอบบน และซ่อนช่อง input สำรอง
         st.markdown("""
         <style>
-        /* ซ่อนกล่องข้อความที่มีคำว่า hidden_pin */
+        /* ลดช่องว่างด้านบนของ Streamlit */
+        .block-container {
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+            max-width: 100% !important;
+        }
+        /* ซ่อนกล่องข้อความสำรอง */
         div[data-testid="stTextInput"] {
             position: absolute !important;
             width: 0px !important;
@@ -324,6 +330,7 @@ def check_password():
         </style>
         """, unsafe_allow_html=True)
 
+        # [เทคนิคพิเศษ 2] ปรับขนาดฟอนต์และระยะห่างให้กระชับขึ้น เพื่อให้พอดีหน้าจอ
         components.html("""
 <!DOCTYPE html>
 <html>
@@ -340,107 +347,55 @@ body {
     justify-content: center;
     font-family: 'Plus Jakarta Sans', sans-serif;
     text-align: center;
-    padding: 2rem;
+    padding: 1rem;
 }
-@keyframes bounce {
-    0%, 100% { transform: translateY(0px) rotate(-3deg); }
-    25% { transform: translateY(-20px) rotate(3deg); }
-    50% { transform: translateY(-10px) rotate(-2deg); }
-    75% { transform: translateY(-25px) rotate(4deg); }
-}
-@keyframes bounce2 {
-    0%, 100% { transform: translateY(0px) rotate(3deg); }
-    25% { transform: translateY(-25px) rotate(-3deg); }
-    50% { transform: translateY(-12px) rotate(2deg); }
-    75% { transform: translateY(-18px) rotate(-4deg); }
-}
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.3); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.2); }
-    60% { transform: scale(1); }
-}
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-}
-@keyframes shimmer {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-}
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-10px); }
-    40% { transform: translateX(10px); }
-    60% { transform: translateX(-8px); }
-    80% { transform: translateX(8px); }
-}
-@keyframes pop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-.chars { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 1.5rem; }
-.girl { font-size: 5rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
-.heart { font-size: 3.5rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
-.soldier { font-size: 5rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
+@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-15px) rotate(3deg); } 50% { transform: translateY(-8px) rotate(-2deg); } 75% { transform: translateY(-20px) rotate(4deg); } }
+@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-20px) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(2deg); } 75% { transform: translateY(-15px) rotate(-4deg); } }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.2); } 60% { transform: scale(1); } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+@keyframes shimmer { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
+@keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+/* ปรับขนาดให้เล็กลงนิดหน่อย */
+.chars { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 1rem; }
+.girl { font-size: 4rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
+.heart { font-size: 2.8rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
+.soldier { font-size: 4rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
 .title {
     font-family: 'Pacifico', cursive;
-    font-size: 4rem;
+    font-size: 3.2rem;
     background: linear-gradient(135deg, #B08FD4, #C9A84C);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: float 3s ease-in-out infinite;
-    line-height: 1.2;
+    line-height: 1.1;
 }
-.and { font-family: 'Pacifico', cursive; font-size: 2rem; color: #C9A84C; margin: 0.3rem 0; }
-.subtitle {
-    font-size: 0.85rem;
-    color: #B08FD4;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 1rem;
-    animation: shimmer 2s ease-in-out infinite;
-}
-.stars { font-size: 1.5rem; letter-spacing: 0.5rem; margin: 1rem 0; animation: shimmer 2s ease-in-out infinite; }
+.and { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: #C9A84C; margin: 0.1rem 0; }
+.subtitle { font-size: 0.75rem; color: #B08FD4; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; }
+.stars { font-size: 1.2rem; letter-spacing: 0.4rem; margin: 0.5rem 0; animation: shimmer 2s ease-in-out infinite; }
 
 .pin-section {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     background: rgba(61,26,110,0.6);
     border: 1px solid rgba(176,143,212,0.3);
-    border-radius: 24px;
-    padding: 2rem 2.5rem;
-    max-width: 420px;
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    max-width: 400px;
     width: 100%;
     backdrop-filter: blur(10px);
 }
-.pin-title {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.4rem;
-    color: #C9A84C;
-    margin-bottom: 0.5rem;
-}
-.pin-hint {
-    font-size: 0.8rem;
-    color: rgba(176,143,212,0.6);
-    margin-bottom: 1.5rem;
-    font-style: italic;
-}
-.pin-boxes {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-}
+.pin-title { font-family: 'Pacifico', cursive; font-size: 1.2rem; color: #C9A84C; margin-bottom: 0.3rem; }
+.pin-hint { font-size: 0.75rem; color: rgba(176,143,212,0.6); margin-bottom: 1.2rem; font-style: italic; }
+.pin-boxes { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 1.2rem; }
 .pin-box {
-    width: 52px;
-    height: 62px;
+    width: 46px;
+    height: 56px;
     border: 2px solid rgba(176,143,212,0.4);
-    border-radius: 12px;
+    border-radius: 10px;
     background: rgba(61,26,110,0.5);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #C9A84C;
     text-align: center;
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -449,27 +404,16 @@ body {
     transition: all 0.2s;
     caret-color: transparent;
 }
-.pin-box:focus {
-    border-color: #B08FD4;
-    background: rgba(107,63,160,0.4);
-    box-shadow: 0 0 12px rgba(176,143,212,0.3);
-    transform: scale(1.05);
-}
-.pin-box.filled {
-    border-color: #C9A84C;
-    animation: pop 0.2s ease;
-}
-.pin-box.error {
-    border-color: #E24B4A;
-    animation: shake 0.4s ease;
-}
+.pin-box:focus { border-color: #B08FD4; background: rgba(107,63,160,0.4); box-shadow: 0 0 10px rgba(176,143,212,0.3); transform: scale(1.05); }
+.pin-box.filled { border-color: #C9A84C; animation: pop 0.2s ease; }
+.pin-box.error { border-color: #E24B4A; animation: shake 0.4s ease; }
 .enter-btn {
     background: linear-gradient(135deg, #6B3FA0, #4A5C3A);
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 0.85rem 3rem;
-    font-size: 1rem;
+    border-radius: 10px;
+    padding: 0.75rem 2.5rem;
+    font-size: 0.9rem;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 600;
     cursor: pointer;
@@ -477,38 +421,16 @@ body {
     transition: all 0.2s;
     letter-spacing: 0.5px;
 }
-.enter-btn:hover {
-    background: linear-gradient(135deg, #8B5CC0, #5A7048);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(107,63,160,0.4);
-}
-.error-msg {
-    color: #E24B4A;
-    font-size: 0.85rem;
-    margin-top: 1rem;
-    display: none;
-}
-.lock-icon { font-size: 2rem; margin-bottom: 1rem; animation: float 2.5s ease-in-out infinite; display: block; }
+.enter-btn:hover { background: linear-gradient(135deg, #8B5CC0, #5A7048); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(107,63,160,0.4); }
+.error-msg { color: #E24B4A; font-size: 0.8rem; margin-top: 0.8rem; display: none; }
+.lock-icon { font-size: 1.8rem; margin-bottom: 0.5rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
 <style>
-.floating-emoji {
-    position: fixed;
-    font-size: 1.5rem;
-    animation: floatUp linear infinite;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.7;
-}
-@keyframes floatUp {
-    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.7; }
-    90% { opacity: 0.7; }
-    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-}
+.floating-emoji { position: fixed; font-size: 1.5rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.7; }
+@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
 </style>
 </head>
 <body>
-    <!-- Floating emojis background -->
     <div id="floaters"></div>
 
     <div style="position:relative; z-index:1;">
@@ -580,7 +502,6 @@ body {
     function checkPin() {
         let pin = Array.from(boxes).map(b => b.value).join('');
         if (pin === '220825') {
-            // [ส่วนสำคัญ] ส่งรหัสผ่านทะลุไปยัง Streamlit แบบลับๆ
             const parentDoc = window.parent.document;
             const hiddenInput = parentDoc.querySelector('input[aria-label="hidden_pin"]');
             if (hiddenInput) {
@@ -600,7 +521,7 @@ body {
     </script>
 </body>
 </html>
-""", height=900, scrolling=False)
+""", height=720, scrolling=False) # ปรับความสูงลงมาให้พอดีหน้าจอ
 
         # ช่องกรอกรหัสของ Streamlit (ที่ถูก CSS ด้านบนซ่อนเอาไว้จนมิด)
         password = st.text_input("hidden_pin", type="password", key="pwd_backup", label_visibility="collapsed")
