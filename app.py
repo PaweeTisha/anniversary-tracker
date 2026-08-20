@@ -439,7 +439,7 @@ body {
         <span class="heart">💜</span>
         <span class="soldier">🪖</span>
     </div>
-    <div class="stars">🍀 💜 🍀 💚 🍀</div>
+    <div class="stars">🍀 🌠 🍀 🤍 🍀 💜 🍀</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
     <div class="title">Mr. Dawis</div>
@@ -447,7 +447,7 @@ body {
     </div>
 
     <script>
-    const emojis = ['💜','💚','💙','🤍','💛','🧡','❤️','🍀','🌐','💻','📡','🛜','🍀','💜','💚'];
+    const emojis = ['🌟','💜','💚','💙','⭐','💫','🤍','💛','🧡','❤️','🍀','🌐','💻','❄','📡','🛜','🍀','💜','🤍'];
     const container = document.getElementById('floaters');
     for (let i = 0; i < 25; i++) {
         const el = document.createElement('div');
