@@ -15,7 +15,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# ---- CUSTOM CSS ----
+# ---- CUSTOM CSS (VERTICAL CENTER-LINE TIMELINE) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -125,6 +125,85 @@ st.markdown("""
     padding: 1rem;
     text-align: center;
     color: #E8EDE4;
+}
+
+/* --- VERTICAL CENTER-LINE TIMELINE STYLES --- */
+.scrapbook-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px 0;
+}
+.scrapbook-timeline::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    background: linear-gradient(to bottom, #C9A84C, #B08FD4, #7A8C6A);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1.5px;
+    border-radius: 2px;
+}
+.timeline-item {
+    padding: 15px 40px;
+    position: relative;
+    background: inherit;
+    width: 50%;
+}
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: -8px;
+    background-color: #C9A84C;
+    border: 3px solid #3D1A6E;
+    top: 25px;
+    border-radius: 50%;
+    z-index: 1;
+}
+.left-item {
+    left: 0;
+    text-align: right;
+}
+.right-item {
+    left: 50%;
+    text-align: left;
+}
+.right-item::after {
+    left: -8px;
+}
+.timeline-content {
+    padding: 15px 20px;
+    background: rgba(61, 26, 110, 0.7);
+    border: 1px solid rgba(176, 143, 212, 0.3);
+    position: relative;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    transition: transform 0.2s;
+}
+.timeline-content:hover {
+    transform: translateY(-3px);
+}
+.timeline-date {
+    font-size: 0.75rem;
+    color: #C9A84C;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.timeline-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #F0E9FA;
+    margin-bottom: 6px;
+}
+.timeline-desc {
+    font-size: 0.85rem;
+    color: #B08FD4;
 }
 
 .stTextInput input, .stTextArea textarea, .stSelectbox select {
@@ -564,7 +643,7 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE (Clickable Scrapbook Style - English) ========
+# ======== TAB 3: TIMELINE (Vertical Center-Line Scrapbook Style - English) ========
 with tab3:
     st.markdown('<div class="section-title">Our Timeline Scrapbook 📸</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
@@ -578,14 +657,20 @@ with tab3:
     
     all_events = sorted(all_events, key=lambda x: x['date'])
 
-    for event in all_events:
-        with st.expander(f"{event['date']} — {event['title']} {event['emoji']}"):
-            st.markdown(f"""
-            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
-                <p style="color:#B08FD4; font-size: 0.85rem; margin-bottom: 5px;"><strong>Category:</strong> {event['cat']}</p>
-                <p style="color:#FAFAFA; font-size: 0.95rem;">{event['desc'] or 'A precious moment together 💜'}</p>
+    timeline_html = '<div class="scrapbook-timeline">'
+    for idx, event in enumerate(all_events):
+        item_class = "left-item" if idx % 2 == 0 else "right-item"
+        timeline_html += f"""
+        <div class="timeline-item {item_class}">
+            <div class="timeline-content">
+                <div class="timeline-date">{event['date']}</div>
+                <div class="timeline-title">{event['emoji']} {event['title']}</div>
+                <div class="timeline-desc">{event['desc'] or 'A lovely memory together 💜'}</div>
             </div>
-            """, unsafe_allow_html=True)
+        </div>
+        """
+    timeline_html += '</div>'
+    st.markdown(timeline_html, unsafe_allow_html=True)
 
 # ======== TAB 4: ADD MEMORY (English Version) ========
 with tab4:
