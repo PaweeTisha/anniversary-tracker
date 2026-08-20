@@ -159,7 +159,6 @@ def init_db():
         image_data TEXT
     )''')
     
-    # ตรวจสอบและเพิ่ม column image_data ถ้าฐานข้อมูลเก่าไม่มี
     try:
         c.execute("ALTER TABLE memories ADD COLUMN image_data TEXT")
     except:
@@ -226,7 +225,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN (Full 6 Boxes Version) ----
+# ---- PASSWORD LOGIN (Updated Emojis Version) ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -345,14 +344,14 @@ body {
         <span class="heart">💜</span>
         <span class="soldier">🪖</span>
     </div>
-    <div class="stars">🍀 🌠 🍀 🤍 🍀 🪐 🍀 💜</div>
+    <div class="stars">💐 🪐 🌙 🌟 💜 💚 🌷 🌹 💙 ⭐ 🤍 💛 🧡 ❤️ 🍀 🌐 🌻 💻 📡 🛜 ❄️</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
     <div class="title">Mr. Dawis</div>
     <div class="subtitle">Our Private Little World 💜</div>
     </div>
     <script>
-    const emojis = ['💐','🪐','🌜','','🌟','💜','💚','🌷','🌹','💙','⭐','🤍','💛','🧡','❤️','🍀','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
+    const emojis = ['💐','🪐','🌜','🌟','💜','💚','🌷','🌹','💙','⭐','🤍','💛','🧡','❤️','🍀','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
     const container = document.getElementById('floaters');
     for (let i = 0; i < 25; i++) {
         const el = document.createElement('div');
@@ -532,7 +531,7 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE (Hover Polaroid with safe padding & dropup/dropdown logic) ========
+# ======== TAB 3: TIMELINE (Safe Hover Polaroid Popup) ========
 with tab3:
     st.markdown('<div class="section-title">Our Timeline Scrapbook 📸 (Hover to view Polaroid)</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
@@ -540,10 +539,13 @@ with tab3:
     
     all_events = []
     for _, row in milestones_df.iterrows():
-        img_content = f'<img src="data:image/jpeg;base64,{row["image_data"]}" style="width:100%; height:100%; object-fit:cover; border-radius:2px;">' if row.get('image_data') else row['emoji']
+        img_data = row['image_data'] if 'image_data' in row and pd.notna(row['image_data']) else None
+        img_content = f'<img src="data:image/jpeg;base64,{img_data}" style="width:100%; height:100%; object-fit:cover; border-radius:2px;">' if img_data else row['emoji']
         all_events.append({'date': row['date'], 'title': row['title'], 'img_html': img_content})
+        
     for _, row in memories_df.iterrows():
-        img_content = f'<img src="data:image/jpeg;base64,{row["image_data"]}" style="width:100%; height:100%; object-fit:cover; border-radius:2px;">' if row.get('image_data') else row['emoji']
+        img_data = row['image_data'] if 'image_data' in row and pd.notna(row['image_data']) else None
+        img_content = f'<img src="data:image/jpeg;base64,{img_data}" style="width:100%; height:100%; object-fit:cover; border-radius:2px;">' if img_data else row['emoji']
         all_events.append({'date': row['date'], 'title': row['title'], 'img_html': img_content})
     
     all_events = sorted(all_events, key=lambda x: x['date'])
@@ -551,7 +553,6 @@ with tab3:
     timeline_items_html = ""
     for idx, event in enumerate(all_events):
         item_class = "left-item" if idx % 2 == 0 else "right-item"
-        # ถ้ารายการแรกสุด ให้โพลารอยด์เด้งลงด้านล่าง (drop-down) เพื่อไม่ให้ชนขอบบนสุดของ iframe
         popup_dir = "polaroid-popup-down" if idx == 0 else "polaroid-popup"
         
         timeline_items_html += f"""
