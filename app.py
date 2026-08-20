@@ -447,7 +447,7 @@ body {
     </div>
 
     <script>
-    const emojis = ['🌟','💜','💚','💙','⭐','💫','🤍','💛','🧡','❤️','🍀','🌐','💻','❄','📡','🛜','🍀','💜','🤍'];
+    const emojis = ['🌟','💜','💚','💙','⭐','💫','🤍','💛','🧡','❤️','🍀','🌐','💻','❄️','📡','🛜','🍀','💜','🤍'];
     const container = document.getElementById('floaters');
     for (let i = 0; i < 25; i++) {
         const el = document.createElement('div');
