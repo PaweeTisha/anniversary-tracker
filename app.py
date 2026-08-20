@@ -6,6 +6,7 @@ from datetime import datetime, date
 import plotly.graph_objects as go
 import plotly.express as px
 import os
+import base64
 
 # ---- PAGE CONFIG ----
 st.set_page_config(
@@ -300,6 +301,14 @@ def calculate_stats():
         "official_date": official_date,
     }
 
+# ---- HELPER: CONVERT IMAGE TO BASE64 ----
+def get_image_base64(file_path):
+    if os.path.exists(file_path):
+        with open(file_path, "rb") as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+    return ""
+
 # ---- PASSWORD LOGIN ----
 def check_password():
     if "authenticated" not in st.session_state:
@@ -533,7 +542,7 @@ if not check_password():
     st.stop()
 
 # ==========================================
-# 2. Gate: มินิเกม Jigsaw Puzzle 🧩
+# 2. Gate: มินิเกม Jigsaw Puzzle (แปลงภาพเป็น Base64 100% โหลดไวไม่ติดเน็ต) 🧩
 # ==========================================
 if "puzzle_solved" not in st.session_state:
     st.session_state.puzzle_solved = False
@@ -562,13 +571,17 @@ if not st.session_state.puzzle_solved:
     </style>
     """, unsafe_allow_html=True)
 
-    components.html("""
+    # แปลงไฟล์ puzzle.jpg ในเครื่องให้เป็น Base64 String
+    img_base64 = get_image_base64("puzzle.jpg")
+    img_data_url = f"data:image/jpeg;base64,{img_base64}" if img_base64 else "https://images.unsplash.com/photo-1518199268839-49f242d559bc?q=80&w=300&h=300&fit=crop"
+
+    puzzle_html = f"""
     <!DOCTYPE html>
     <html>
     <head>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        body {{
             background: transparent;
             display: flex;
             flex-direction: column;
@@ -578,11 +591,11 @@ if not st.session_state.puzzle_solved:
             color: #F0E9FA;
             margin: 0;
             padding-top: 2rem;
-        }
-        h3 { color: #C9A84C; margin-bottom: 0.5rem; font-size: 1.5rem; }
-        p { color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem; text-align: center; }
+        }}
+        h3 {{ color: #C9A84C; margin-bottom: 0.5rem; font-size: 1.5rem; }}
+        p {{ color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem; text-align: center; }}
         
-        #puzzle-container {
+        #puzzle-container {{
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2px;
@@ -592,21 +605,21 @@ if not st.session_state.puzzle_solved:
             padding: 4px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-        .piece {
+        }}
+        .piece {{
             width: 100%;
             height: 100%;
-            background-size: 300px 300px;
+            background-size: 300px 450px;
             background-position: center;
             cursor: pointer;
             border-radius: 4px;
             transition: transform 0.1s, border 0.1s;
-        }
-        .piece:hover { opacity: 0.9; }
-        .piece.selected {
+        }}
+        .piece:hover {{ opacity: 0.9; }}
+        .piece.selected {{
             border: 3px solid #C9A84C;
             transform: scale(0.95);
-        }
+        }}
     </style>
     </head>
     <body>
@@ -616,8 +629,7 @@ if not st.session_state.puzzle_solved:
         <div id="puzzle-container"></div>
 
         <script>
-        // 🌟 ใช้รูป Judy & Nick Zootopia ที่คุณปวีณ์ธิดาเลือก
-        const imageUrl = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&h=300&fit=crop"; 
+        const imageUrl = "{img_data_url}"; 
         
         const container = document.getElementById('puzzle-container');
         let order = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -625,9 +637,9 @@ if not st.session_state.puzzle_solved:
         order.sort(() => Math.random() - 0.5);
         let selected = null;
 
-        function render() {
+        function render() {{
             container.innerHTML = '';
-            order.forEach((pieceIdx, domIdx) => {
+            order.forEach((pieceIdx, domIdx) => {{
                 const div = document.createElement('div');
                 div.className = 'piece';
                 if(selected === domIdx) div.classList.add('selected');
@@ -635,49 +647,50 @@ if not st.session_state.puzzle_solved:
                 const row = Math.floor(pieceIdx / 3);
                 const col = pieceIdx % 3;
                 
-                div.style.backgroundImage = `url(${imageUrl})`;
-                // ปรับให้จัดตำแหน่งรูปภาพแนวตั้งให้พอดีกับช่องตารางจิ๊กซอว์
-                div.style.backgroundPosition = `-${col * 97}px -${row * 97}px`;
+                div.style.backgroundImage = `url(${{imageUrl}})`;
+                div.style.backgroundPosition = `-${{col * 97}}px -{{row * 97}}px`;
                 div.style.backgroundSize = "300px 450px"; 
                 
                 div.onclick = () => handlePieceClick(domIdx);
                 container.appendChild(div);
-            });
+            }});
             checkWin();
-        }
+        }}
 
-        function handlePieceClick(idx) {
-            if (selected === null) {
+        function handlePieceClick(idx) {{
+            if (selected === null) {{
                 selected = idx;
-            } else {
+            }} else {{
                 let temp = order[selected];
                 order[selected] = order[idx];
                 order[idx] = temp;
                 selected = null;
-            }
+            }}
             render();
-        }
+        }}
 
-        function checkWin() {
-            if (order.every((val, index) => val === index)) {
-                setTimeout(() => {
+        function checkWin() {{
+            if (order.every((val, index) => val === index)) {{
+                setTimeout(() => {{
                     const parentDoc = window.parent.document;
                     const hiddenInput = parentDoc.querySelector('input[aria-label="puzzle_signal"]');
-                    if (hiddenInput) {
+                    if (hiddenInput) {{
                         let nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
                         nativeSetter.call(hiddenInput, 'solved');
-                        hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
-                        hiddenInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true }));
-                    }
-                }, 500); 
-            }
-        }
+                        hiddenInput.dispatchEvent(new Event('input', {{ bubbles: true }}));
+                        hiddenInput.dispatchEvent(new KeyboardEvent('keydown', {{ key: 'Enter', code: 'Enter', bubbles: true }}));
+                    }}
+                }}, 500); 
+            }}
+        }}
         
         render();
         </script>
     </body>
     </html>
-    """, height=500, scrolling=False)
+    """
+
+    components.html(puzzle_html, height=500, scrolling=False)
 
     puzzle_signal = st.text_input("puzzle_signal", label_visibility="collapsed")
     
