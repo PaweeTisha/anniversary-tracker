@@ -136,7 +136,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ---- DATABASE ----
+# ---- DATABASE & AUTO-UPDATE TO ENG ----
 def init_db():
     conn = sqlite3.connect('anniversary.db')
     c = conn.cursor()
@@ -161,9 +161,14 @@ def init_db():
         default_milestones = [
             ("First Like on Story 🚌", "2025-07-27", "The day you liked my story on the bus", "start"),
             ("Official Couple 💜", "2025-08-22", "The day we became official", "anniversary"),
-            ("Dawis Enlists Army 🪖", "2026-04-20", "Dawis joined Australian Army", "milestone"),
+            ("Dawis Enlists Army 🪖", "2026-04-20", "Dawis joined the Australian Army", "milestone"),
         ]
         c.executemany("INSERT INTO milestones (title, date, description, type) VALUES (?,?,?,?)", default_milestones)
+    else:
+        # บังคับอัปเดตข้อมูลเริ่มต้นเก่าที่เป็นภาษาไทยให้เปลี่ยนเป็นภาษาอังกฤษทันที
+        c.execute("UPDATE milestones SET description = 'The day you liked my story on the bus' WHERE title LIKE '%First Like%'")
+        c.execute("UPDATE milestones SET description = 'The day we officially became a couple' WHERE title LIKE '%Official Couple%'")
+        c.execute("UPDATE milestones SET description = 'Dawis joined the Australian Army' WHERE title LIKE '%Dawis Enlists%'")
     conn.commit()
     conn.close()
 
