@@ -597,6 +597,7 @@ if not st.session_state.puzzle_solved:
             width: 100%;
             height: 100%;
             background-size: 300px 300px;
+            background-position: center;
             cursor: pointer;
             border-radius: 4px;
             transition: transform 0.1s, border 0.1s;
@@ -610,13 +611,13 @@ if not st.session_state.puzzle_solved:
     </head>
     <body>
         <h3>Just one more step! 🧩</h3>
-        <p>แตะสลับชิ้นส่วนจิ๊กซอว์ให้ภาพสมบูรณ์<br>เพื่อปลดล็อกความทรงจำของเรา 💜</p>
+        <p>Tap to swap the pieces and complete the picture<br>to unlock our memories 💜</p>
         
         <div id="puzzle-container"></div>
 
         <script>
-        // 🌟 เปลี่ยน URL รูปภาพตรงนี้เป็นรูปรวมของคุณสองคนได้เลยค่ะ (แนะนำเป็นสี่เหลี่ยมจัตุรัส 1:1)
-        const imageUrl = "https://images.unsplash.com/photo-1518199268839-49f242d559bc?q=80&w=300&h=300&fit=crop"; 
+        // 🌟 ใช้รูป Judy & Nick Zootopia ที่คุณปวีณ์ธิดาเลือก
+        const imageUrl = "https://raw.githubusercontent.com/PaweeTisha/anniversary-tracker/main/77fa1ef7-2904-4017-bb87-eb06a46f2207.jpeg"; 
         
         const container = document.getElementById('puzzle-container');
         let order = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -635,7 +636,9 @@ if not st.session_state.puzzle_solved:
                 const col = pieceIdx % 3;
                 
                 div.style.backgroundImage = `url(${imageUrl})`;
+                // ปรับให้จัดตำแหน่งรูปภาพแนวตั้งให้พอดีกับช่องตารางจิ๊กซอว์
                 div.style.backgroundPosition = `-${col * 97}px -${row * 97}px`;
+                div.style.backgroundSize = "300px 450px"; 
                 
                 div.onclick = () => handlePieceClick(domIdx);
                 container.appendChild(div);
@@ -680,7 +683,7 @@ if not st.session_state.puzzle_solved:
     
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
-        if puzzle_signal == "solved" or st.button("ข้ามไปดูความทรงจำเลย ⏩", use_container_width=True):
+        if puzzle_signal == "solved" or st.button("Skip to our memories ⏩", use_container_width=True):
             st.session_state.puzzle_solved = True
             st.rerun()
 
