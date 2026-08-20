@@ -225,7 +225,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN (Updated Emojis Version) ----
+# ---- PASSWORD LOGIN (Updated Dawis Version) ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -359,7 +359,7 @@ body {
     <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
-    <div class="title">Mr. Dawis</div>
+    <div class="title">Dawis</div>
     <div class="subtitle">Our Private Little World 💜</div>
     </div>
     <script>
@@ -453,7 +453,7 @@ stats = calculate_stats()
 st.markdown(f"""
 <div class="hero-section">
     <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
-    <div class="hero-title">Paweetida & Mr. Dawis</div>
+    <div class="hero-title">Paweetida & Dawis</div>
     <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
     <div style="margin-top:0.5rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-style:italic;">
         "{stats['days_together']} days of loving you — and counting."
