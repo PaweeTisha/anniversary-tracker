@@ -519,9 +519,9 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE (Clean Center-Line without description) ========
+# ======== TAB 3: TIMELINE (Hover to Show Polaroid Photo Effect) ========
 with tab3:
-    st.markdown('<div class="section-title">Our Timeline Scrapbook 📸</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Our Timeline Scrapbook 📸 (Hover to view Polaroid)</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
     memories_df = get_memories()
     
@@ -541,6 +541,11 @@ with tab3:
             <div class="timeline-content">
                 <div class="timeline-date">{event['date']}</div>
                 <div class="timeline-title">{event['emoji']} {event['title']}</div>
+                <!-- Polaroid Popup Card on Hover -->
+                <div class="polaroid-popup">
+                    <div class="polaroid-img">{event['emoji']}</div>
+                    <div class="polaroid-caption">{event['title']}</div>
+                </div>
             </div>
         </div>
         """
@@ -552,7 +557,7 @@ with tab3:
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
     * {{ font-family: 'DM Sans', sans-serif; box-sizing: border-box; }}
-    body {{ background: transparent; margin: 0; padding: 10px; }}
+    body {{ background: transparent; margin: 0; padding: 15px; overflow-y: auto; }}
     .scrapbook-timeline {{
         position: relative;
         max-width: 800px;
@@ -571,7 +576,7 @@ with tab3:
         border-radius: 2px;
     }}
     .timeline-item {{
-        padding: 12px 40px;
+        padding: 15px 40px;
         position: relative;
         background: inherit;
         width: 50%;
@@ -584,21 +589,30 @@ with tab3:
         right: -7px;
         background-color: #C9A84C;
         border: 3px solid #3D1A6E;
-        top: 22px;
+        top: 25px;
         border-radius: 50%;
         z-index: 1;
     }}
     .left-item {{ left: 0; text-align: right; }}
     .right-item {{ left: 50%; text-align: left; }}
     .right-item::after {{ left: -7px; }}
+    
     .timeline-content {{
-        padding: 10px 16px;
+        padding: 12px 18px;
         background: rgba(61, 26, 110, 0.85);
         border: 1px solid rgba(176, 143, 212, 0.3);
         border-radius: 12px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         display: inline-block;
+        cursor: pointer;
+        position: relative;
+        transition: transform 0.2s;
     }}
+    .timeline-content:hover {{
+        transform: scale(1.05);
+        border-color: #C9A84C;
+    }}
+    
     .timeline-date {{
         font-size: 0.65rem;
         color: #C9A84C;
@@ -612,6 +626,45 @@ with tab3:
         font-weight: 700;
         color: #F0E9FA;
     }}
+
+    /* Polaroid Popup Style on Hover */
+    .polaroid-popup {{
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%) scale(0.8);
+        background: #FAFAFA;
+        padding: 10px 10px 18px 10px;
+        border-radius: 4px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        width: 140px;
+        text-align: center;
+        z-index: 100;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        pointer-events: none;
+    }}
+    .timeline-content:hover .polaroid-popup {{
+        visibility: visible;
+        opacity: 1;
+        transform: translateX(-50%) scale(1) rotate(-2deg);
+    }}
+    .polaroid-img {{
+        background: #2D1854;
+        height: 90px;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin-bottom: 8px;
+    }}
+    .polaroid-caption {{
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #1A1A2E;
+    }}
     </style>
     </head>
     <body>
@@ -620,7 +673,7 @@ with tab3:
         </div>
     </body>
     </html>
-    """, height=420, scrolling=True)
+    """, height=450, scrolling=True)
 
 # ======== TAB 4: ADD MEMORY (English Version) ========
 with tab4:
