@@ -164,11 +164,6 @@ def init_db():
             ("Dawis Enlists Army 🪖", "2026-04-20", "Dawis joined the Australian Army", "milestone"),
         ]
         c.executemany("INSERT INTO milestones (title, date, description, type) VALUES (?,?,?,?)", default_milestones)
-    else:
-        # บังคับอัปเดตข้อมูลเริ่มต้นเก่าที่เป็นภาษาไทยให้เปลี่ยนเป็นภาษาอังกฤษทันที
-        c.execute("UPDATE milestones SET description = 'The day you liked my story on the bus' WHERE title LIKE '%First Like%'")
-        c.execute("UPDATE milestones SET description = 'The day we officially became a couple' WHERE title LIKE '%Official Couple%'")
-        c.execute("UPDATE milestones SET description = 'Dawis joined the Australian Army' WHERE title LIKE '%Dawis Enlists%'")
     conn.commit()
     conn.close()
 
@@ -524,7 +519,7 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE (Proper HTML Rendering via components.html) ========
+# ======== TAB 3: TIMELINE (Clean Center-Line without description) ========
 with tab3:
     st.markdown('<div class="section-title">Our Timeline Scrapbook 📸</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
@@ -532,22 +527,20 @@ with tab3:
     
     all_events = []
     for _, row in milestones_df.iterrows():
-        all_events.append({'date': row['date'], 'title': row['title'], 'desc': row['description'], 'emoji': '⭐'})
+        all_events.append({'date': row['date'], 'title': row['title'], 'emoji': '⭐'})
     for _, row in memories_df.iterrows():
-        all_events.append({'date': row['date'], 'title': row['title'], 'desc': row['description'], 'emoji': row['emoji']})
+        all_events.append({'date': row['date'], 'title': row['title'], 'emoji': row['emoji']})
     
     all_events = sorted(all_events, key=lambda x: x['date'])
 
     timeline_items_html = ""
     for idx, event in enumerate(all_events):
         item_class = "left-item" if idx % 2 == 0 else "right-item"
-        desc_text = event['desc'] if event['desc'] else 'A lovely memory together 💜'
         timeline_items_html += f"""
         <div class="timeline-item {item_class}">
             <div class="timeline-content">
                 <div class="timeline-date">{event['date']}</div>
                 <div class="timeline-title">{event['emoji']} {event['title']}</div>
-                <div class="timeline-desc">{desc_text}</div>
             </div>
         </div>
         """
@@ -578,7 +571,7 @@ with tab3:
         border-radius: 2px;
     }}
     .timeline-item {{
-        padding: 15px 40px;
+        padding: 12px 40px;
         position: relative;
         background: inherit;
         width: 50%;
@@ -591,7 +584,7 @@ with tab3:
         right: -7px;
         background-color: #C9A84C;
         border: 3px solid #3D1A6E;
-        top: 25px;
+        top: 22px;
         border-radius: 50%;
         z-index: 1;
     }}
@@ -599,29 +592,25 @@ with tab3:
     .right-item {{ left: 50%; text-align: left; }}
     .right-item::after {{ left: -7px; }}
     .timeline-content {{
-        padding: 12px 18px;
+        padding: 10px 16px;
         background: rgba(61, 26, 110, 0.85);
         border: 1px solid rgba(176, 143, 212, 0.3);
         border-radius: 12px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        display: inline-block;
     }}
     .timeline-date {{
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         color: #C9A84C;
         text-transform: uppercase;
-        letter-spacing: 1.2px;
+        letter-spacing: 1px;
         font-weight: 700;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
     }}
     .timeline-title {{
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-weight: 700;
         color: #F0E9FA;
-        margin-bottom: 4px;
-    }}
-    .timeline-desc {{
-        font-size: 0.8rem;
-        color: #B08FD4;
     }}
     </style>
     </head>
@@ -631,7 +620,7 @@ with tab3:
         </div>
     </body>
     </html>
-    """, height=500, scrolling=True)
+    """, height=420, scrolling=True)
 
 # ======== TAB 4: ADD MEMORY (English Version) ========
 with tab4:
