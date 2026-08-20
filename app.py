@@ -225,7 +225,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN (Original Full Gorgeous Version) ----
+# ---- PASSWORD LOGIN (Original Full Gorgeous Version with Added Emojis) ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -356,14 +356,14 @@ body {
         <span class="heart">💜</span>
         <span class="soldier">🪖</span>
     </div>
-    <div class="stars">🪐 🌙 🌟 ⭐ ❄️</div>
+    <div class="stars">💐 🪐 🌙 🌟 🌷 🌹 🌻 ⭐ ❄️</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
     <div class="title">Mr. Dawis</div>
     <div class="subtitle">Our Private Little World 💜</div>
     </div>
     <script>
-    const emojis = ['🪐','🌜','','🌟','💜','💚','💙','⭐','🤍','💛','🧡','❤️','🍀','🌐','💻','📡','🛜','🍀','💜','🤍','❄️'];
+    const emojis = ['💐','🪐','🌜','','🌟','💜','💚','🌷','🌹','💙','⭐','🤍','💛','🧡','❤️','🍀','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
     const container = document.getElementById('floaters');
     for (let i = 0; i < 25; i++) {
         const el = document.createElement('div');
@@ -543,7 +543,7 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE (Safe Hover Polaroid Popup) ========
+# ======== TAB 3: TIMELINE (Perfect Alignment to top node) ========
 with tab3:
     st.markdown('<div class="section-title">Our Timeline Scrapbook 📸 (Hover to view Polaroid)</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
@@ -589,26 +589,26 @@ with tab3:
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
     * {{ font-family: 'DM Sans', sans-serif; box-sizing: border-box; }}
-    body {{ background: transparent; margin: 0; padding: 70px 20px; overflow: visible; }}
+    body {{ background: transparent; margin: 0; padding: 20px 20px 60px 20px; overflow: visible; }}
     .scrapbook-timeline {{
         position: relative;
         max-width: 800px;
         margin: 0 auto;
-        padding: 50px 0;
+        padding: 0;
     }}
     .scrapbook-timeline::after {{
         content: '';
         position: absolute;
         width: 3px;
         background: linear-gradient(to bottom, #C9A84C, #B08FD4, #7A8C6A);
-        top: 0;
-        bottom: 0;
+        top: 20px;
+        bottom: 20px;
         left: 50%;
         margin-left: -1.5px;
         border-radius: 2px;
     }}
     .timeline-item {{
-        padding: 30px 40px;
+        padding: 0 40px 30px 40px;
         position: relative;
         background: inherit;
         width: 50%;
@@ -621,7 +621,7 @@ with tab3:
         right: -7px;
         background-color: #C9A84C;
         border: 3px solid #3D1A6E;
-        top: 40px;
+        top: 15px;
         border-radius: 50%;
         z-index: 1;
     }}
@@ -632,7 +632,7 @@ with tab3:
     .timeline-content {{
         padding: 12px 18px;
         background: rgba(61, 26, 110, 0.85);
-        border: 1px solid rgba(176, 143, 212, 0.3);
+        border: 1px solid rgba(176,143,212,0.3);
         border-radius: 12px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         display: inline-block;
@@ -683,7 +683,7 @@ with tab3:
         transform: translateX(-50%) scale(1) rotate(-3deg);
     }}
 
-    /* Special Drop-down for the first item to prevent top clipping */
+    /* Special Drop-down for the first item */
     .polaroid-popup-down {{
         visibility: hidden;
         opacity: 0;
