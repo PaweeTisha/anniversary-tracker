@@ -519,7 +519,7 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE (Hover to Show Polaroid Photo Effect) ========
+# ======== TAB 3: TIMELINE (Fixed Hover Polaroid Popup) ========
 with tab3:
     st.markdown('<div class="section-title">Our Timeline Scrapbook 📸 (Hover to view Polaroid)</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
@@ -557,12 +557,12 @@ with tab3:
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
     * {{ font-family: 'DM Sans', sans-serif; box-sizing: border-box; }}
-    body {{ background: transparent; margin: 0; padding: 15px; overflow-y: auto; }}
+    body {{ background: transparent; margin: 0; padding: 60px 15px; overflow: visible; }}
     .scrapbook-timeline {{
         position: relative;
         max-width: 800px;
         margin: 0 auto;
-        padding: 20px 0;
+        padding: 40px 0;
     }}
     .scrapbook-timeline::after {{
         content: '';
@@ -576,7 +576,7 @@ with tab3:
         border-radius: 2px;
     }}
     .timeline-item {{
-        padding: 15px 40px;
+        padding: 25px 40px;
         position: relative;
         background: inherit;
         width: 50%;
@@ -589,7 +589,7 @@ with tab3:
         right: -7px;
         background-color: #C9A84C;
         border: 3px solid #3D1A6E;
-        top: 25px;
+        top: 35px;
         border-radius: 50%;
         z-index: 1;
     }}
@@ -627,37 +627,37 @@ with tab3:
         color: #F0E9FA;
     }}
 
-    /* Polaroid Popup Style on Hover */
+    /* Fixed Polaroid Popup Style with Overflow Safety */
     .polaroid-popup {{
         visibility: hidden;
         opacity: 0;
         position: absolute;
-        bottom: 120%;
+        bottom: 140%;
         left: 50%;
         transform: translateX(-50%) scale(0.8);
         background: #FAFAFA;
         padding: 10px 10px 18px 10px;
         border-radius: 4px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        width: 140px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        width: 150px;
         text-align: center;
-        z-index: 100;
+        z-index: 9999;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         pointer-events: none;
     }}
     .timeline-content:hover .polaroid-popup {{
         visibility: visible;
         opacity: 1;
-        transform: translateX(-50%) scale(1) rotate(-2deg);
+        transform: translateX(-50%) scale(1) rotate(-3deg);
     }}
     .polaroid-img {{
         background: #2D1854;
-        height: 90px;
+        height: 100px;
         border-radius: 2px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2.5rem;
+        font-size: 3rem;
         margin-bottom: 8px;
     }}
     .polaroid-caption {{
@@ -673,7 +673,7 @@ with tab3:
         </div>
     </body>
     </html>
-    """, height=450, scrolling=True)
+    """, height=600, scrolling=True)
 
 # ======== TAB 4: ADD MEMORY (English Version) ========
 with tab4:
