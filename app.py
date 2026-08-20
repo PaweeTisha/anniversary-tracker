@@ -617,7 +617,7 @@ if not st.session_state.puzzle_solved:
 
         <script>
         // 🌟 ใช้รูป Judy & Nick Zootopia ที่คุณปวีณ์ธิดาเลือก
-        const imageUrl = "https://raw.githubusercontent.com/PaweeTisha/anniversary-tracker/main/77fa1ef7-2904-4017-bb87-eb06a46f2207.jpeg"; 
+        const imageUrl = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&h=300&fit=crop"; 
         
         const container = document.getElementById('puzzle-container');
         let order = [0, 1, 2, 3, 4, 5, 6, 7, 8];
