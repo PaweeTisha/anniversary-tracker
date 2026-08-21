@@ -31,7 +31,7 @@ h1, h2, h3, .hero-title, .metric-number {
     letter-spacing: -0.5px;
 }
 
-/* ปุ่มเมนู Tab ด้านบน ดีไซน์ใหม่ Modern & Clean */
+/* Modern & Clean Top Navigation Buttons */
 .stButton button {
     background: linear-gradient(135deg, rgba(123,44,191,0.7), rgba(0,245,212,0.4)) !important;
     color: #FFFFFF !important;
@@ -53,7 +53,7 @@ h1, h2, h3, .hero-title, .metric-number {
     background: linear-gradient(135deg, rgba(123,44,191,0.9), rgba(0,245,212,0.6)) !important;
 }
 
-/* ซ่อนช่องอินพุตระบบ */
+/* Hide system text inputs */
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_welcome"]),
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     display: none !important;
@@ -633,7 +633,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---- NAVIGATION BUTTON BOXES (Clean Modern Font) ----
+# ---- NAVIGATION BUTTON BOXES ----
 if "active_tab" not in st.session_state:
     st.session_state.active_tab = "💐 Get Flowers"
 
@@ -648,7 +648,7 @@ for i, tab_name in enumerate(nav_tabs):
 
 st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 1rem 0 1.5rem 0;'>", unsafe_allow_html=True)
 
-# ======== TAB 0: GET FLOWERS & 3 STREAMLINED INTERACTIVE MENUS ========
+# ======== TAB 0: GET FLOWERS & INTERACTIVE BOUQUET ========
 if st.session_state.active_tab == "💐 Get Flowers":
     st.markdown("""
     <div style="text-align: center; padding: 1.5rem 0;">
@@ -659,23 +659,104 @@ if st.session_state.active_tab == "💐 Get Flowers":
 
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(255,182,193,0.25)); border: 2px solid rgba(255,192,203,0.7); border-radius: 28px; padding: 2.2rem; text-align: center; box-shadow: 0 0 40px rgba(255,182,193,0.35); backdrop-filter: blur(12px);">
-            <div style="margin-bottom: 1rem;">
-                <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=600&q=80" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD166; box-shadow: 0 0 25px rgba(255,209,102,0.5); animation: float 3s ease-in-out infinite;">
+        # Interactive bouquet with floating hearts & click-to-change tease message
+        components.html("""
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+        <style>
+        body { background: transparent; display: flex; justify-content: center; align-items: center; margin: 0; font-family: 'Outfit', sans-serif; overflow: visible; }
+        .flower-card {
+            background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(255,182,193,0.25));
+            border: 2px solid rgba(255,192,203,0.7);
+            border-radius: 28px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255,182,193,0.35);
+            backdrop-filter: blur(12px);
+            position: relative;
+            max-width: 420px;
+            width: 100%;
+        }
+        .img-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .flower-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #FFD166;
+            box-shadow: 0 0 25px rgba(255,209,102,0.5);
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+        .flower-img:hover {
+            transform: scale(1.08) rotate(3deg);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 1.4rem;
+            animation: floatHeart 2.2s ease-in-out infinite;
+            pointer-events: none;
+            opacity: 0;
+        }
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(0.6); opacity: 1; }
+            100% { transform: translateY(-70px) scale(1.3); opacity: 0; }
+        }
+        .heart-1 { top: 10px; left: 10px; animation-delay: 0s; }
+        .heart-2 { top: 0px; right: 20px; animation-delay: 0.7s; }
+        .heart-3 { bottom: 20px; left: 0px; animation-delay: 1.4s; }
+        
+        .rival-title { font-size: 1.3rem; color: #FFD166; font-weight: 700; margin: 1rem 0 0.5rem 0; }
+        .rival-desc { font-size: 0.95rem; color: #F0E9FA; line-height: 1.6; font-weight: 500; }
+        .click-hint { font-size: 0.7rem; color: #4CC9F0; margin-top: 0.6rem; font-style: italic; }
+        </style>
+        </head>
+        <body>
+            <div class="flower-card">
+                <div class="img-container" onclick="changeTease()" title="Click me! ✨">
+                    <span class="floating-heart heart-1">💜</span>
+                    <span class="floating-heart heart-2">✨</span>
+                    <span class="floating-heart heart-3">💖</span>
+                    <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=600&q=80" class="flower-img">
+                </div>
+                <div class="rival-title">For My Favorite Rival 😈</div>
+                <div class="rival-desc" id="teaseText">
+                    Thanks for sticking around, even when I'm super moody and don't want to talk! 555. Let's keep supporting and driving each other crazy for a long, long time. 💜
+                </div>
+                <div class="click-hint">(Click the bouquet for a surprise message 🌷)</div>
             </div>
-            <div style="font-size: 1.3rem; color: #FFD166; font-weight: 700; margin-bottom: 0.5rem;">For My Favorite Rival 😈</div>
-            <div style="font-size: 0.95rem; color: #F0E9FA; margin-bottom: 1.2rem; line-height: 1.6; font-weight: 500;">
-                Thanks for sticking around, even when I'm super moody and don't want to talk! 555. Let's keep supporting and driving each other crazy for a long, long time. 💜
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+            <script>
+            const teases = [
+                "Thanks for sticking around, even when I'm super moody and don't want to talk! 555. Let's keep supporting and driving each other crazy for a long, long time. 💜",
+                "Warning: Clicking these flowers too much won't make me less stubborn! 😤 But okay, luv u 💜",
+                "You're lucky you're my favorite rival. Otherwise, no flowers for you! 😜🌷",
+                "Teasing you is my full-time job, but loving you is my favorite hobby. ✨"
+            ];
+            let index = 0;
+            function changeTease() {
+                index = (index + 1) % teases.length;
+                document.getElementById('teaseText').innerText = teases[index];
+            }
+            </script>
+        </body>
+        </html>
+        """, height=410, scrolling=False)
 
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
     st.markdown('<div class="section-title" style="text-align: center;">💖 Select Our Memory Menu 💖</div>', unsafe_allow_html=True)
     st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
 
-    # 3 Streamlined Menu Buttons (Modern Outfit font)
+    # 3 Streamlined Menu Buttons
     mcol1, mcol2, mcol3 = st.columns(3)
     with mcol1:
         if st.button("🍒 Our Time Together\n\nCheck our live counter & journey 💜", use_container_width=True, key="menu_btn_1"):
