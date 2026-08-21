@@ -301,7 +301,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     text-align: center;
-    padding: 1.2rem 0.5rem 0.5rem 0.5rem;
+    padding: 0.5rem;
     overflow: hidden;
 }
 @keyframes shootingStar {
@@ -329,24 +329,25 @@ body {
 .heart { font-size: 1.6rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
 .soldier { font-size: 2.5rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
 .title {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Outfit', sans-serif;
     font-size: 1.8rem;
+    font-weight: 700;
     background: linear-gradient(135deg, #00F5D4, #FFD166);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: float 3s ease-in-out infinite;
-    line-height: 1.2;
-    margin-top: 4px;
+    line-height: 1.4;
+    margin-top: 10px;
+    margin-bottom: 5px;
     position: relative;
     z-index: 10;
 }
-.subtitle { font-size: 0.65rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
+.subtitle { font-size: 0.65rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.2rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
 .moon-quote { font-size: 0.72rem; color: #FFD166; font-style: italic; margin-top: 0.2rem; font-weight: 500; position: relative; z-index: 10; }
 .stars { font-size: 0.85rem; letter-spacing: 0.3rem; margin: 0.1rem 0; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
 
 .pin-section {
-    margin-top: 0.8rem;
+    margin-top: 1.2rem;
     background: rgba(30, 15, 60, 0.75);
     border: 1px solid rgba(0, 245, 212, 0.4);
     border-radius: 16px;
@@ -420,7 +421,7 @@ body {
         document.body.appendChild(el);
     }
     </script>
-    <div style="position:relative; z-index:10; padding-top: 15px;">
+    <div style="position:relative; z-index:10; padding-top: 20px;">
         <div class="chars">
             <span class="girl">💻</span>
             <span class="heart">💜</span>
@@ -482,7 +483,7 @@ body {
             setTimeout(() => { boxes.forEach(b => b.classList.remove('error')); }, 500);
             document.getElementById('errMsg').style.display = 'block';
             boxes.forEach(b => b.value = '');
-            boxes[0].focus();
+            boxes[0].focus ()
         }
     }
     </script>
@@ -1080,7 +1081,7 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
                 p2Hp = Math.min(20, p2Hp + 2);
                 document.getElementById('p1Hp').innerText = p1Hp;
                 document.getElementById('p2Hp').innerText = p2Hp;
-                document.getElementById('gameLog').innerText = `Player 2 dealt 3 damage & healed +2 HP with Matcha Boost! 🍵`;
+                document.getElementById('gameLog': 'Player 2 dealt 3 damage & healed +2 HP with Matcha Boost! 🍵';
             } else if (p2Card.power > 0) {
                 p1Hp = Math.max(0, p1Hp - p2Card.power);
                 document.getElementById('p1Hp').innerText = p1Hp;
@@ -1229,7 +1230,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
     with col3:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:600; margin-top:0.3rem;">27 Jul 2025 ✨</div></div>', unsafe_allow_html=True)
     with col4:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_army"]}</div><div class="metric-label">Days in Army Service</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:600; margin-top:0.3rem;">Dawis in Army 🪖</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_army"]}</div><div class="metric-label">Days in Army Service</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:600; margin-top:0.3rem;">`Dawis in Army` 🪖</div></div>', unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
