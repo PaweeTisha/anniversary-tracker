@@ -635,9 +635,9 @@ st.markdown("""
 
 # ---- NAVIGATION BUTTON BOXES ----
 if "active_tab" not in st.session_state:
-    st.session_state.active_tab = "💐 Get Flowers"
+    st.session_state.active_tab = "🍀 Get Clover"
 
-nav_tabs = ["💐 Get Flowers", "💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"]
+nav_tabs = ["🍀 Get Clover", "💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"]
 
 cols = st.columns(len(nav_tabs))
 for i, tab_name in enumerate(nav_tabs):
@@ -648,19 +648,18 @@ for i, tab_name in enumerate(nav_tabs):
 
 st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 1rem 0 1.5rem 0;'>", unsafe_allow_html=True)
 
-# ======== TAB 0: GET FLOWERS & SUNFLOWER BOUQUET ========
-if st.session_state.active_tab == "💐 Get Flowers":
-    # จัดข้อความหัวข้อให้อยู่ตรงกลางเป๊ะๆ และไม่มีอีโมจิรกๆ ด้านหลัง
+# ======== TAB 0: GET CLOVER & SUNFLOWER BOUQUET ========
+if st.session_state.active_tab == "🍀 Get Clover":
     st.markdown("""
     <div style="text-align: center; padding: 1.5rem 0; width: 100%;">
-        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5); text-align: center;">Get Flowers!</h1>
-        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px; text-align: center;">Well done! A bright sunflower bouquet for my favorite enemy. 😜</p>
+        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5); text-align: center;">Get Lucky Clover! 🍀</h1>
+        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px; text-align: center;">Well done! A bright sunflower bouquet and good luck for my favorite enemy. 😜</p>
     </div>
     """, unsafe_allow_html=True)
 
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
-        # Sunflower bouquet with floating hearts & expanded diverse surprise messages
+        # Sunflower bouquet with multi-colored floating icons (💜, 💖, ✨, 🍀, 💙)
         components.html("""
         <!DOCTYPE html>
         <html>
@@ -669,12 +668,12 @@ if st.session_state.active_tab == "💐 Get Flowers":
         <style>
         body { background: transparent; display: flex; justify-content: center; align-items: center; margin: 0; font-family: 'Outfit', sans-serif; overflow: visible; }
         .flower-card {
-            background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(255,215,0,0.25));
-            border: 2px solid rgba(255,215,0,0.7);
+            background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(0,245,212,0.2));
+            border: 2px solid rgba(0,245,212,0.6);
             border-radius: 28px;
             padding: 2rem;
             text-align: center;
-            box-shadow: 0 0 40px rgba(255,215,0,0.3);
+            box-shadow: 0 0 40px rgba(0,245,212,0.3);
             backdrop-filter: blur(12px);
             position: relative;
             max-width: 420px;
@@ -702,20 +701,21 @@ if st.session_state.active_tab == "💐 Get Flowers":
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
         }
-        .floating-heart {
+        .floating-icon {
             position: absolute;
             font-size: 1.4rem;
-            animation: floatHeart 2.2s ease-in-out infinite;
+            animation: floatIcon 2.4s ease-in-out infinite;
             pointer-events: none;
             opacity: 0;
         }
-        @keyframes floatHeart {
-            0% { transform: translateY(0) scale(0.6); opacity: 1; }
-            100% { transform: translateY(-70px) scale(1.3); opacity: 0; }
+        @keyframes floatIcon {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-80px) scale(1.4) rotate(20deg); opacity: 0; }
         }
-        .heart-1 { top: 10px; left: 10px; animation-delay: 0s; }
-        .heart-2 { top: 0px; right: 20px; animation-delay: 0.7s; }
-        .heart-3 { bottom: 20px; left: 0px; animation-delay: 1.4s; }
+        .icon-1 { top: 5px; left: 5px; animation-delay: 0s; }
+        .icon-2 { top: 0px; right: 10px; animation-delay: 0.6s; }
+        .icon-3 { bottom: 10px; left: 5px; animation-delay: 1.2s; }
+        .icon-4 { bottom: 0px; right: 15px; animation-delay: 1.8s; }
         
         .rival-title { font-size: 1.3rem; color: #FFD166; font-weight: 700; margin: 1rem 0 0.5rem 0; }
         .rival-desc { font-size: 0.95rem; color: #F0E9FA; line-height: 1.6; font-weight: 500; min-height: 75px; }
@@ -725,23 +725,24 @@ if st.session_state.active_tab == "💐 Get Flowers":
         <body>
             <div class="flower-card">
                 <div class="img-container" onclick="changeTease()" title="Click me! ✨">
-                    <span class="floating-heart heart-1">💛</span>
-                    <span class="floating-heart heart-2">✨</span>
-                    <span class="floating-heart heart-3">🌻</span>
+                    <span class="floating-icon icon-1">💜</span>
+                    <span class="floating-icon icon-2">✨</span>
+                    <span class="floating-icon icon-3">🍀</span>
+                    <span class="floating-icon icon-4">💙</span>
                     <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80" class="flower-img">
                 </div>
                 <div class="rival-title">For my No.1 enemy 🤭</div>
                 <div class="rival-desc" id="teaseText">
-                    Sunflowers for my sunshine! Thanks for staying loyal, bright, and crazy through every single season. Let's keep driving each other nuts for a long, long time. 🌻💜
+                    Sunflowers and a 4-leaf clover for my sunshine! Thanks for staying loyal, bright, and lucky through every single season. Let's keep driving each other nuts for a long, long time. 🍀💜
                 </div>
-                <div class="click-hint">(Click the sunflowers for a surprise message 🌻)</div>
+                <div class="click-hint">(Click the bouquet for a surprise message 🍀)</div>
             </div>
             <script>
             const teases = [
-                "Sunflowers for my sunshine! Thanks for staying loyal, bright, and crazy through every single season. Let's keep driving each other nuts for a long, long time. 🌻💜",
-                "Warning: Clicking these sunflowers won't make you win our card duels! 😤 But you're still my favorite. ✨",
-                "You're like a sunflower—always bright, stubborn, and following my light! 🌻😜",
-                "Teasing you is my full-time job, but loving you is my absolute favorite hobby. 💛",
+                "Sunflowers and a 4-leaf clover for my sunshine! Thanks for staying loyal, bright, and lucky through every single season. Let's keep driving each other nuts for a long, long time. 🍀💜",
+                "Warning: Clicking these flowers won't make you win our card duels! 😤 But you're still my favorite lucky charm. ✨",
+                "You're like a 4-leaf clover—hard to find, incredibly lucky to have, and stubborn as heck! 🍀😜",
+                "Teasing you is my full-time job, but loving you is my absolute favorite hobby. 💚",
                 "Even when you're being super moody, you're still the only person I want to talk to. (Don't let this go to your head!) 🤫555",
                 "No matter how hard things get or how crazy work/study is, I'm always cheering for you from the sidelines. You've got this! 🌟",
                 "I built this whole digital world just so you'd remember how amazing you are... and because I wanted to flex my coding skills to my favorite rival! 💻😎",
