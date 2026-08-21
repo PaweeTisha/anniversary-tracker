@@ -84,6 +84,23 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     z-index: 1;
 }
 
+@keyframes shootingStar {
+    0% { transform: translateX(0) translateY(0); opacity: 1; }
+    100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
+}
+
+.shooting-star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #00F5D4;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px #00F5D4, 0 0 25px 6px #4CC9F0;
+    animation: shootingStar linear infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
 .breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #00F5D4, #8B0000);
     border: 1px solid #FFD166;
@@ -164,6 +181,20 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     font-weight: 500 !important;
 }
 </style>
+
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+    for (let i = 0; i < 18; i++) {
+        let star = document.createElement('div');
+        star.className = 'shooting-star';
+        star.style.top = Math.random() * 70 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDuration = (2 + Math.random() * 4) + 's';
+        star.style.animationDelay = (Math.random() * 5) + 's';
+        document.body.appendChild(star);
+    }
+});
+</script>
 """, unsafe_allow_html=True)
 
 # ---- DATABASE & STATS ----
@@ -252,18 +283,27 @@ body {
     padding: 1rem;
     overflow: hidden;
 }
-/* CANVAS FIREWORKS & HEARTS BACKGROUND */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 0;
+@keyframes shootingStar {
+    0% { transform: translateX(0) translateY(0); opacity: 1; }
+    100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
 }
+.login-shooting-star {
+    position: fixed; width: 2px; height: 2px; background: #00F5D4; border-radius: 50%;
+    box-shadow: 0 0 10px 2px #00F5D4, 0 0 25px 6px #4CC9F0;
+    animation: shootingStar linear infinite; z-index: 0; pointer-events: none;
+}
+.floating-emoji { position: fixed; font-size: 1.8rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.75; }
+@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.75; } 90% { opacity: 0.75; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
 
-.chars { display: flex; justify-content: center; align-items: center; gap: 1.8rem; margin-bottom: 0.8rem; position: relative; z-index: 10; }
+@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-12px) rotate(3deg); } 50% { transform: translateY(-6px) rotate(-2deg); } 75% { transform: translateY(-15px) rotate(4deg); } }
+@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-15px) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(2deg); } 75% { transform: translateY(-12px) rotate(-4deg); } }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.2); } 60% { transform: scale(1); } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+@keyframes shimmer { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-10px); } 40% { transform: translateX(10px); } 60% { transform: translateX(-8px); } 80% { transform: translateX(8px); } }
+@keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+.chars { display: flex; justify-content: center; align-items: center; gap: 1.8rem; margin-bottom: 0.8rem; }
 .girl { font-size: 4rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
 .heart { font-size: 2.5rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
 .soldier { font-size: 4rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
@@ -271,7 +311,7 @@ canvas {
 .title {
     font-size: 2.8rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #00F5D4, #FFD166, #FF6B6B);
+    background: linear-gradient(135deg, #00F5D4, #FFD166);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -279,21 +319,20 @@ canvas {
     margin-bottom: 0.5rem;
     position: relative;
     z-index: 10;
-    text-shadow: 0 0 20px rgba(0,245,212,0.5);
 }
-.subtitle { font-size: 0.95rem; color: #00F5D4; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600; position: relative; z-index: 10; }
+.subtitle { font-size: 0.95rem; color: #00F5D4; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 0.4rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
 .moon-quote { font-size: 1.05rem; color: #FFD166; font-style: italic; margin-bottom: 2rem; font-weight: 500; position: relative; z-index: 10; }
-.stars { font-size: 1.3rem; letter-spacing: 0.5rem; margin-bottom: 0.5rem; position: relative; z-index: 10; }
+.stars { font-size: 1.3rem; letter-spacing: 0.5rem; margin-bottom: 0.5rem; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
 
 .pin-section {
-    background: rgba(30, 15, 60, 0.85);
-    border: 2px solid rgba(0, 245, 212, 0.6);
+    background: rgba(30, 15, 60, 0.8);
+    border: 2px solid rgba(0, 245, 212, 0.5);
     border-radius: 24px;
     padding: 2rem 2.5rem;
     max-width: 460px;
     width: 100%;
     backdrop-filter: blur(12px);
-    box-shadow: 0 0 45px rgba(0, 245, 212, 0.4);
+    box-shadow: 0 0 35px rgba(123, 44, 191, 0.4);
     position: relative;
     z-index: 10;
     margin: 0 auto;
@@ -315,9 +354,9 @@ canvas {
     transition: all 0.2s;
     caret-color: transparent;
 }
-.pin-box:focus { border-color: #00F5D4; background: rgba(123,44,191,0.5); box-shadow: 0 0 20px rgba(0, 245, 212, 0.6); transform: scale(1.08); }
-.pin-box.filled { border-color: #FFD166; }
-.pin-box.error { border-color: #FF6B6B; }
+.pin-box:focus { border-color: #00F5D4; background: rgba(123, 44, 191, 0.5); box-shadow: 0 0 20px rgba(0, 245, 212, 0.6); transform: scale(1.08); }
+.pin-box.filled { border-color: #FFD166; animation: pop 0.2s ease; }
+.pin-box.error { border-color: #FF6B6B; animation: shake 0.4s ease; }
 .enter-btn {
     background: linear-gradient(135deg, #7B2CBF, #00F5D4);
     color: #0A041A;
@@ -334,18 +373,34 @@ canvas {
 }
 .enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(0,245,212,0.7); }
 .error-msg { color: #FF6B6B; font-size: 0.85rem; margin-top: 0.8rem; display: none; font-weight: 600; }
-.lock-icon { font-size: 2.2rem; margin-bottom: 0.5rem; display: block; }
-
-@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 50% { transform: translateY(-12px) rotate(3deg); } }
-@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 50% { transform: translateY(-12px) rotate(-3deg); } }
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+.lock-icon { font-size: 2.2rem; margin-bottom: 0.5rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
 </head>
 <body>
-    <!-- FIREWORKS & JAPANESE HANABI CANVAS -->
-    <canvas id="fireworksCanvas"></canvas>
-
-    <div style="position:relative; z-index:10;">
+    <script>
+    for (let i = 0; i < 15; i++) {
+        let star = document.createElement('div');
+        star.className = 'login-shooting-star';
+        star.style.top = Math.random() * 70 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDuration = (2 + Math.random() * 3) + 's';
+        star.style.animationDelay = (Math.random() * 4) + 's';
+        document.body.appendChild(star);
+    }
+    const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
+    for (let i = 0; i < 25; i++) {
+        let el = document.createElement('div');
+        el.className = 'floating-emoji';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = (6 + Math.random() * 8) + 's';
+        el.style.animationDelay = (Math.random() * 8) + 's';
+        el.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
+        document.body.appendChild(el);
+    }
+    </script>
+    
+    <div>
         <div class="chars">
             <span class="girl">💻</span>
             <span class="heart">💜</span>
@@ -374,91 +429,6 @@ canvas {
     </div>
     
     <script>
-    // FIREWORKS SCRIPT
-    const canvas = document.getElementById('fireworksCanvas');
-    const ctx = canvas.getContext('2d');
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Firework {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = canvas.height;
-            this.targetY = Math.random() * (canvas.height * 0.5);
-            this.speed = 5 + Math.random() * 4;
-            this.particles = [];
-            this.exploded = false;
-            this.color = `hsl(${Math.random() * 360}, 100%, 65%)`;
-        }
-        update() {
-            if (!this.exploded) {
-                this.y -= this.speed;
-                if (this.y <= this.targetY) {
-                    this.exploded = true;
-                    for (let i = 0; i < 70; i++) {
-                        let angle = Math.random() * Math.PI * 2;
-                        let speed = Math.random() * 6;
-                        this.particles.push({
-                            x: this.x, y: this.y,
-                            vx: Math.cos(angle) * speed,
-                            vy: Math.sin(angle) * speed,
-                            alpha: 1,
-                            color: this.color
-                        });
-                    }
-                }
-            } else {
-                this.particles.forEach(p => {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.vy += 0.05; // gravity
-                    p.alpha -= 0.015;
-                });
-                this.particles = this.particles.filter(p => p.alpha > 0);
-            }
-        }
-        draw() {
-            if (!this.exploded) {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-                ctx.fill();
-            } else {
-                this.particles.forEach(p => {
-                    ctx.save();
-                    ctx.globalAlpha = p.alpha;
-                    ctx.fillStyle = p.color;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
-                });
-            }
-        }
-    }
-
-    let fireworks = [];
-    function loop() {
-        ctx.fillStyle = 'rgba(5, 2, 16, 0.2)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        if (Math.random() < 0.06) {
-            fireworks.push(new Firework());
-        }
-        fireworks.forEach((fw, index) => {
-            fw.update();
-            fw.draw();
-            if (fw.exploded && fw.particles.length === 0) {
-                fireworks.splice(index, 1);
-            }
-        });
-        requestAnimationFrame(loop);
-    }
-    loop();
-
     const boxes = document.querySelectorAll('.pin-box');
     boxes[0].focus();
     boxes.forEach((box, i) => {
@@ -619,14 +589,14 @@ if is_anniversary_season and st.session_state.show_breaking_news:
     <div class="news-overlay" id="newsModal">
         <div class="news-modal">
             <div class="news-header">🚨 BREAKING NEWS 🚨</div>
-            <div class="news-title">Happy Anniversary Day! 🎉💜</div>
+            <div class="news-title">Upcoming Anniversary Alert! 💜</div>
             <div class="news-desc">
-                Today is August 22, 2026! Our special 1-year anniversary celebration is officially live!
+                Get ready for special dates, love capsules, and epic card duels!
             </div>
             <div class="warning-box">
-                ⚠️ ENJOY THE FIREWORKS & OUR SPECIAL WORLD! 🎆✨
+                ⚠️ WARNING: TODAY IS OUR SPECIAL ANNIVERSARY! DO NOT MISS IT! 🚨🔥
             </div>
-            <button class="ack-btn" onclick="closeModal()">Let's Celebrate! 🚀</button>
+            <button class="ack-btn" onclick="closeModal()">Acknowledge & Enter 🚀</button>
         </div>
     </div>
     <script>
@@ -645,9 +615,9 @@ if is_anniversary_season and st.session_state.show_breaking_news:
     with col_bn1:
         st.markdown("""
         <div class="breaking-news-bar" style="margin-bottom: 0px;">
-            <div class="breaking-badge">🔴 HAPPY ANNIVERSARY</div>
+            <div class="breaking-badge">🔴 BREAKING NEWS</div>
             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 600;">
-                🎆 TODAY IS AUGUST 22, 2026! CELEBRATING OUR SPECIAL DAY WITH FIREWORKS! 💜🎉
+                ⚠️ WARNING: TODAY IS OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -680,7 +650,7 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
     st.markdown("""
     <div style="text-align: center; padding: 1.5rem 0; width: 100%;">
         <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5); text-align: center;">Get Some Luck! 🍀</h1>
-        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px; text-align: center;">Happy Anniversary! A bright sunflower bouquet and good luck for my favorite enemy. 😜</p>
+        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px; text-align: center;">Well done! A bright sunflower bouquet and good luck for my favorite enemy. 😜</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -759,20 +729,20 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
                 </div>
                 <div class="rival-title">For my No.1 enemy 🤭</div>
                 <div class="rival-desc" id="teaseText">
-                    Sunflowers and a 4-leaf clover for my sunshine! Happy Anniversary! Let's keep driving each other nuts for a long, long time. 🍀💜
+                    Sunflowers and a 4-leaf clover for my sunshine! Thanks for staying loyal, bright, and lucky through every single season. Let's keep driving each other nuts for a long, long time. 🍀💜
                 </div>
                 <div class="click-hint">(Click the bouquet for a surprise message 🍀)</div>
             </div>
             <script>
             const teases = [
-                "Sunflowers and a 4-leaf clover for my sunshine! Happy Anniversary! Let's keep driving each other nuts for a long, long time. 🍀💜",
-                "Happy Anniversary! Warning: Clicking these flowers won't make you win our card duels! 😤✨",
-                "You're like a 4-leaf clover—hard to find, incredibly lucky to have, and stubborn as heck! Happy Anniversary! 🍀😜",
-                "Happy Anniversary! Teasing you is my full-time job, but loving you is my absolute favorite hobby. 💚",
-                "Happy Anniversary! Even when you're being super moody, you're still the only person I want to talk to. 🤫555",
-                "Happy Anniversary! No matter how crazy work/study is, I'm always cheering for you from the sidelines. 🌟",
-                "Happy Anniversary! I built this whole digital world just so you'd remember how amazing you are... and to flex my coding skills! 💻😎",
-                "Happy Anniversary! You + Me = The most chaotic, unstoppable team in the universe. Let's conquer everything together! 🚀💜"
+                "Sunflowers and a 4-leaf clover for my sunshine! Thanks for staying loyal, bright, and lucky through every single season. Let's keep driving each other nuts for a long, long time. 🍀💜",
+                "Warning: Clicking these flowers won't make you win our card duels! 😤 But you're still my favorite lucky charm. ✨",
+                "You're like a 4-leaf clover—hard to find, incredibly lucky to have, and stubborn as heck! 🍀😜",
+                "Teasing you is my full-time job, but loving you is my absolute favorite hobby. 💚",
+                "Even when you're being super moody, you're still the only person I want to talk to. (Don't let this go to your head!) 🤫555",
+                "No matter how hard things get or how crazy work/study is, I'm always cheering for you from the sidelines. You've got this! 🌟",
+                "I built this whole digital world just so you'd remember how amazing you are... and because I wanted to flex my coding skills to my favorite rival! 💻😎",
+                "You + Me = The most chaotic, unstoppable team in the universe. Let's conquer everything together! 🚀💜"
             ];
             let index = 0;
             function changeTease() {
@@ -847,15 +817,15 @@ elif st.session_state.active_tab == "💌 Love Capsule":
 
     <script>
     const messages = [
-        "Happy Anniversary! The moon is beautiful, isn't it? I love you so much!",
-        "Happy Anniversary! Keep crushing your goals today. I am so proud of you!",
-        "Happy Anniversary! You and me make an unstoppable team. Let us conquer everything!",
-        "Happy Anniversary! Sending you the biggest hug and all my energy today!",
-        "Happy Anniversary! No matter how tough it gets, I have your back forever.",
-        "Happy Anniversary! You are my favorite distraction and my greatest motivation.",
-        "Happy Anniversary! Go get them, soldier! Make me proud today and always.",
-        "Happy Anniversary! Everything is going to be amazing. I believe in you!",
-        "Happy Anniversary! So proud of the hard worker you are. You're truly incredible!"
+        "The moon is beautiful, isn't it? I love you so much, my favorite rival!",
+        "Keep crushing your goals today. I am so proud of you!",
+        "You and me make an unstoppable team. Let us conquer everything!",
+        "Sending you the biggest hug and all my energy today!",
+        "No matter how tough it gets, I have your back forever.",
+        "You are my favorite distraction and my greatest motivation.",
+        "Go get them, soldier! Make me proud today and always.",
+        "Everything is going to be amazing. I believe in you!",
+        "So proud of the hard worker you are. You're truly incredible!"
     ];
 
     function openLetter() {
@@ -1121,7 +1091,7 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
     </script>
     </body>
     </html>
-    """, height=440, scrolling=False)
+    """, height=650, scrolling=False)
 
 # ======== TAB 3: STATS ========
 elif st.session_state.active_tab == "📊 Our Stats":
