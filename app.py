@@ -9,10 +9,10 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (AURORA THEME + BOLD TYPOGRAPHY + ROUNDED BUTTON BOXES) ----
+# ---- CUSTOM CSS (MODERN MINIMALIST TYPOGRAPHY) ----
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
     --aurora-purple: #4A154B;
@@ -23,22 +23,37 @@ st.markdown("""
     --gold: #FFD166;
 }
 
-* { font-family: 'DM Sans', sans-serif; }
+* { font-family: 'Outfit', sans-serif !important; }
 
 h1, h2, h3, .hero-title, .metric-number {
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-weight: 800 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
 }
 
-/* Force bold and font style for all button texts */
-.stButton button p, .stButton button span {
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-weight: 800 !important;
-    font-size: 1.05rem !important;
-    letter-spacing: 0.5px !important;
+/* ปุ่มเมนู Tab ด้านบน ดีไซน์ใหม่ Modern & Clean */
+.stButton button {
+    background: linear-gradient(135deg, rgba(123,44,191,0.7), rgba(0,245,212,0.4)) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(0,245,212,0.5) !important;
+    border-radius: 16px !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    padding: 0.8rem 1rem !important;
+    width: 100% !important;
+    box-shadow: 0 4px 20px rgba(0,245,212,0.15);
+    backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+}
+.stButton button:hover {
+    transform: translateY(-2px);
+    border-color: #FFD166 !important;
+    box-shadow: 0 6px 25px rgba(255,209,102,0.3);
+    background: linear-gradient(135deg, rgba(123,44,191,0.9), rgba(0,245,212,0.6)) !important;
 }
 
-/* Hide system text inputs (hidden inputs) completely */
+/* ซ่อนช่องอินพุตระบบ */
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_welcome"]),
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     display: none !important;
@@ -113,7 +128,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     border-radius: 8px;
     padding: 0.5rem 1rem;
     color: #FFFFFF;
-    font-weight: 800;
+    font-weight: 600;
     font-size: 0.9rem;
     margin-bottom: 1.0rem;
     display: flex;
@@ -129,7 +144,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     padding: 0.25rem 0.6rem;
     border-radius: 4px;
     font-size: 0.7rem;
-    font-weight: 800;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     white-space: nowrap;
@@ -150,8 +165,8 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     z-index: 2;
 }
 
-.hero-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.2rem; font-weight: 800; color: #F0E9FA; margin: 0; }
-.hero-subtitle { font-size: 0.85rem; color: #4CC9F0; margin-top: 0.3rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
+.hero-title { font-size: 2rem; font-weight: 700; color: #F0E9FA; margin: 0; }
+.hero-subtitle { font-size: 0.8rem; color: #4CC9F0; margin-top: 0.2rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
 
 .metric-card {
     background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(76,201,240,0.25));
@@ -165,17 +180,16 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     box-shadow: 0 0 15px rgba(123,44,191,0.2);
 }
 
-.metric-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.6rem; font-weight: 800; color: #FFD166; line-height: 1; }
-.metric-label { font-size: 0.8rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; font-weight: 700; }
+.metric-number { font-size: 2.4rem; font-weight: 700; color: #FFD166; line-height: 1; }
+.metric-label { font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; font-weight: 600; }
 
 .section-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 800;
+    font-size: 1.1rem;
+    font-weight: 600;
     color: #F0E9FA;
     margin-bottom: 0.6rem;
     border-bottom: 1px solid rgba(0,245,212,0.4);
-    padding-bottom: 0.3rem;
+    padding-bottom: 0.2rem;
     position: relative;
     z-index: 2;
 }
@@ -185,24 +199,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     border: 1px solid rgba(76,201,240,0.5) !important;
     color: #F0E9FA !important;
     border-radius: 8px !important;
-    font-weight: 700 !important;
-}
-
-.stButton button {
-    background: linear-gradient(135deg, #7B2CBF, #00F5D4) !important;
-    color: #0A041A !important;
-    border: none !important;
-    border-radius: 16px !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-weight: 800 !important;
-    padding: 0.9rem 1.2rem !important;
-    width: 100% !important;
-    box-shadow: 0 0 20px rgba(0,245,212,0.4);
-    transition: all 0.2s ease;
-}
-.stButton button:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 25px rgba(255,209,102,0.6);
+    font-weight: 500 !important;
 }
 </style>
 
@@ -293,9 +290,9 @@ def check_password():
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
 body {
     background: transparent;
     min-height: 100vh;
@@ -303,7 +300,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: 'Plus Jakarta Sans', sans-serif;
     text-align: center;
     padding: 1rem;
     overflow: hidden;
@@ -343,8 +339,8 @@ body {
     line-height: 1.1;
 }
 .and { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: #4CC9F0; margin: 0.1rem 0; }
-.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; font-weight: 800; }
-.moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-weight: 700; }
+.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; }
+.moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-weight: 500; }
 .stars { font-size: 1.2rem; letter-spacing: 0.4rem; margin: 0.5rem 0; animation: shimmer 2s ease-in-out infinite; }
 
 .pin-section {
@@ -360,8 +356,8 @@ body {
     position: relative;
     z-index: 1;
 }
-.pin-title { font-family: 'Pacifico', cursive; font-size: 1.2rem; color: #00F5D4; margin-bottom: 0.3rem; }
-.pin-hint { font-size: 0.75rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 1.2rem; font-style: italic; font-weight: 700; }
+.pin-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: #00F5D4; margin-bottom: 0.3rem; font-weight: 600; }
+.pin-hint { font-size: 0.75rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 1.2rem; font-style: italic; }
 .pin-boxes { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 1.2rem; }
 .pin-box {
     width: 46px;
@@ -372,7 +368,7 @@ body {
     font-size: 1.6rem;
     color: #FFD166;
     text-align: center;
-    font-weight: 800;
+    font-weight: 600;
     outline: none;
     transition: all 0.2s;
     caret-color: transparent;
@@ -387,7 +383,7 @@ body {
     border-radius: 10px;
     padding: 0.75rem 2.5rem;
     font-size: 0.9rem;
-    font-weight: 800;
+    font-weight: 600;
     cursor: pointer;
     width: 100%;
     transition: all 0.2s;
@@ -395,7 +391,7 @@ body {
     box-shadow: 0 0 15px rgba(0,245,212,0.4);
 }
 .enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,245,212,0.6); }
-.error-msg { color: #FF6B6B; font-size: 0.8rem; margin-top: 0.8rem; display: none; font-weight: 700; }
+.error-msg { color: #FF6B6B; font-size: 0.8rem; margin-top: 0.8rem; display: none; }
 .lock-icon { font-size: 1.8rem; margin-bottom: 0.5rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
 </head>
@@ -505,9 +501,9 @@ body {
         <!DOCTYPE html>
         <html>
         <head>
-        <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600&family=Pacifico&display=swap" rel="stylesheet">
         <style>
-        body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Outfit', sans-serif; }
         .welcome-card {
             background: linear-gradient(135deg, rgba(123,44,191,0.85), rgba(0,245,212,0.6));
             border: 2px solid #FFD166;
@@ -522,9 +518,9 @@ body {
         }
         @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .welcome-title { font-family: 'Pacifico', cursive; font-size: 2.6rem; color: #FFD166; margin-bottom: 0.4rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
-        .welcome-sub { font-size: 0.95rem; font-weight: 800; margin-bottom: 1.2rem; color: #FF6B6B; letter-spacing: 0.5px; }
-        .welcome-desc { font-size: 0.92rem; line-height: 1.7; margin-bottom: 2rem; color: #F0E9FA; font-weight: 600; }
-        .highlight-text { color: #FFD166; font-weight: 800; }
+        .welcome-sub { font-size: 0.95rem; font-weight: 600; margin-bottom: 1.2rem; color: #FF6B6B; letter-spacing: 0.5px; }
+        .welcome-desc { font-size: 0.92rem; line-height: 1.7; margin-bottom: 2rem; color: #F0E9FA; font-weight: 500; }
+        .highlight-text { color: #FFD166; font-weight: 600; }
         .explore-btn {
             background: linear-gradient(135deg, #FFD166, #00F5D4);
             color: #0A041A;
@@ -532,7 +528,7 @@ body {
             border-radius: 14px;
             padding: 0.85rem 2.2rem;
             font-size: 1.02rem;
-            font-weight: 800;
+            font-weight: 600;
             cursor: pointer;
             box-shadow: 0 0 20px rgba(0,245,212,0.6);
             transition: transform 0.2s, box-shadow 0.2s;
@@ -587,16 +583,16 @@ components.html("""
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600&display=swap" rel="stylesheet">
 <style>
 .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
-.news-modal { background: linear-gradient(135deg, #8B0000, #1E0B36); border: 3px solid #00F5D4; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 0 40px rgba(0,245,212,0.4); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.news-modal { background: linear-gradient(135deg, #8B0000, #1E0B36); border: 3px solid #00F5D4; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 0 40px rgba(0,245,212,0.4); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-family: 'Outfit', sans-serif; }
 @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-.news-header { background: #00F5D4; color: #0A041A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; font-weight: 800; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.6rem; white-space: nowrap; }
-.news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; color: #FFD166; }
-.news-desc { font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.2rem; color: #F0E9FA; font-weight: 600; }
-.warning-box { background: rgba(0, 245, 212, 0.15); border: 2px dashed #00F5D4; border-radius: 10px; padding: 0.7rem; margin-bottom: 1.2rem; color: #00F5D4; font-weight: 800; font-size: 0.85rem; }
-.ack-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 800; font-size: 0.9rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; }
+.news-header { background: #00F5D4; color: #0A041A; font-size: 0.7rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.6rem; white-space: nowrap; }
+.news-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; color: #FFD166; }
+.news-desc { font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.2rem; color: #F0E9FA; font-weight: 500; }
+.warning-box { background: rgba(0, 245, 212, 0.15); border: 2px dashed #00F5D4; border-radius: 10px; padding: 0.7rem; margin-bottom: 1.2rem; color: #00F5D4; font-weight: 600; font-size: 0.85rem; }
+.ack-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 600; font-size: 0.9rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; }
 .ack-btn:hover { transform: scale(1.05); }
 </style>
 </head>
@@ -631,13 +627,13 @@ stats = calculate_stats()
 st.markdown("""
 <div class="breaking-news-bar">
     <div class="breaking-badge">🔴 BREAKING NEWS</div>
-    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 800;">
+    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 600;">
         ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# ---- NAVIGATION BUTTON BOXES (Bold & Beautiful) ----
+# ---- NAVIGATION BUTTON BOXES (Clean Modern Font) ----
 if "active_tab" not in st.session_state:
     st.session_state.active_tab = "💐 Get Flowers"
 
@@ -656,8 +652,8 @@ st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 1rem 0 
 if st.session_state.active_tab == "💐 Get Flowers":
     st.markdown("""
     <div style="text-align: center; padding: 1.5rem 0;">
-        <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; color: #FFD166; font-size: 2.8rem; font-weight: 800; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5);">Get Flowers! 🌷</h1>
-        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 700; letter-spacing: 1px;">Well done! A bouquet for my favorite enemy. 😜</p>
+        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5);">Get Flowers! 🌷</h1>
+        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px;">Well done! A bouquet for my favorite enemy. 😜</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -668,8 +664,8 @@ if st.session_state.active_tab == "💐 Get Flowers":
             <div style="margin-bottom: 1rem;">
                 <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=600&q=80" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD166; box-shadow: 0 0 25px rgba(255,209,102,0.5); animation: float 3s ease-in-out infinite;">
             </div>
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; color: #FFD166; font-weight: 800; margin-bottom: 0.5rem;">For My Favorite Rival 😈</div>
-            <div style="font-size: 0.95rem; color: #F0E9FA; margin-bottom: 1.2rem; line-height: 1.6; font-weight: 600;">
+            <div style="font-size: 1.3rem; color: #FFD166; font-weight: 700; margin-bottom: 0.5rem;">For My Favorite Rival 😈</div>
+            <div style="font-size: 0.95rem; color: #F0E9FA; margin-bottom: 1.2rem; line-height: 1.6; font-weight: 500;">
                 Thanks for sticking around, even when I'm super moody and don't want to talk! 555. Let's keep supporting and driving each other crazy for a long, long time. 💜
             </div>
         </div>
@@ -679,7 +675,7 @@ if st.session_state.active_tab == "💐 Get Flowers":
     st.markdown('<div class="section-title" style="text-align: center;">💖 Select Our Memory Menu 💖</div>', unsafe_allow_html=True)
     st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
 
-    # 3 Streamlined Menu Buttons (Bold typography)
+    # 3 Streamlined Menu Buttons (Modern Outfit font)
     mcol1, mcol2, mcol3 = st.columns(3)
     with mcol1:
         if st.button("🍒 Our Time Together\n\nCheck our live counter & journey 💜", use_container_width=True, key="menu_btn_1"):
@@ -697,41 +693,41 @@ if st.session_state.active_tab == "💐 Get Flowers":
 # ======== TAB 1: LOVE CAPSULE ========
 elif st.session_state.active_tab == "💌 Love Capsule":
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #4CC9F0; font-size: 0.95rem; font-weight: 700; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #4CC9F0; font-size: 0.95rem; font-weight: 600; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
     <html>
     <head>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-    body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
+    body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Outfit', sans-serif; }
     .capsule-container { text-align: center; max-width: 360px; width: 100%; background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(0,245,212,0.2)); border: 1px solid rgba(0,245,212,0.4); border-radius: 24px; padding: 2rem; backdrop-filter: blur(12px); box-shadow: 0 0 30px rgba(123,44,191,0.3); }
     .letter-icon { font-size: 4.5rem; animation: floatLetter 2.5s ease-in-out infinite; margin-bottom: 0.8rem; filter: drop-shadow(0 0 15px rgba(0,245,212,0.5)); }
     @keyframes floatLetter { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    .open-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 800; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: all 0.2s; }
+    .open-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: all 0.2s; }
     .open-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #9D4EDD, #4CC9F0); }
     
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999; }
     .modal-content { background: #1E0B36; color: #00F5D4; padding: 2.4rem 2rem; border-radius: 24px; text-align: center; max-width: 330px; width: 90%; box-shadow: 0 0 40px rgba(0,245,212,0.4); border: 2px solid #00F5D4; animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
     @keyframes popUp { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    .msg-box { font-size: 1.1rem; font-weight: 800; color: #F0E9FA; margin: 1.2rem 0; line-height: 1.5; }
-    .close-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 12px; padding: 0.65rem 2rem; font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 0 15px rgba(0,245,212,0.4); }
+    .msg-box { font-size: 1.1rem; font-weight: 600; color: #F0E9FA; margin: 1.2rem 0; line-height: 1.5; }
+    .close-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 12px; padding: 0.65rem 2rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 0 15px rgba(0,245,212,0.4); }
     .close-btn:hover { transform: scale(1.05); }
     </style>
     </head>
     <body>
     <div class="capsule-container">
         <div class="letter-icon">✉️</div>
-        <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#FFD166; font-size:1.3rem; font-weight:800; margin-bottom:0.3rem;">Love Capsule Letter</div>
-        <div style="color:#4CC9F0; font-size:0.75rem; font-weight:700; margin-bottom:1.5rem; letter-spacing:0.5px;">Open a note from me ✨</div>
+        <div style="color:#FFD166; font-size:1.3rem; font-weight:700; margin-bottom:0.3rem;">Love Capsule Letter</div>
+        <div style="color:#4CC9F0; font-size:0.75rem; font-weight:600; margin-bottom:1.5rem; letter-spacing:0.5px;">Open a note from me ✨</div>
         <button class="open-btn" onclick="openLetter()">Open Letter 💌</button>
     </div>
 
     <div class="modal" id="modal">
         <div class="modal-content">
             <div style="font-size: 2.2rem;">💌</div>
-            <div style="font-size:0.7rem; color:#4CC9F0; text-transform:uppercase; font-weight:800; letter-spacing:1.5px; margin-top:0.4rem;" id="modalSub">Secret Note Unlocked</div>
+            <div style="font-size:0.7rem; color:#4CC9F0; text-transform:uppercase; font-weight:600; letter-spacing:1.5px; margin-top:0.4rem;" id="modalSub">Secret Note Unlocked</div>
             <div class="msg-box" id="secretMsg">...</div>
             <button class="close-btn" onclick="closeModal()">Got it</button>
         </div>
@@ -768,15 +764,15 @@ elif st.session_state.active_tab == "💌 Love Capsule":
 # ======== TAB 2: BATTLE PHASE ========
 elif st.session_state.active_tab == "⚔️ Battle Phase":
     st.markdown('<div class="section-title">Battle Phase: 5 Cards Choice & Tap/Untap ⚔️🃏</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #4CC9F0; font-size: 0.95rem; font-weight: 700; margin-bottom: 1.0rem;">Pick one of 5 cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #4CC9F0; font-size: 0.95rem; font-weight: 600; margin-bottom: 1.0rem;">Pick one of 5 cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
     <html>
     <head>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-    body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
+    body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Outfit', sans-serif; }
     .duel-arena { text-align: center; background: rgba(30,15,60,0.75); border: 1px solid rgba(0,245,212,0.4); border-radius: 20px; padding: 1.2rem 1.5rem; backdrop-filter: blur(12px); box-shadow: 0 0 30px rgba(123,44,191,0.4); max-width: 560px; width: 100%; position: relative; }
     
     /* Picker Phase */
@@ -788,7 +784,7 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
         border: 2px solid #00F5D4; border-radius: 8px;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
         cursor: pointer; transition: transform 0.2s; padding: 6px; color: #F0E9FA;
-        box-shadow: 0 0 10px rgba(0,245,212,0.2); font-weight: 700;
+        box-shadow: 0 0 10px rgba(0,245,212,0.2); font-weight: 600;
     }
     .option-card:hover { transform: translateY(-5px) scale(1.05); border-color: #FFD166; box-shadow: 0 0 15px rgba(255,209,102,0.4); }
     
@@ -798,8 +794,8 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
     .player-box { background: rgba(10,4,26,0.7); border: 2px solid rgba(0,245,212,0.3); border-radius: 14px; padding: 0.8rem; width: 48%; text-align: center; transition: all 0.3s; }
     .player-box.active-turn { border-color: #FFD166; box-shadow: 0 0 20px rgba(255,209,102,0.6); background: rgba(123,44,191,0.4); }
     
-    .player-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: #FFD166; font-weight: 800; margin-bottom: 0.3rem; }
-    .hp-text { font-size: 0.8rem; color: #F0E9FA; font-weight: 700; margin-bottom: 0.6rem; }
+    .player-name { font-size: 0.85rem; color: #FFD166; font-weight: 700; margin-bottom: 0.3rem; }
+    .hp-text { font-size: 0.8rem; color: #F0E9FA; font-weight: 600; margin-bottom: 0.6rem; }
     
     .card-container { perspective: 1000px; display: inline-block; cursor: pointer; }
     .mtg-card { 
@@ -808,21 +804,21 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
         border: 2px solid #00F5D4; border-radius: 10px; 
         display: flex; flex-direction: column; align-items: center; justify-content: center; 
         transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; 
-        box-shadow: 0 0 15px rgba(0,245,212,0.3); user-select: none; margin: 0 auto; font-weight: 700;
+        box-shadow: 0 0 15px rgba(0,245,212,0.3); user-select: none; margin: 0 auto; font-weight: 600;
     }
     .mtg-card.tapped { transform: rotate(90deg) scale(1.03); border-color: #FF6B6B; box-shadow: -12px 8px 20px rgba(0,0,0,0.6); }
     
-    .turn-indicator { font-size: 0.95rem; color: #FFD166; font-weight: 800; margin-bottom: 0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .action-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 800; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; margin-top: 0.4rem; }
+    .turn-indicator { font-size: 0.95rem; color: #FFD166; font-weight: 700; margin-bottom: 0.5rem; }
+    .action-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; margin-top: 0.4rem; }
     .action-btn:hover { transform: scale(1.05); }
-    .game-log { font-size: 0.75rem; color: #4CC9F0; margin-top: 0.6rem; font-style: italic; min-height: 30px; font-weight: 700; }
+    .game-log { font-size: 0.75rem; color: #4CC9F0; margin-top: 0.6rem; font-style: italic; min-height: 30px; font-weight: 500; }
     
     /* CONGRATULATIONS WIN MODAL */
     .win-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.85); backdrop-filter: blur(6px); justify-content: center; align-items: center; z-index: 9999; }
     .win-content { background: linear-gradient(135deg, #7B2CBF, #1E0B36); color: #F0E9FA; padding: 2.5rem 2rem; border-radius: 24px; text-align: center; max-width: 380px; width: 90%; box-shadow: 0 0 50px rgba(0,245,212,0.6); border: 3px solid #00F5D4; animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .win-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: #FFD166; margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
-    .win-msg { font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; color: #F0E9FA; line-height: 1.4; }
-    .restart-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 12px; padding: 0.7rem 2rem; font-weight: 800; font-size: 1rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; }
+    .win-title { font-size: 1.6rem; font-weight: 700; color: #FFD166; margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
+    .win-msg { font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; color: #F0E9FA; line-height: 1.4; }
+    .restart-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 12px; padding: 0.7rem 2rem; font-weight: 600; font-size: 1rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; }
     .restart-btn:hover { transform: scale(1.06); }
     </style>
     </head>
@@ -830,32 +826,32 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
     <div class="duel-arena">
         <!-- PICKER PHASE (5 Cards including Matcha Boost) -->
         <div id="pickerPhase">
-            <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#FFD166; font-size:1.1rem; font-weight:800; margin-bottom:0.3rem;" id="pickerTitle">Player 1 (Paweetida): Choose your Card! 🎴</div>
-            <div style="font-size:0.75rem; color:#4CC9F0; margin-bottom:0.8rem; font-weight:700;">Select 1 of 5 cards to summon for this turn.</div>
+            <div style="color:#FFD166; font-size:1.1rem; font-weight:700; margin-bottom:0.3rem;" id="pickerTitle">Player 1 (Paweetida): Choose your Card! 🎴</div>
+            <div style="font-size:0.75rem; color:#4CC9F0; margin-bottom:0.8rem; font-weight:600;">Select 1 of 5 cards to summon for this turn.</div>
             <div class="card-options">
                 <div class="option-card" onclick="pickCard('💻', 'Coder Tech', 5)">
                     <div style="font-size:1.8rem;">💻</div>
-                    <div style="font-size:0.65rem; font-weight:800; margin-top:3px;">Coder Tech</div>
+                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Coder Tech</div>
                     <div style="font-size:0.5rem; color:#FFD166;">Attack: 5</div>
                 </div>
                 <div class="option-card" onclick="pickCard('🪖', 'Army Scout', 6)">
                     <div style="font-size:1.8rem;">🪖</div>
-                    <div style="font-size:0.65rem; font-weight:800; margin-top:3px;">Army Scout</div>
+                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Army Scout</div>
                     <div style="font-size:0.5rem; color:#FFD166;">Attack: 6</div>
                 </div>
                 <div class="option-card" onclick="pickCard('👑', 'Rival Queen', 8)">
                     <div style="font-size:1.8rem;">👑</div>
-                    <div style="font-size:0.65rem; font-weight:800; margin-top:3px;">Rival Queen</div>
+                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Rival Queen</div>
                     <div style="font-size:0.5rem; color:#FFD166;">Attack: 8</div>
                 </div>
                 <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('🍵', 'Matcha Boost', 3)">
                     <div style="font-size:1.8rem;">🍵</div>
-                    <div style="font-size:0.65rem; font-weight:800; margin-top:3px;">Matcha Boost</div>
+                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Matcha Boost</div>
                     <div style="font-size:0.5rem; color:#00F5D4;">Atk 3 & Heal 2</div>
                 </div>
                 <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('💖', 'Love Buff', -5)">
                     <div style="font-size:1.8rem;">💖</div>
-                    <div style="font-size:0.65rem; font-weight:800; margin-top:3px;">Love Buff</div>
+                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Love Buff</div>
                     <div style="font-size:0.5rem; color:#00F5D4;">Heal: +5 HP</div>
                 </div>
             </div>
@@ -872,9 +868,9 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
                     <div class="hp-text">HP: <span id="p1Hp">20</span> ❤️</div>
                     <div class="card-container" onclick="playerTap(1)">
                         <div class="mtg-card" id="p1Card">
-                            <div style="font-size: 0.6rem; color: #FFD166; font-weight: 800;" id="p1CardName">Ready</div>
+                            <div style="font-size: 0.6rem; color: #FFD166; font-weight: 600;" id="p1CardName">Ready</div>
                             <div style="font-size: 2.2rem;" id="p1Art">💻</div>
-                            <div style="font-size: 0.55rem; color: #F0E9FA; font-weight: 700;" id="p1Status">Untapped</div>
+                            <div style="font-size: 0.55rem; color: #F0E9FA; font-weight: 500;" id="p1Status">Untapped</div>
                         </div>
                     </div>
                 </div>
@@ -885,9 +881,9 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
                     <div class="hp-text">HP: <span id="p2Hp">20</span> ❤️</div>
                     <div class="card-container" onclick="playerTap(2)">
                         <div class="mtg-card" id="p2Card">
-                            <div style="font-size: 0.6rem; color: #FFD166; font-weight: 800;" id="p2CardName">Ready</div>
+                            <div style="font-size: 0.6rem; color: #FFD166; font-weight: 600;" id="p2CardName">Ready</div>
                             <div style="font-size: 2.2rem;" id="p2Art">🪖</div>
-                            <div style="font-size: 0.55rem; color: #F0E9FA; font-weight: 700;" id="p2Status">Untapped</div>
+                            <div style="font-size: 0.55rem; color: #F0E9FA; font-weight: 500;" id="p2Status">Untapped</div>
                         </div>
                     </div>
                 </div>
@@ -1027,7 +1023,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
         <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
         <div class="hero-title">Paweetida & Dawis</div>
         <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (first liked my IG story ✨)</div>
-        <div style="margin-top:0.5rem; color:#FFD166; font-family:'DM Sans',sans-serif; font-size:0.95rem; font-style:italic; font-weight:700;">
+        <div style="margin-top:0.5rem; color:#FFD166; font-size:0.95rem; font-style:italic; font-weight:600;">
             "{stats['days_together']} days of loving you — and counting."
         </div>
     </div>
@@ -1037,9 +1033,9 @@ elif st.session_state.active_tab == "📊 Our Stats":
     <!DOCTYPE html>
     <html>
     <head>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-    body {{ background: transparent; margin: 0; font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; width: 100%; padding: 0; }}
+    body {{ background: transparent; margin: 0; font-family: 'Outfit', sans-serif; display: flex; justify-content: center; align-items: center; width: 100%; padding: 0; }}
     .live-card {{
         background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(0,245,212,0.25));
         border: 1px solid rgba(76,201,240,0.4);
@@ -1051,9 +1047,9 @@ elif st.session_state.active_tab == "📊 Our Stats":
         box-sizing: border-box;
         box-shadow: 0 0 35px rgba(0,245,212,0.25);
     }}
-    .main-title {{ font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.3rem; font-weight: 800; }}
-    .main-number {{ font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3rem; font-weight: 800; color: #FFD166; line-height: 1; margin-bottom: 0.2rem; }}
-    .main-unit {{ font-size: 0.95rem; color: #F0E9FA; margin-bottom: 1.2rem; font-weight: 700; }}
+    .main-title {{ font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.3rem; font-weight: 600; }}
+    .main-number {{ font-size: 3rem; font-weight: 700; color: #FFD166; line-height: 1; margin-bottom: 0.2rem; }}
+    .main-unit {{ font-size: 0.95rem; color: #F0E9FA; margin-bottom: 1.2rem; font-weight: 600; }}
     .sub-grid {{ display: flex; justify-content: center; gap: 15px; }}
     .sub-box {{
         background: rgba(10,4,26,0.6);
@@ -1063,8 +1059,8 @@ elif st.session_state.active_tab == "📊 Our Stats":
         min-width: 90px;
         text-align: center;
     }}
-    .sub-num {{ font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: #F0E9FA; line-height: 1.1; }}
-    .sub-lbl {{ font-size: 0.7rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; font-weight: 700; }}
+    .sub-num {{ font-size: 1.4rem; font-weight: 700; color: #F0E9FA; line-height: 1.1; }}
+    .sub-lbl {{ font-size: 0.7rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; font-weight: 600; }}
     </style>
     </head>
     <body>
@@ -1116,13 +1112,13 @@ elif st.session_state.active_tab == "📊 Our Stats":
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["weeks_together"]}</div><div class="metric-label">Weeks Together</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:700; margin-top:0.3rem;">{stats["months_together"]} months of us 🌙</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["weeks_together"]}</div><div class="metric-label">Weeks Together</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:600; margin-top:0.3rem;">{stats["months_together"]} months of us 🌙</div></div>', unsafe_allow_html=True)
     with col2:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_to_anniversary"]}</div><div class="metric-label">Days to Anniversary</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:700; margin-top:0.3rem;">22 Aug {stats["next_anniversary"].year} 🎉</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_to_anniversary"]}</div><div class="metric-label">Days to Anniversary</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:600; margin-top:0.3rem;">22 Aug {stats["next_anniversary"].year} 🎉</div></div>', unsafe_allow_html=True)
     with col3:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:700; margin-top:0.3rem;">27 Jul 2025 ✨</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:600; margin-top:0.3rem;">27 Jul 2025 ✨</div></div>', unsafe_allow_html=True)
     with col4:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_army"]}</div><div class="metric-label">Days in Army Service</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:700; margin-top:0.3rem;">Dawis in Army 🪖</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_army"]}</div><div class="metric-label">Days in Army Service</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:600; margin-top:0.3rem;">Dawis in Army 🪖</div></div>', unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
@@ -1149,7 +1145,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
                 marker=dict(size=14, color=colors[i % len(colors)], symbol='diamond'),
                 text=[f"<b>{row['title']}</b><br>({row['date'].strftime('%d %b %Y')})"], 
                 textposition=positions[i],
-                textfont=dict(color='#F0E9FA', size=9, family='DM Sans'),
+                textfont=dict(color='#F0E9FA', size=9, family='Outfit'),
                 showlegend=False
             ))
             fig.add_shape(type='line',
@@ -1164,7 +1160,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
             line=dict(color='rgba(0,245,212,0.8)', width=3))
 
         fig.update_layout(
-            title=dict(text='Our Journey Together Timeline 🗺️', font=dict(color='#FFD166', size=13, family='Plus Jakarta Sans')),
+            title=dict(text='Our Journey Together Timeline 🗺️', font=dict(color='#FFD166', size=13, family='Outfit')),
             paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
             yaxis=dict(visible=False, range=[-0.5, 2.5]), 
             xaxis=dict(showgrid=False, color='#4CC9F0', tickfont=dict(size=10)),
@@ -1174,4 +1170,4 @@ elif st.session_state.active_tab == "📊 Our Stats":
 
     progress = max(0, min(1, 1 - (stats['days_to_anniversary'] / 365)))
     st.progress(progress)
-    st.markdown(f'<div style="color:#4CC9F0; font-size:0.75rem; text-align:center; margin-top:0.3rem; font-weight:700;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="color:#4CC9F0; font-size:0.75rem; text-align:center; margin-top:0.3rem; font-weight:600;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_allow_html=True)
