@@ -633,11 +633,14 @@ with tab_flower:
     </div>
     """, unsafe_allow_html=True)
 
+    # High-definition bouquet image presentation (Single gorgeous tulip bouquet)
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
         st.markdown("""
         <div style="background: linear-gradient(135deg, rgba(123,44,191,0.4), rgba(255,182,193,0.2)); border: 2px solid rgba(255,192,203,0.6); border-radius: 28px; padding: 2rem; text-align: center; box-shadow: 0 0 35px rgba(255,182,193,0.3); backdrop-filter: blur(10px);">
-            <div style="font-size: 6rem; margin-bottom: 1rem; animation: float 3s ease-in-out infinite;">💐🌷</div>
+            <div style="margin-bottom: 1rem;">
+                <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD166; box-shadow: 0 0 25px rgba(255,209,102,0.5); animation: float 3s ease-in-out infinite;">
+            </div>
             <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; color: #FFD166; font-weight: 700; margin-bottom: 0.5rem;">For My Favorite Rival 😈</div>
             <div style="font-size: 0.9rem; color: #F0E9FA; margin-bottom: 1.5rem; line-height: 1.6;">
                 Thanks for sticking around, even when I'm super moody and don't want to talk! 555. Let's keep supporting and driving each other crazy for a long, long time. 💜
