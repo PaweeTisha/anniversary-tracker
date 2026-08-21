@@ -582,24 +582,55 @@ if not check_password():
 today_date = date.today()
 is_anniversary_season = (today_date.month == 8 and today_date.day in [21, 22])
 
-if "show_breaking_news" not in st.session_state:
-    st.session_state.show_breaking_news = True
-
-if is_anniversary_season and st.session_state.show_breaking_news:
-    col_bn1, col_bn2 = st.columns([10, 1])
-    with col_bn1:
-        st.markdown("""
-        <div class="breaking-news-bar" style="margin-bottom: 0px;">
-            <div class="breaking-badge">🔴 BREAKING NEWS</div>
-            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 600;">
-                ⚠️ WARNING: TODAY IS OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
+if is_anniversary_season:
+    components.html("""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+    .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
+    .news-modal { background: linear-gradient(135deg, #8B0000, #1E0B36); border: 3px solid #00F5D4; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 0 40px rgba(0,245,212,0.4); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .news-header { background: #00F5D4; color: #0A041A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.6rem; white-space: nowrap; }
+    .news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #FFD166; }
+    .news-desc { font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.2rem; color: #F0E9FA; font-weight: 500; }
+    .warning-box { background: rgba(0, 245, 212, 0.15); border: 2px dashed #00F5D4; border-radius: 10px; padding: 0.7rem; margin-bottom: 1.2rem; color: #00F5D4; font-weight: 700; font-size: 0.85rem; }
+    .ack-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; }
+    .ack-btn:hover { transform: scale(1.05); }
+    </style>
+    </head>
+    <body>
+    <div class="news-overlay" id="newsModal">
+        <div class="news-modal">
+            <div class="news-header">🚨 BREAKING NEWS 🚨</div>
+            <div class="news-title">Upcoming Anniversary Alert! 💜</div>
+            <div class="news-desc">
+                Get ready for special dates, love capsules, and epic card duels!
             </div>
+            <div class="warning-box">
+                ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🚨🔥
+            </div>
+            <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
         </div>
-        """, unsafe_allow_html=True)
-    with col_bn2:
-        if st.button("✕", key="close_news_btn", use_container_width=True):
-            st.session_state.show_breaking_news = False
-            st.rerun()
+    </div>
+    <script>
+    function closeNews() {
+        document.getElementById('newsModal').style.display = 'none';
+    }
+    </script>
+    </body>
+    </html>
+    """, height=330, scrolling=False)
+
+    st.markdown("""
+    <div class="breaking-news-bar">
+        <div class="breaking-badge">🔴 BREAKING NEWS</div>
+        <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 600;">
+            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ---- INIT & STATS ----
 init_db()
@@ -631,6 +662,7 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
 
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
+        # Sunflower bouquet with floating clovers & expanded diverse surprise messages
         components.html("""
         <!DOCTYPE html>
         <html>
@@ -672,21 +704,20 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
         }
-        .floating-icon {
+        .floating-clover {
             position: absolute;
             font-size: 1.4rem;
-            animation: floatIcon 2.4s ease-in-out infinite;
+            animation: floatClover 2.2s ease-in-out infinite;
             pointer-events: none;
             opacity: 0;
         }
-        @keyframes floatIcon {
-            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-80px) scale(1.4) rotate(20deg); opacity: 0; }
+        @keyframes floatClover {
+            0% { transform: translateY(0) scale(0.6); opacity: 1; }
+            100% { transform: translateY(-70px) scale(1.3); opacity: 0; }
         }
-        .icon-1 { top: 5px; left: 5px; animation-delay: 0s; }
-        .icon-2 { top: 0px; right: 10px; animation-delay: 0.6s; }
-        .icon-3 { bottom: 10px; left: 5px; animation-delay: 1.2s; }
-        .icon-4 { bottom: 0px; right: 15px; animation-delay: 1.8s; }
+        .clover-1 { top: 10px; left: 10px; animation-delay: 0s; }
+        .clover-2 { top: 0px; right: 20px; animation-delay: 0.7s; }
+        .clover-3 { bottom: 20px; left: 0px; animation-delay: 1.4s; }
         
         .rival-title { font-size: 1.3rem; color: #FFD166; font-weight: 700; margin: 1rem 0 0.5rem 0; }
         .rival-desc { font-size: 0.95rem; color: #F0E9FA; line-height: 1.6; font-weight: 500; min-height: 75px; }
@@ -696,10 +727,9 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
         <body>
             <div class="flower-card">
                 <div class="img-container" onclick="changeTease()" title="Click me! ✨">
-                    <span class="floating-icon icon-1">💜</span>
-                    <span class="floating-icon icon-2">✨</span>
-                    <span class="floating-icon icon-3">🍀</span>
-                    <span class="floating-icon icon-4">💙</span>
+                    <span class="floating-clover clover-1">🍀</span>
+                    <span class="floating-clover clover-2">✨</span>
+                    <span class="floating-clover clover-3">💚</span>
                     <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80" class="flower-img">
                 </div>
                 <div class="rival-title">For my No.1 enemy 🤭</div>
@@ -882,7 +912,7 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
     </head>
     <body>
     <div class="duel-arena">
-        <!-- PICKER PHASE (7 Lucky Cards) -->
+        <!-- PICKER PHASE (7 Lucky Cards with Teasing Power and Sushi Buff) -->
         <div id="pickerPhase">
             <div style="color:#FFD166; font-size:1.1rem; font-weight:700; margin-bottom:0.3rem;" id="pickerTitle">Player 1 (Paweetida): Choose your Card! 🎴</div>
             <div style="font-size:0.75rem; color:#4CC9F0; margin-bottom:0.8rem; font-weight:600;">Select 1 of 7 lucky cards to summon for this turn.</div>
