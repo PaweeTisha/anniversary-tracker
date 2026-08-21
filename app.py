@@ -126,8 +126,8 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
 
 .hero-section {
     background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(0,245,212,0.25));
-    border-radius: 20px;
-    padding: 1.5rem;
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
     text-align: center;
     border: 1px solid rgba(76,201,240,0.4);
     backdrop-filter: blur(12px);
@@ -970,61 +970,86 @@ with tab_stats:
     """, unsafe_allow_html=True)
 
     # -------------------------------------------------------------
-    # ใช้ Native Streamlit + CSS ล้วนๆ เพื่อให้ขอบโค้งมนสวยเนียนทุกมุม
+    # ใช้คลาส .hero-section ร่วมกันเพื่อให้ขอบโค้งมนสวยเนียนเป๊ะทุกมุม 100%
     # -------------------------------------------------------------
-    st.markdown(f"""
-    <div style="
-        background: linear-gradient(135deg, rgba(123,44,191,0.4), rgba(0,245,212,0.2));
-        border: 1px solid rgba(0,245,212,0.3);
-        border-radius: 20px;
-        padding: 1.8rem 1rem;
+    components.html(f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+    body {{ background: transparent; margin: 0; font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; width: 100%; padding: 0; }}
+    .live-card {{
+        background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(0,245,212,0.25));
+        border: 1px solid rgba(76,201,240,0.4);
+        border-radius: 16px;
+        padding: 1.5rem 1rem;
         text-align: center;
-        backdrop-filter: blur(8px);
-        box-shadow: 0 0 20px rgba(123,44,191,0.3);
-        margin-bottom: 1rem;
-    ">
-        <div style="font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 0.3rem;">Since Day One (Official Couple) 💜</div>
-        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3rem; font-weight: 700; color: #FFD166; line-height: 1; margin-bottom: 0.2rem;">{stats['days_together']}</div>
-        <div style="font-size: 0.95rem; color: #F0E9FA; margin-bottom: 1.2rem; font-weight: 500;">Days</div>
-        
-        <div style="display: flex; justify-content: center; gap: 15px;">
-            <div style="background: rgba(10,4,26,0.6); border: 1px solid rgba(0,245,212,0.3); border-radius: 12px; padding: 0.6rem 1.2rem; min-width: 90px;">
-                <div id="hoursNum" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 700; color: #F0E9FA;">0</div>
-                <div style="font-size: 0.7rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem;">Hours</div>
-            </div>
-            <div style="background: rgba(10,4,26,0.6); border: 1px solid rgba(0,245,212,0.3); border-radius: 12px; padding: 0.6rem 1.2rem; min-width: 90px;">
-                <div id="minsNum" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 700; color: #F0E9FA;">0</div>
-                <div style="font-size: 0.7rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem;">Minutes</div>
-            </div>
-            <div style="background: rgba(10,4,26,0.6); border: 1px solid rgba(0,245,212,0.3); border-radius: 12px; padding: 0.6rem 1.2rem; min-width: 90px;">
-                <div id="secsNum" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 700; color: #FFD166;">0</div>
-                <div style="font-size: 0.7rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem;">Seconds</div>
+        backdrop-filter: blur(12px);
+        width: 100%;
+        box-sizing: border-box;
+        box-shadow: 0 0 35px rgba(0,245,212,0.25);
+    }}
+    .main-title {{ font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.3rem; font-weight: 600; }}
+    .main-number {{ font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3rem; font-weight: 700; color: #FFD166; line-height: 1; margin-bottom: 0.2rem; }}
+    .main-unit {{ font-size: 0.95rem; color: #F0E9FA; margin-bottom: 1.2rem; font-weight: 500; }}
+    .sub-grid {{ display: flex; justify-content: center; gap: 15px; }}
+    .sub-box {{
+        background: rgba(10,4,26,0.6);
+        border: 1px solid rgba(0,245,212,0.3);
+        border-radius: 12px;
+        padding: 0.6rem 1.2rem;
+        min-width: 90px;
+        text-align: center;
+    }}
+    .sub-num {{ font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 700; color: #F0E9FA; line-height: 1.1; }}
+    .sub-lbl {{ font-size: 0.7rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }}
+    </style>
+    </head>
+    <body>
+        <div class="live-card">
+            <div class="main-title">Since Day One (Official Couple) 💜</div>
+            <div class="main-number">{stats['days_together']}</div>
+            <div class="main-unit">Days</div>
+            <div class="sub-grid">
+                <div class="sub-box">
+                    <div class="sub-num" id="hoursNum">0</div>
+                    <div class="sub-lbl">Hours</div>
+                </div>
+                <div class="sub-box">
+                    <div class="sub-num" id="minsNum">0</div>
+                    <div class="sub-lbl">Minutes</div>
+                </div>
+                <div class="sub-box">
+                    <div class="sub-num" id="secsNum" style="color: #FFD166;">0</div>
+                    <div class="sub-lbl">Seconds</div>
+                </div>
             </div>
         </div>
-    </div>
+        <script>
+        const startDate = new Date("2025-08-22T00:00:00");
+        function updateCounter() {{
+            const now = new Date();
+            const diff = now - startDate;
+            if (diff > 0) {{
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const mins = Math.floor((diff / 1000 / 60) % 60);
+                const secs = Math.floor((diff / 1000) % 60);
 
-    <script>
-    const startDate = new Date("2025-08-22T00:00:00");
-    function updateCounter() {{
-        const now = new Date();
-        const diff = now - startDate;
-        if (diff > 0) {{
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const mins = Math.floor((diff / 1000 / 60) % 60);
-            const secs = Math.floor((diff / 1000) % 60);
-
-            const hEl = document.getElementById("hoursNum");
-            const mEl = document.getElementById("minsNum");
-            const sEl = document.getElementById("secsNum");
-            if (hEl) hEl.innerText = hours;
-            if (mEl) mEl.innerText = mins;
-            if (sEl) sEl.innerText = secs;
+                const hEl = document.getElementById("hoursNum");
+                const mEl = document.getElementById("minsNum");
+                const sEl = document.getElementById("secsNum");
+                if (hEl) hEl.innerText = hours;
+                if (mEl) mEl.innerText = mins;
+                if (sEl) sEl.innerText = secs;
+            }}
         }}
-    }}
-    setInterval(updateCounter, 1000);
-    updateCounter();
-    </script>
-    """, unsafe_allow_html=True)
+        setInterval(updateCounter, 1000);
+        updateCounter();
+        </script>
+    </body>
+    </html>
+    """, height=205, scrolling=False)
 
     st.markdown("<div style='margin-top:0.4rem'></div>", unsafe_allow_html=True)
 
