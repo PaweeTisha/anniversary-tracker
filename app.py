@@ -655,14 +655,14 @@ st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 1rem 0 
 if st.session_state.active_tab == "🍀 Get Some Luck":
     st.markdown("""
     <div style="text-align: center; padding: 1.5rem 0; width: 100%;">
-        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5); text-align: center;">Get Some Luck!</h1>
+        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5); text-align: center;">Get Some Luck! 🍀</h1>
         <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px; text-align: center;">Well done! A bright sunflower bouquet and good luck for my favorite enemy. 😜</p>
     </div>
     """, unsafe_allow_html=True)
 
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
-        # Sunflower bouquet with multi-colored floating icons
+        # Sunflower bouquet with floating clovers & expanded diverse surprise messages
         components.html("""
         <!DOCTYPE html>
         <html>
@@ -704,21 +704,20 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
         }
-        .floating-icon {
+        .floating-clover {
             position: absolute;
             font-size: 1.4rem;
-            animation: floatIcon 2.4s ease-in-out infinite;
+            animation: floatClover 2.2s ease-in-out infinite;
             pointer-events: none;
             opacity: 0;
         }
-        @keyframes floatIcon {
-            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-80px) scale(1.4) rotate(20deg); opacity: 0; }
+        @keyframes floatClover {
+            0% { transform: translateY(0) scale(0.6); opacity: 1; }
+            100% { transform: translateY(-70px) scale(1.3); opacity: 0; }
         }
-        .icon-1 { top: 5px; left: 5px; animation-delay: 0s; }
-        .icon-2 { top: 0px; right: 10px; animation-delay: 0.6s; }
-        .icon-3 { bottom: 10px; left: 5px; animation-delay: 1.2s; }
-        .icon-4 { bottom: 0px; right: 15px; animation-delay: 1.8s; }
+        .clover-1 { top: 10px; left: 10px; animation-delay: 0s; }
+        .clover-2 { top: 0px; right: 20px; animation-delay: 0.7s; }
+        .clover-3 { bottom: 20px; left: 0px; animation-delay: 1.4s; }
         
         .rival-title { font-size: 1.3rem; color: #FFD166; font-weight: 700; margin: 1rem 0 0.5rem 0; }
         .rival-desc { font-size: 0.95rem; color: #F0E9FA; line-height: 1.6; font-weight: 500; min-height: 75px; }
@@ -728,10 +727,9 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
         <body>
             <div class="flower-card">
                 <div class="img-container" onclick="changeTease()" title="Click me! ✨">
-                    <span class="floating-icon icon-1">💜</span>
-                    <span class="floating-icon icon-2">✨</span>
-                    <span class="floating-icon icon-3">🍀</span>
-                    <span class="floating-icon icon-4">💙</span>
+                    <span class="floating-clover clover-1">🍀</span>
+                    <span class="floating-clover clover-2">✨</span>
+                    <span class="floating-clover clover-3">💚</span>
                     <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80" class="flower-img">
                 </div>
                 <div class="rival-title">For my No.1 enemy 🤭</div>
@@ -853,8 +851,8 @@ elif st.session_state.active_tab == "💌 Love Capsule":
 
 # ======== TAB 2: BATTLE PHASE ========
 elif st.session_state.active_tab == "⚔️ Battle Phase":
-    st.markdown('<div class="section-title">Battle Phase: 5 Cards Choice & Tap/Untap ⚔️🃏</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #4CC9F0; font-size: 0.95rem; font-weight: 600; margin-bottom: 1.0rem;">Pick one of 5 cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Battle Phase: 7 Cards Choice & Tap/Untap ⚔️🃏</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #4CC9F0; font-size: 0.95rem; font-weight: 600; margin-bottom: 1.0rem;">Pick one of 7 cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -863,17 +861,17 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
     body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Outfit', sans-serif; }
-    .duel-arena { text-align: center; background: rgba(30,15,60,0.75); border: 1px solid rgba(0,245,212,0.4); border-radius: 20px; padding: 1.2rem 1.5rem; backdrop-filter: blur(12px); box-shadow: 0 0 30px rgba(123,44,191,0.4); max-width: 560px; width: 100%; position: relative; }
+    .duel-arena { text-align: center; background: rgba(30,15,60,0.75); border: 1px solid rgba(0,245,212,0.4); border-radius: 20px; padding: 1.2rem 1.5rem; backdrop-filter: blur(12px); box-shadow: 0 0 30px rgba(123,44,191,0.4); max-width: 600px; width: 100%; position: relative; }
     
     /* Picker Phase */
     #pickerPhase { display: block; }
     .card-options { display: flex; justify-content: center; gap: 8px; margin: 0.6rem 0; flex-wrap: wrap; }
     .option-card {
-        width: 95px; height: 130px;
+        width: 85px; height: 120px;
         background: linear-gradient(135deg, #7B2CBF, #1E0B36);
         border: 2px solid #00F5D4; border-radius: 8px;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
-        cursor: pointer; transition: transform 0.2s; padding: 6px; color: #F0E9FA;
+        cursor: pointer; transition: transform 0.2s; padding: 4px; color: #F0E9FA;
         box-shadow: 0 0 10px rgba(0,245,212,0.2); font-weight: 600;
     }
     .option-card:hover { transform: translateY(-5px) scale(1.05); border-color: #FFD166; box-shadow: 0 0 15px rgba(255,209,102,0.4); }
@@ -914,35 +912,45 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
     </head>
     <body>
     <div class="duel-arena">
-        <!-- PICKER PHASE (5 Cards including Matcha Boost) -->
+        <!-- PICKER PHASE (7 Lucky Cards with Teasing Power and Sushi Buff) -->
         <div id="pickerPhase">
             <div style="color:#FFD166; font-size:1.1rem; font-weight:700; margin-bottom:0.3rem;" id="pickerTitle">Player 1 (Paweetida): Choose your Card! 🎴</div>
-            <div style="font-size:0.75rem; color:#4CC9F0; margin-bottom:0.8rem; font-weight:600;">Select 1 of 5 cards to summon for this turn.</div>
+            <div style="font-size:0.75rem; color:#4CC9F0; margin-bottom:0.8rem; font-weight:600;">Select 1 of 7 lucky cards to summon for this turn.</div>
             <div class="card-options">
                 <div class="option-card" onclick="pickCard('💻', 'Coder Tech', 5)">
-                    <div style="font-size:1.8rem;">💻</div>
-                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Coder Tech</div>
-                    <div style="font-size:0.5rem; color:#FFD166;">Attack: 5</div>
+                    <div style="font-size:1.5rem;">💻</div>
+                    <div style="font-size:0.6rem; font-weight:600; margin-top:2px;">Coder Tech</div>
+                    <div style="font-size:0.48rem; color:#FFD166;">Atk: 5</div>
                 </div>
                 <div class="option-card" onclick="pickCard('🪖', 'Army Scout', 6)">
-                    <div style="font-size:1.8rem;">🪖</div>
-                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Army Scout</div>
-                    <div style="font-size:0.5rem; color:#FFD166;">Attack: 6</div>
+                    <div style="font-size:1.5rem;">🪖</div>
+                    <div style="font-size:0.6rem; font-weight:600; margin-top:2px;">Army Scout</div>
+                    <div style="font-size:0.48rem; color:#FFD166;">Atk: 6</div>
                 </div>
                 <div class="option-card" onclick="pickCard('👑', 'Rival Queen', 8)">
-                    <div style="font-size:1.8rem;">👑</div>
-                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Rival Queen</div>
-                    <div style="font-size:0.5rem; color:#FFD166;">Attack: 8</div>
+                    <div style="font-size:1.5rem;">👑</div>
+                    <div style="font-size:0.6rem; font-weight:600; margin-top:2px;">Rival Queen</div>
+                    <div style="font-size:0.48rem; color:#FFD166;">Atk: 8</div>
                 </div>
                 <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('🍵', 'Matcha Boost', 3)">
-                    <div style="font-size:1.8rem;">🍵</div>
-                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Matcha Boost</div>
-                    <div style="font-size:0.5rem; color:#00F5D4;">Atk 3 & Heal 2</div>
+                    <div style="font-size:1.5rem;">🍵</div>
+                    <div style="font-size:0.6rem; font-weight:600; margin-top:2px;">Matcha Boost</div>
+                    <div style="font-size:0.48rem; color:#00F5D4;">Atk 3 / Heal 2</div>
                 </div>
                 <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('💖', 'Love Buff', -5)">
-                    <div style="font-size:1.8rem;">💖</div>
-                    <div style="font-size:0.65rem; font-weight:600; margin-top:3px;">Love Buff</div>
-                    <div style="font-size:0.5rem; color:#00F5D4;">Heal: +5 HP</div>
+                    <div style="font-size:1.5rem;">💖</div>
+                    <div style="font-size:0.6rem; font-weight:600; margin-top:2px;">Love Buff</div>
+                    <div style="font-size:0.48rem; color:#00F5D4;">Heal: +5 HP</div>
+                </div>
+                <div class="option-card" style="border-color: #FFD166;" onclick="pickCard('😜', 'Teasing Power', 7)">
+                    <div style="font-size:1.5rem;">😜</div>
+                    <div style="font-size:0.6rem; font-weight:600; margin-top:2px;">Teasing Power</div>
+                    <div style="font-size:0.48rem; color:#FFD166;">Atk: 7</div>
+                </div>
+                <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('🍣', 'Sushi Buff', -7)">
+                    <div style="font-size:1.5rem;">🍣</div>
+                    <div style="font-size:0.6rem; font-weight:600; margin-top:2px;">Sushi Buff</div>
+                    <div style="font-size:0.48rem; color:#00F5D4;">Heal: +7 HP</div>
                 </div>
             </div>
         </div>
