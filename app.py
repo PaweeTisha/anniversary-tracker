@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Tisha & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS ----
+# ---- CUSTOM CSS (Fixed Top Padding for Tabs) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -32,7 +32,7 @@ st.markdown("""
 }
 
 .block-container {
-    padding-top: 1.2rem !important;
+    padding-top: 3.5rem !important;
     padding-bottom: 2rem !important;
     max-width: 1250px !important;
 }
@@ -449,7 +449,7 @@ if not check_password():
 init_db()
 stats = calculate_stats()
 
-# ---- TABS (Fixed and Clean) ----
+# ---- TABS (Properly visible and fully functional) ----
 tab_quest, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["🧩 Memory Quest", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
 # ======== TAB 0: MEMORY QUEST (Mini-game) ========
