@@ -528,10 +528,10 @@ with tab_capsule:
     </html>
     """, height=380, scrolling=False)
 
-# ======== TAB 1: BATTLE PHASE (2-Player Local Tap/Untap Duel) ========
+# ======== TAB 1: BATTLE PHASE (2-Player Hand & Spell Deck Duel) ========
 with tab_battle:
-    st.markdown('<div class="section-title">Battle Phase: 2-Player Local Duel (Tap / Untap) ⚔️🃏</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Take turns! Click your card to Tap (Attack) or Untap (Prepare) and defeat your opponent. ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Battle Phase: 2-Player Spell Card Duel ⚔️🃏</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Draw and choose spells from your hand to attack or heal. Take turns to win the duel! ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -542,127 +542,135 @@ with tab_battle:
     body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
     .duel-arena { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 1.2rem 1.5rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 500px; width: 100%; }
     
-    .players-container { display: flex; justify-content: space-around; align-items: center; gap: 10px; margin-bottom: 0.8rem; }
-    .player-box { background: rgba(26,10,46,0.6); border: 2px solid rgba(176,143,212,0.3); border-radius: 12px; padding: 0.8rem; width: 45%; text-align: center; transition: all 0.3s; }
-    .player-box.active-turn { border-color: #C9A84C; box-shadow: 0 0 15px rgba(201,168,76,0.5); background: rgba(107,63,160,0.4); }
+    .hp-container { display: flex; justify-content: space-around; margin-bottom: 0.8rem; font-size: 0.85rem; color: #F0E9FA; font-weight: 700; }
+    .hp-box { background: rgba(26,10,46,0.6); padding: 0.4rem 0.9rem; border-radius: 8px; border: 1px solid rgba(176,143,212,0.3); }
     
-    .player-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.3rem; }
-    .hp-text { font-size: 0.8rem; color: #F0E9FA; font-weight: 600; margin-bottom: 0.5rem; }
+    .turn-indicator { font-size: 0.95rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.6rem; font-family: 'Plus Jakarta Sans', sans-serif; }
     
-    .card-container { perspective: 1000px; display: inline-block; cursor: pointer; }
-    .mtg-card { 
-        width: 110px; height: 150px; 
-        background: linear-gradient(135deg, #3D1A6E, #6B3FA0); 
-        border: 2px solid #C9A84C; 
-        border-radius: 10px; 
-        display: flex; flex-direction: column; align-items: center; justify-content: center; 
-        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; 
-        box-shadow: 0 6px 15px rgba(0,0,0,0.5); 
-        user-select: none; margin: 0 auto;
+    .hand-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 0.8rem; min-height: 130px; }
+    .spell-card {
+        width: 110px; height: 135px;
+        background: linear-gradient(135deg, #3D1A6E, #6B3FA0);
+        border: 2px solid #C9A84C;
+        border-radius: 10px;
+        display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+        cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+        padding: 8px; text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
-    .mtg-card:hover { border-color: #F0E9FA; }
-    .mtg-card.tapped { transform: rotate(90deg) scale(1.03); border-color: #7A8C6A; }
+    .spell-card:hover { transform: translateY(-8px) scale(1.05); border-color: #F0E9FA; box-shadow: 0 8px 20px rgba(201,168,76,0.5); }
+    .card-title { font-size: 0.7rem; color: #C9A84C; font-weight: 700; }
+    .card-emoji { font-size: 2rem; }
+    .card-effect { font-size: 0.55rem; color: #F0E9FA; line-height: 1.1; }
     
-    .turn-indicator { font-size: 0.9rem; color: #C9A84C; font-weight: 700; margin-top: 0.4rem; margin-bottom: 0.4rem; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .action-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(107,63,160,0.4); transition: transform 0.2s; margin-top: 0.4rem; }
+    .action-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(107,63,160,0.4); transition: transform 0.2s; }
     .action-btn:hover { transform: scale(1.05); }
+    
+    .battle-log { font-size: 0.75rem; color: #B08FD4; margin-top: 0.6rem; min-height: 30px; font-style: italic; }
     </style>
     </head>
     <body>
     <div class="duel-arena">
-        <div class="turn-indicator" id="turnText">Turn: Player 1 (Paweetida) 💻</div>
+        <div class="turn-indicator" id="turnText">Turn: Player 1 (Tisha 💻) — Draw your cards!</div>
         
-        <div class="players-container">
-            <!-- Player 1 -->
-            <div class="player-box active-turn" id="p1Box">
-                <div class="player-name">Player 1 (Tisha) 💻</div>
-                <div class="hp-text">HP: <span id="p1Hp">20</span> ❤️</div>
-                <div class="card-container" onclick="playerAction(1)">
-                    <div class="mtg-card" id="p1Card">
-                        <div style="font-size: 0.65rem; color: #C9A84C; font-weight: 700;">Tisha Card</div>
-                        <div style="font-size: 2.2rem;" id="p1Art">💻</div>
-                        <div style="font-size: 0.55rem; color: #F0E9FA;">Tap/Untap</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Player 2 -->
-            <div class="player-box" id="p2Box">
-                <div class="player-name">Player 2 (Dawis) 🪖</div>
-                <div class="hp-text">HP: <span id="p2Hp">20</span> ❤️</div>
-                <div class="card-container" onclick="playerAction(2)">
-                    <div class="mtg-card" id="p2Card">
-                        <div style="font-size: 0.65rem; color: #C9A84C; font-weight: 700;">Dawis Card</div>
-                        <div style="font-size: 2.2rem;" id="p2Art">🪖</div>
-                        <div style="font-size: 0.55rem; color: #F0E9FA;">Tap/Untap</div>
-                    </div>
-                </div>
-            </div>
+        <div class="hp-container">
+            <div class="hp-box">P1 HP: <span id="p1Hp">20</span> ❤️</div>
+            <div class="hp-box">P2 HP: <span id="p2Hp">20</span> ❤️</div>
+        </div>
+        
+        <div style="font-size: 0.75rem; color: #F0E9FA; font-weight: 600; text-align: left; margin-bottom: 4px;">Your Hand (Click a card to play):</div>
+        <div class="hand-container" id="handContainer">
+            <!-- Cards will be injected by JS -->
         </div>
         
         <div>
-            <button class="action-btn" onclick="endTurn()">End Turn / Pass ⏭️</button>
+            <button class="action-btn" onclick="drawCards()">Draw Hand 🎴</button>
         </div>
-        <div id="gameLog" style="font-size: 0.75rem; color: #B08FD4; margin-top: 0.5rem; font-style: italic;">Tap your card to attack the opponent, then end your turn!</div>
+        
+        <div class="battle-log" id="battleLog">Click 'Draw Hand' to get your spells and start fighting! ✨</div>
     </div>
 
     <script>
     let p1Hp = 20;
     let p2Hp = 20;
-    let currentTurn = 1; // 1 = Player 1, 2 = Player 2
-    let p1Tapped = false;
-    let p2Tapped = false;
+    let currentTurn = 1; // 1 = Tisha, 2 = Dawis
 
-    function playerAction(playerNum) {
-        if (playerNum !== currentTurn) {
-            document.getElementById('gameLog').innerText = `Not your turn! It's Player ${currentTurn}'s turn. 🛑`;
-            return;
-        }
+    const deck = [
+        { name: "Support Wave", emoji: "💖", type: "heal", val: 5, desc: "Restores 5 HP" },
+        { name: "Army Strike", emoji: "🪖", type: "attack", val: 6, desc: "Deals 6 Damage" },
+        { name: "Tease Burst", emoji: "😜", type: "attack", val: 8, desc: "Deals 8 Damage" },
+        { name: "Shield Buff", emoji: "🛡️", type: "heal", val: 4, desc: "Restores 4 HP" },
+        { name: "Ultimate Love", emoji: "🏆", type: "attack", val: 10, desc: "Deals 10 Damage" }
+    ];
 
-        if (currentTurn === 1) {
-            p1Tapped = !p1Tapped;
-            const card = document.getElementById('p1Card');
-            if (p1Tapped) {
-                card.classList.add('tapped');
-                p2Hp = Math.max(0, p2Hp - 5);
-                document.getElementById('p2Hp').innerText = p2Hp;
-                document.getElementById('gameLog').innerText = "Player 1 Tapped & attacked Player 2 for 5 damage! 💥";
-            } else {
-                card.classList.remove('tapped');
-                document.getElementById('gameLog').innerText = "Player 1 Untapped (Prepared).";
-            }
-        } else {
-            p2Tapped = !p2Tapped;
-            const card = document.getElementById('p2Card');
-            if (p2Tapped) {
-                card.classList.add('tapped');
-                p1Hp = Math.max(0, p1Hp - 5);
-                document.getElementById('p1Hp').innerText = p1Hp;
-                document.getElementById('gameLog').innerText = "Player 2 Tapped & attacked Player 1 for 5 damage! 💥";
-            } else {
-                card.classList.remove('tapped');
-                document.getElementById('gameLog').innerText = "Player 2 Untapped (Prepared).";
-            }
-        }
-
-        if (p1Hp <= 0 || p2Hp <= 0) {
-            const winner = p1Hp <= 0 ? "Player 2 (Dawis)" : "Player 1 (Tisha)";
-            document.getElementById('gameLog').innerText = `🏆 Game Over! ${winner} wins the duel! Refresh tab to restart. 🎉`;
-        }
+    function drawCards() {
+        renderHand();
+        document.getElementById('battleLog').innerText = `Player ${currentTurn} drew 3 spell cards! Choose one to play. 🃏`;
     }
 
-    function endTurn() {
-        currentTurn = currentTurn === 1 ? 2 : 1;
-        document.getElementById('turnText').innerText = `Turn: Player ${currentTurn} (${currentTurn === 1 ? 'Paweetida 💻' : 'Dawis 🪖'})`;
-        
-        if (currentTurn === 1) {
-            document.getElementById('p1Box').classList.add('active-turn');
-            document.getElementById('p2Box').classList.remove('active-turn');
-        } else {
-            document.getElementById('p2Box').classList.add('active-turn');
-            document.getElementById('p1Box').classList.remove('active-turn');
+    function getRandomCards() {
+        let hand = [];
+        for(let i=0; i<3; i++) {
+            let randCard = deck[Math.floor(Math.random() * deck.length)];
+            hand.push(randCard);
         }
-        document.getElementById('gameLog').innerText = `Now it's Player ${currentTurn}'s turn to Tap or Untap! ✨`;
+        return hand;
+    }
+
+    function renderHand() {
+        const container = document.getElementById('handContainer');
+        container.innerHTML = "";
+        let hand = getRandomCards();
+
+        hand.forEach(card => {
+            let cardEl = document.createElement('div');
+            cardEl.className = 'spell-card';
+            cardEl.innerHTML = `
+                <div class="card-title">${card.name}</div>
+                <div class="card-emoji">${card.emoji}</div>
+                <div class="card-effect">${card.desc}</div>
+            `;
+            cardEl.onclick = () => playSpell(card);
+            container.appendChild(cardEl);
+        });
+    }
+
+    function playSpell(card) {
+        if (p1Hp <= 0 || p2Hp <= 0) return;
+
+        let logText = "";
+        if (currentTurn === 1) {
+            if (card.type === 'attack') {
+                p2Hp = Math.max(0, p2Hp - card.val);
+                logText = `P1 played ${card.name}! P2 takes ${card.val} damage! 💥`;
+            } else {
+                p1Hp = Math.min(20, p1Hp + card.val);
+                logText = `P1 played ${card.name}! Restored ${card.val} HP! 💖`;
+            }
+            currentTurn = 2;
+        } else {
+            if (card.type === 'attack') {
+                p1Hp = Math.max(0, p1Hp - card.val);
+                logText = `P2 played ${card.name}! P1 takes ${card.val} damage! 💥`;
+            } else {
+                p2Hp = Math.min(20, p2Hp + card.val);
+                logText = `P2 played ${card.name}! Restored ${card.val} HP! 💖`;
+            }
+            currentTurn = 1;
+        }
+
+        document.getElementById('p1Hp').innerText = p1Hp;
+        document.getElementById('p2Hp').innerText = p2Hp;
+        document.getElementById('turnText').innerText = `Turn: Player ${currentTurn} (${currentTurn === 1 ? 'Tisha 💻' : 'Dawis 🪖'})`;
+        
+        if (p1Hp <= 0 || p2Hp <= 0) {
+            const winner = p1Hp <= 0 ? "Player 2 (Dawis 🪖)" : "Player 1 (Tisha 💻)";
+            document.getElementById('battleLog').innerText = `🏆 Game Over! ${winner} wins the duel! 🎉`;
+            document.getElementById('handContainer').innerHTML = "<div style='color:#C9A84C; font-weight:700; margin:auto;'>Victory! Refresh to play again.</div>";
+        } else {
+            document.getElementById('battleLog').innerText = `${logText} Click 'Draw Hand' for Player ${currentTurn}'s turn! ⏭️`;
+            document.getElementById('handContainer').innerHTML = "<div style='color:#B08FD4; font-size:0.8rem; margin:auto; font-style:italic;'>Turn ended. Click 'Draw Hand' below!</div>";
+        }
     }
     </script>
     </body>
