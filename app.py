@@ -225,7 +225,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN (Updated Dawis Version) ----
+# ---- PASSWORD LOGIN ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -449,34 +449,165 @@ if not check_password():
 init_db()
 stats = calculate_stats()
 
-# ---- HERO ----
-st.markdown(f"""
-<div class="hero-section">
-    <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
-    <div class="hero-title">Paweetida & Dawis</div>
-    <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
-    <div style="margin-top:0.5rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-style:italic;">
-        "{stats['days_together']} days of loving you — and counting."
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
 # ---- TABS ----
-tab1, tab2, tab3, tab4 = st.tabs(["📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
+tab_quest, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["🧩 Memory Quest", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
-# ======== TAB 1: STATS ========
-with tab1:
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_together"]}</div><div class="metric-label">Days Together</div><div class="metric-desc">Since 22 Aug 2025 💜</div></div>', unsafe_allow_html=True)
-    with col2:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["weeks_together"]}</div><div class="metric-label">Weeks Together</div><div class="metric-desc">{stats["months_together"]} months of us 🌙</div></div>', unsafe_allow_html=True)
-    with col3:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_to_anniversary"]}</div><div class="metric-label">Days to Anniversary</div><div class="metric-desc">22 Aug {stats["next_anniversary"].year} 🎉</div></div>', unsafe_allow_html=True)
-    with col4:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div class="metric-desc">27 Jul 2025 on the bus 🚌</div></div>', unsafe_allow_html=True)
+# ======== TAB 0: MEMORY QUEST (Mini-game) ========
+with tab_quest:
+    st.markdown('<div class="section-title">Memory Quest — Match Our Love 💜</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1rem;">Flip the cards and match our special memories! Let\'s see how well you remember. ✨</div>', unsafe_allow_html=True)
+    
+    components.html("""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+    body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
+    .game-grid { display: grid; grid-template-columns: repeat(4, 80px); gap: 12px; }
+    .card { width: 80px; height: 80px; background: rgba(107,63,160,0.6); border: 2px solid rgba(176,143,212,0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; transition: transform 0.3s; user-select: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .card:hover { transform: scale(1.05); border-color: #C9A84C; }
+    .card.flipped { background: rgba(240,233,250,0.9); transform: rotateY(180deg); }
+    .win-msg { display: none; font-size: 1.5rem; color: #C9A84C; font-weight: bold; text-align: center; margin-top: 15px; font-family: 'Pacifico', cursive; }
+    </style>
+    </head>
+    <body>
+    <div style="text-align: center;">
+        <div class="game-grid" id="grid"></div>
+        <div class="win-msg" id="winMsg">Yay! You matched all our memories! 🎉💜</div>
+    </div>
+    <script>
+    const emojis = ['💜', '🚌', '🪖', '🪐', '💜', '🚌', '🪖', '🪐'];
+    let shuffled = emojis.sort(() => 0.5 - Math.random());
+    let grid = document.getElementById('grid');
+    let flippedCards = [];
+    let matchedPairs = 0;
 
-    st.markdown("<div style='margin-top:0.6rem'></div>", unsafe_allow_html=True)
+    shuffled.forEach((emoji, index) => {
+        let card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.emoji = emoji;
+        card.innerHTML = '?';
+        card.addEventListener('click', () => {
+            if (card.classList.contains('flipped') || flippedCards.length >= 2) return;
+            card.classList.add('flipped');
+            card.innerHTML = emoji;
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                if (flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji) {
+                    matchedPairs++;
+                    flippedCards = [];
+                    if (matchedPairs === 4) {
+                        document.getElementById('winMsg').style.display = 'block';
+                    }
+                } else {
+                    setTimeout(() => {
+                        flippedCards[0].classList.remove('flipped');
+                        flippedCards[0].innerHTML = '?';
+                        flippedCards[1].classList.remove('flipped');
+                        flippedCards[1].innerHTML = '?';
+                        flippedCards = [];
+                    }, 800);
+                }
+            }
+        });
+        grid.appendChild(card);
+    });
+    </script>
+    </body>
+    </html>
+    """, height=420, scrolling=False)
+
+# ======== TAB 1: STATS (Real-Time Live Counter) ========
+with tab_stats:
+    st.markdown(f"""
+    <div class="hero-section">
+        <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
+        <div class="hero-title">Paweetida & Dawis</div>
+        <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Real-Time Live Counter Component
+    components.html("""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+    body { background: transparent; margin: 0; font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; padding: 10px; }
+    .live-card {
+        background: linear-gradient(135deg, rgba(61,26,110,0.85), rgba(74,92,58,0.7));
+        border: 1px solid rgba(176,143,212,0.35);
+        border-radius: 16px;
+        padding: 1.5rem 2rem;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        max-width: 600px;
+        width: 100%;
+    }
+    .main-title { font-size: 0.85rem; color: #B08FD4; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; font-weight: 500; }
+    .main-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3.5rem; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 0.2rem; }
+    .main-unit { font-size: 1rem; color: #F0E9FA; margin-bottom: 1.2rem; font-weight: 500; }
+    .sub-grid { display: flex; justify-content: center; gap: 12px; }
+    .sub-box {
+        background: rgba(45,24,84,0.6);
+        border: 1px solid rgba(176,143,212,0.25);
+        border-radius: 12px;
+        padding: 0.6rem 1rem;
+        min-width: 90px;
+        text-align: center;
+    }
+    .sub-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 700; color: #F0E9FA; line-height: 1.1; }
+    .sub-lbl { font-size: 0.65rem; color: #B08FD4; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }
+    </style>
+    </head>
+    <body>
+        <div class="live-card">
+            <div class="main-title">ตั้งแต่วันแรกที่คบกัน (Official Couple) 💜</div>
+            <div class="main-number" id="daysNum">0</div>
+            <div class="main-unit">วัน</div>
+            <div class="sub-grid">
+                <div class="sub-box">
+                    <div class="sub-num" id="hoursNum">0</div>
+                    <div class="sub-lbl">ชั่วโมง</div>
+                </div>
+                <div class="sub-box">
+                    <div class="sub-num" id="minsNum">0</div>
+                    <div class="sub-lbl">นาที</div>
+                </div>
+                <div class="sub-box">
+                    <div class="sub-num" id="secsNum" style="color: #C9A84C;">0</div>
+                    <div class="sub-lbl">วินาที</div>
+                </div>
+            </div>
+        </div>
+        <script>
+        const startDate = new Date("2025-08-22T00:00:00");
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const mins = Math.floor((diff / 1000 / 60) % 60);
+                const secs = Math.floor((diff / 1000) % 60);
+
+                document.getElementById("daysNum").innerText = days.toLocaleString();
+                document.getElementById("hoursNum").innerText = hours;
+                document.getElementById("minsNum").innerText = mins;
+                document.getElementById("secsNum").innerText = secs;
+            }
+        }
+        setInterval(updateCounter, 1000);
+        updateCounter();
+        </script>
+    </body>
+    </html>
+    """, height=220, scrolling=False)
+
+    st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
 
     col_a, col_b = st.columns([1, 2])
     with col_a:
@@ -524,8 +655,8 @@ with tab1:
     st.progress(progress)
     st.markdown(f'<div style="color:#B08FD4; font-size:0.75rem; text-align:center; margin-top:0.3rem;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_allow_html=True)
 
-# ======== TAB 2: MEMORIES (English Version) ========
-with tab2:
+# ======== TAB 2: MEMORIES ========
+with tab_memories:
     st.markdown('<div class="section-title">Our Memories 💜</div>', unsafe_allow_html=True)
     memories_df = get_memories()
     if memories_df.empty:
@@ -543,8 +674,8 @@ with tab2:
                     delete_memory(row['id'])
                     st.rerun()
 
-# ======== TAB 3: TIMELINE (All Drop-down to prevent top clipping) ========
-with tab3:
+# ======== TAB 3: TIMELINE ========
+with tab_timeline:
     st.markdown('<div class="section-title">Our Timeline Scrapbook 📸 (Hover to view Polaroid)</div>', unsafe_allow_html=True)
     milestones_df = get_milestones()
     memories_df = get_memories()
@@ -572,7 +703,6 @@ with tab3:
             <div class="timeline-content">
                 <div class="timeline-date">{event['date']}</div>
                 <div class="timeline-title">{event['title']}</div>
-                <!-- Polaroid Popup Card on Hover (All Drop-down) -->
                 <div class="polaroid-popup-down">
                     <div class="polaroid-img">{event['img_html']}</div>
                     <div class="polaroid-caption">{event['title']}</div>
@@ -658,7 +788,6 @@ with tab3:
         color: #F0E9FA;
     }}
 
-    /* Drop-down Polaroid Popup for ALL items */
     .polaroid-popup-down {{
         visibility: hidden;
         opacity: 0;
@@ -711,8 +840,8 @@ with tab3:
     </html>
     """, height=700, scrolling=True)
 
-# ======== TAB 4: ADD MEMORY (English Version with Image Uploader) ========
-with tab4:
+# ======== TAB 4: ADD MEMORY ========
+with tab_add:
     st.markdown('<div class="section-title">Add a New Memory ➕</div>', unsafe_allow_html=True)
     col_f1, col_f2 = st.columns(2)
     with col_f1:
