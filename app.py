@@ -528,10 +528,10 @@ with tab_capsule:
     </html>
     """, height=380, scrolling=False)
 
-# ======== TAB 1: BATTLE PHASE (MTG Draw Spell & Combat Game) ========
+# ======== TAB 1: BATTLE PHASE (Interactive Card Duel Game) ========
 with tab_battle:
-    st.markdown('<div class="section-title">Battle Phase: Draw & Combat ⚔️🃏</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Draw a spell card to trigger a combat phase or Tap/Untap your resource! ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Battle Phase: Card Duel Arena ⚔️🃏</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Choose a card from your hand to play against your rival! Defeat opponent HP to win love points. ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -540,87 +540,145 @@ with tab_battle:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
     body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
-    .card-table { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 1.5rem 2rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 420px; width: 100%; }
+    .arena { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 1.5rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 480px; width: 100%; }
     
-    .card-container { perspective: 1000px; display: inline-block; margin-bottom: 0.8rem; cursor: pointer; }
-    .mtg-card { 
-        width: 160px; height: 225px; 
+    .hp-bar-container { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.8rem; color: #F0E9FA; font-weight: 700; }
+    .hp-box { background: rgba(26,10,46,0.6); padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(176,143,212,0.3); }
+    
+    .battlefield { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 1.2rem; min-height: 200px; }
+    
+    .card { 
+        width: 130px; height: 180px; 
         background: linear-gradient(135deg, #3D1A6E, #6B3FA0); 
-        border: 3px solid #C9A84C; 
-        border-radius: 14px; 
+        border: 2px solid #C9A84C; 
+        border-radius: 10px; 
         display: flex; flex-direction: column; align-items: center; justify-content: center; 
-        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; 
-        box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
-        user-select: none; 
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
+        user-select: none; padding: 8px; text-align: center;
     }
-    .mtg-card:hover { border-color: #F0E9FA; box-shadow: 0 15px 30px rgba(201,168,76,0.4); }
-    .mtg-card.tapped { transform: rotate(90deg) scale(1.05); border-color: #7A8C6A; box-shadow: -15px 10px 25px rgba(0,0,0,0.6); }
+    .card-title { font-size: 0.75rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.3rem; }
+    .card-art { font-size: 2.5rem; margin-bottom: 0.3rem; }
+    .card-desc { font-size: 0.55rem; color: #F0E9FA; line-height: 1.2; }
     
-    .card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.3rem; text-align: center; }
-    .card-art { font-size: 3.2rem; margin-bottom: 0.3rem; }
-    .card-desc { font-size: 0.65rem; color: #F0E9FA; padding: 0 8px; text-align: center; line-height: 1.2; }
+    .hand-container { display: flex; justify-content: center; gap: 8px; margin-top: 0.5rem; }
+    .hand-card {
+        width: 100px; height: 140px;
+        background: linear-gradient(135deg, #4A5C3A, #7A8C6A);
+        border: 2px solid #F0E9FA;
+        border-radius: 8px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+        padding: 5px; text-align: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .hand-card:hover { transform: translateY(-8px) scale(1.05); border-color: #C9A84C; box-shadow: 0 8px 20px rgba(201,168,76,0.4); }
     
-    .draw-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 10px; padding: 0.5rem 1.2rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(107,63,160,0.4); transition: transform 0.2s; margin-top: 0.5rem; }
-    .draw-btn:hover { transform: scale(1.05); }
-    
-    .card-status { font-size: 0.8rem; color: #F0E9FA; font-weight: 600; margin-top: 0.4rem; }
-    .action-hint { font-size: 0.7rem; color: #B08FD4; font-style: italic; margin-top: 0.2rem; }
+    .battle-log { font-size: 0.8rem; color: #C9A84C; font-weight: 600; margin-top: 0.8rem; min-height: 35px; }
     </style>
     </head>
     <body>
-    <div class="card-table">
-        <div class="card-container" onclick="toggleCard()">
-            <div class="mtg-card" id="card">
-                <div class="card-title" id="cardTitle">Tisha & Dawis 💜</div>
-                <div class="card-art" id="artEmoji">🪖</div>
-                <div class="card-desc" id="cardDesc">Legendary Couple<br>Tap to Attack / Untap to Defend</div>
+    <div class="arena">
+        <div class="hp-bar-container">
+            <div class="hp-box">My HP: <span id="myHp">100</span> ❤️</div>
+            <div class="hp-box">Rival HP: <span id="rivalHp">100</span> 💀</div>
+        </div>
+        
+        <div class="battlefield">
+            <div>
+                <div style="font-size: 0.7rem; color: #B08FD4; margin-bottom: 4px;">Active Card</div>
+                <div class="card" id="activeCard">
+                    <div class="card-title">Ready...</div>
+                    <div class="card-art">⏳</div>
+                    <div class="card-desc">Pick a card from your hand below!</div>
+                </div>
             </div>
         </div>
-        <div>
-            <button class="draw-btn" onclick="drawSpell()">Draw Spell Card 🔮</button>
+        
+        <div style="font-size: 0.75rem; color: #F0E9FA; font-weight: 600; text-align: left; margin-bottom: 4px;">Choose your card:</div>
+        <div class="hand-container">
+            <div class="hand-card" onclick="playCard('Infinite Support', '💖', 'Heals +25 HP & boosts love power!', 25, 'heal')">
+                <div style="font-size:0.65rem; color:#C9A84C; font-weight:700;">Support ⚡</div>
+                <div style="font-size:1.8rem;">💖</div>
+                <div style="font-size:0.5rem; color:#F0E9FA;">Heal +25</div>
+            </div>
+            <div class="hand-card" onclick="playCard('Army Strike', '🪖', 'Deals 30 damage to rival!', 30, 'attack')">
+                <div style="font-size:0.65rem; color:#C9A84C; font-weight:700;">Strike ⚔️</div>
+                <div style="font-size:1.8rem;">🪖</div>
+                <div style="font-size:0.5rem; color:#F0E9FA;">Attack 30</div>
+            </div>
+            <div class="hand-card" onclick="playCard('Ultimate Tease', '😜', 'Deals 45 massive emotional damage!', 45, 'attack')">
+                <div style="font-size:0.65rem; color:#C9A84C; font-weight:700;">Tease 🔥</div>
+                <div style="font-size:1.8rem;">😜</div>
+                <div style="font-size:0.5rem; color:#F0E9FA;">Attack 45</div>
+            </div>
         </div>
-        <div class="card-status" id="statusText">Status: UNTAPPED (Ready for combat!)</div>
-        <div class="action-hint">Click card to Tap/Untap | Click button to Draw Spell</div>
+        
+        <div class="battle-log" id="battleLog">Select a card to start the duel! ✨</div>
     </div>
 
     <script>
-    let isTapped = false;
-    const spells = [
-        { title: "Infinite Support ⚡", emoji: "💖", desc: "Target partner gains +100 to motivation and endless love." },
-        { title: "Army Shield 🛡️", emoji: "🪖", desc: "Prevents all long-distance stress. Unbreakable defense!" },
-        { title: "Coffee Boost ☕", emoji: "✨", desc: "Draw 2 cards and instantly survive any tough coding bug." },
-        { title: "Rrival Tease 😜", emoji: "🥊", desc: "Deal 99 emotional damage to your favorite rival with a cute smirk." },
-        { title: "Victory Kiss 💋", emoji: "🏆", desc: "Instantly wins the game of the day. No arguments allowed!" }
-    ];
+    let myHp = 100;
+    let rivalHp = 100;
 
-    function toggleCard() {
-        isTapped = !isTapped;
-        const card = document.getElementById('card');
-        const status = document.getElementById('statusText');
-        const art = document.getElementById('artEmoji');
-        if (isTapped) {
-            card.classList.add('tapped');
-            art.innerText = "💥";
-            status.innerText = "Status: TAPPED (Attacking with full love power!)";
-        } else {
-            card.classList.remove('tapped');
-            art.innerText = "🪖";
-            status.innerText = "Status: UNTAPPED (Ready for combat!)";
+    function playCard(title, emoji, desc, val, type) {
+        if (myHp <= 0 || rivalHp <= 0) {
+            resetGame();
+            return;
         }
+
+        const activeCard = document.getElementById('activeCard');
+        activeCard.innerHTML = `
+            <div class="card-title">${title}</div>
+            <div class="card-art">${emoji}</div>
+            <div class="card-desc">${desc}</div>
+        `;
+
+        let logText = "";
+        if (type === 'attack') {
+            rivalHp = Math.max(0, rivalHp - val);
+            logText = `You played ${title}! Rival takes ${val} damage! 💥`;
+        } else {
+            myHp = Math.min(100, myHp + val);
+            logText = `You played ${title}! Restored ${val} HP! 💖`;
+        }
+
+        document.getElementById('myHp').innerText = myHp;
+        document.getElementById('rivalHp').innerText = rivalHp;
+
+        if (rivalHp <= 0) {
+            document.getElementById('battleLog').innerText = "🎉 Victory! You defeated your favorite rival with pure love!";
+            return;
+        }
+
+        // Rival counterattack after 1 second
+        setTimeout(() => {
+            const rivalDmg = Math.floor(Math.random() * 20) + 10;
+            myHp = Math.max(0, myHp - rivalDmg);
+            document.getElementById('myHp').innerText = myHp;
+            document.getElementById('battleLog').innerText = `${logText} | Rival counterattacks for ${rivalDmg} damage! 🛡️`;
+
+            if (myHp <= 0) {
+                document.getElementById('battleLog').innerText = "💀 Defeated! But love never loses. Click any card to restart!";
+            }
+        }, 800);
     }
 
-    function drawSpell(event) {
-        if (event) event.stopPropagation();
-        const spell = spells[Math.floor(Math.random() * spells.length)];
-        document.getElementById('cardTitle').innerText = spell.title;
-        document.getElementById('artEmoji').innerText = spell.emoji;
-        document.getElementById('cardDesc').innerText = spell.desc;
-        document.getElementById('statusText').innerText = "Status: SPELL CAST! (" + spell.title + ")";
+    function resetGame() {
+        myHp = 100;
+        rivalHp = 100;
+        document.getElementById('myHp').innerText = myHp;
+        document.getElementById('rivalHp').innerText = rivalHp;
+        document.getElementById('battleLog').innerText = "New duel started! Pick a card. ✨";
+        document.getElementById('activeCard').innerHTML = `
+            <div class="card-title">Ready...</div>
+            <div class="card-art">⏳</div>
+            <div class="card-desc">Pick a card from your hand below!</div>
+        `;
     }
     </script>
     </body>
     </html>
-    """, height=440, scrolling=False)
+    """, height=500, scrolling=False)
 
 # ======== TAB 2: STATS ========
 with tab_stats:
