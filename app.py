@@ -9,39 +9,30 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- BREAKING NEWS LOGIC & DYNAMIC PADDING CSS ----
-today_date = date.today()
-is_anniversary_season = (today_date.month == 8 and today_date.day in [21, 22])
-
-if "show_breaking_news" not in st.session_state:
-    st.session_state.show_breaking_news = True
-
-# กำหนดระยะห่างด้านบนให้อัตโนมัติ: ถ้ามีแบนเนอร์ให้เว้นเยอะหน่อย กันโดนบัง
-dynamic_padding = "5.5rem" if (is_anniversary_season and st.session_state.show_breaking_news) else "3.5rem"
-
-st.markdown(f"""
+# ---- CUSTOM CSS (MODERN MINIMALIST TYPOGRAPHY & SAFE PADDING) ----
+st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-:root {{
+:root {
     --aurora-purple: #4A154B;
     --aurora-violet: #7B2CBF;
     --aurora-green: #00F5D4;
     --aurora-cyan: #4CC9F0;
     --aurora-dark: #0A041A;
     --gold: #FFD166;
-}}
+}
 
-* {{ font-family: 'Outfit', sans-serif !important; }}
+* { font-family: 'Outfit', sans-serif !important; }
 
-h1, h2, h3, .hero-title, .metric-number {{
+h1, h2, h3, .hero-title, .metric-number {
     font-family: 'Outfit', sans-serif !important;
     font-weight: 700 !important;
     letter-spacing: -0.5px;
-}}
+}
 
 /* Modern & Clean Top Navigation Buttons */
-.stButton button {{
+.stButton button {
     background: linear-gradient(135deg, rgba(123,44,191,0.7), rgba(0,245,212,0.4)) !important;
     color: #FFFFFF !important;
     border: 1px solid rgba(0,245,212,0.5) !important;
@@ -54,41 +45,41 @@ h1, h2, h3, .hero-title, .metric-number {{
     box-shadow: 0 4px 20px rgba(0,245,212,0.15);
     backdrop-filter: blur(10px);
     transition: all 0.25s ease;
-}}
-.stButton button:hover {{
+}
+.stButton button:hover {
     transform: translateY(-2px);
     border-color: #FFD166 !important;
     box-shadow: 0 6px 25px rgba(255,209,102,0.3);
     background: linear-gradient(135deg, rgba(123,44,191,0.9), rgba(0,245,212,0.6)) !important;
-}}
+}
 
 /* Hide system text inputs */
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_welcome"]),
-div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {{
+div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     display: none !important;
     height: 0px !important;
     visibility: hidden !important;
     opacity: 0 !important;
     pointer-events: none !important;
-}}
+}
 
 /* AURORA LIGHTS DYNAMIC BACKGROUND ANIMATION */
-.stApp {{
+.stApp {
     background: linear-gradient(135deg, #050210 0%, #10072B 30%, #031B26 70%, #020C1B 100%);
     background-size: 400% 400%;
     animation: auroraFlow 15s ease infinite;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
-}}
+}
 
-@keyframes auroraFlow {{
-    0% {{ background-position: 0% 50%; }}
-    50% {{ background-position: 100% 50%; }}
-    100% {{ background-position: 0% 50%; }}
-}}
+@keyframes auroraFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-.stApp::before {{
+.stApp::before {
     content: '';
     position: fixed;
     top: -50%;
@@ -99,27 +90,27 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {{
     animation: auroraShimmer 10s ease-in-out infinite alternate;
     pointer-events: none;
     z-index: 0;
-}}
+}
 
-@keyframes auroraShimmer {{
-    0% {{ transform: translateY(-20px) scale(1); opacity: 0.6; }}
-    100% {{ transform: translateY(20px) scale(1.1); opacity: 1; }}
-}}
+@keyframes auroraShimmer {
+    0% { transform: translateY(-20px) scale(1); opacity: 0.6; }
+    100% { transform: translateY(20px) scale(1.1); opacity: 1; }
+}
 
-.block-container {{
-    padding-top: {dynamic_padding} !important;
+.block-container {
+    padding-top: 3.5rem !important;
     padding-bottom: 2rem !important;
     max-width: 1250px !important;
     position: relative;
     z-index: 1;
-}}
+}
 
-@keyframes shootingStar {{
-    0% {{ transform: translateX(0) translateY(0); opacity: 1; }}
-    100% {{ transform: translateX(-600px) translateY(600px); opacity: 0; }}
-}}
+@keyframes shootingStar {
+    0% { transform: translateX(0) translateY(0); opacity: 1; }
+    100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
+}
 
-.shooting-star {{
+.shooting-star {
     position: fixed;
     width: 2px;
     height: 2px;
@@ -129,9 +120,9 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {{
     animation: shootingStar linear infinite;
     z-index: 1;
     pointer-events: none;
-}}
+}
 
-.breaking-news-bar {{
+.breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #00F5D4, #8B0000);
     border: 1px solid #FFD166;
     border-radius: 8px;
@@ -146,8 +137,8 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {{
     box-shadow: 0 0 25px rgba(0, 245, 212, 0.4);
     position: relative;
     z-index: 2;
-}}
-.breaking-badge {{
+}
+.breaking-badge {
     background: #FFFFFF;
     color: #8B0000;
     padding: 0.25rem 0.6rem;
@@ -158,10 +149,10 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {{
     letter-spacing: 1px;
     white-space: nowrap;
     animation: pulse 1.5s infinite;
-}}
-@keyframes pulse {{ 0%, 100% {{ opacity: 1; }} 50% {{ opacity: 0.5; }} }}
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-.hero-section {{
+.hero-section {
     background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(0,245,212,0.25));
     border-radius: 20px;
     padding: 1.5rem;
@@ -172,12 +163,12 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {{
     box-shadow: 0 0 35px rgba(0,245,212,0.25);
     position: relative;
     z-index: 2;
-}}
+}
 
-.hero-title {{ font-size: 2rem; font-weight: 700; color: #F0E9FA; margin: 0; }}
-.hero-subtitle {{ font-size: 0.8rem; color: #4CC9F0; margin-top: 0.2rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }}
+.hero-title { font-size: 2rem; font-weight: 700; color: #F0E9FA; margin: 0; }
+.hero-subtitle { font-size: 0.8rem; color: #4CC9F0; margin-top: 0.2rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
 
-.metric-card {{
+.metric-card {
     background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(76,201,240,0.25));
     border: 1px solid rgba(0,245,212,0.3);
     border-radius: 16px;
@@ -187,12 +178,12 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {{
     position: relative;
     z-index: 2;
     box-shadow: 0 0 15px rgba(123,44,191,0.2);
-}}
+}
 
-.metric-number {{ font-size: 2.4rem; font-weight: 700; color: #FFD166; line-height: 1; }}
-.metric-label {{ font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; font-weight: 600; }}
+.metric-number { font-size: 2.4rem; font-weight: 700; color: #FFD166; line-height: 1; }
+.metric-label { font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; font-weight: 600; }
 
-.section-title {{
+.section-title {
     font-size: 1.1rem;
     font-weight: 600;
     color: #F0E9FA;
@@ -201,20 +192,20 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {{
     padding-bottom: 0.2rem;
     position: relative;
     z-index: 2;
-}}
+}
 
-.stTextInput input, .stTextArea textarea, .stSelectbox select {{
+.stTextInput input, .stTextArea textarea, .stSelectbox select {
     background: rgba(30, 15, 60, 0.85) !important;
     border: 1px solid rgba(76,201,240,0.5) !important;
     color: #F0E9FA !important;
     border-radius: 8px !important;
     font-weight: 500 !important;
-}}
+}
 </style>
 
 <script>
-window.addEventListener('DOMContentLoaded', (event) => {{
-    for (let i = 0; i < 18; i++) {{
+window.addEventListener('DOMContentLoaded', (event) => {
+    for (let i = 0; i < 18; i++) {
         let star = document.createElement('div');
         star.className = 'shooting-star';
         star.style.top = Math.random() * 70 + 'vh';
@@ -222,8 +213,8 @@ window.addEventListener('DOMContentLoaded', (event) => {{
         star.style.animationDuration = (2 + Math.random() * 4) + 's';
         star.style.animationDelay = (Math.random() * 5) + 's';
         document.body.appendChild(star);
-    }}
-}});
+    }
+});
 </script>
 """, unsafe_allow_html=True)
 
@@ -347,10 +338,12 @@ body {
     animation: float 3s ease-in-out infinite;
     line-height: 1.4;
     margin-top: 25px;
+    position: relative;
+    z-index: 10;
 }
-.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.6rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; }
-.moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-weight: 500; }
-.stars { font-size: 1.1rem; letter-spacing: 0.4rem; margin: 0.2rem 0; animation: shimmer 2s ease-in-out infinite; }
+.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.6rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
+.moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-weight: 500; position: relative; z-index: 10; }
+.stars { font-size: 1.1rem; letter-spacing: 0.4rem; margin: 0.2rem 0; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
 
 .pin-section {
     margin-top: 1.2rem;
@@ -363,7 +356,7 @@ body {
     backdrop-filter: blur(10px);
     box-shadow: 0 0 25px rgba(123, 44, 191, 0.3);
     position: relative;
-    z-index: 1;
+    z-index: 10;
 }
 .pin-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: #00F5D4; margin-bottom: 0.3rem; font-weight: 600; }
 .pin-hint { font-size: 0.75rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 1.2rem; font-style: italic; }
@@ -427,7 +420,7 @@ body {
         document.body.appendChild(el);
     }
     </script>
-    <div style="position:relative; z-index:1; padding-top: 35px;">
+    <div style="position:relative; z-index:10; padding-top: 35px;">
     <div class="chars">
         <span class="girl">💻</span>
         <span class="heart">💜</span>
