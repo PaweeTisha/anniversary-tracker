@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (ORIGINAL FONT + SPACING FIX) ----
+# ---- CUSTOM CSS (PACIFICO FONT + SPACING FIX) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Pacifico&display=swap');
@@ -25,12 +25,12 @@ st.markdown("""
 
 * { font-family: 'Outfit', sans-serif !important; }
 
-/* ฟอนต์สำหรับข้อความทั่วไป */
-body {
-    color: #F0E9FA;
+/* ฟอนต์สำหรับหัวข้อหลัก */
+.hero-title, .welcome-title {
+    font-family: 'Pacifico', cursive !important;
 }
 
-h1, h2, h3, .hero-title, .metric-number {
+h1, h2, h3, .metric-number {
     font-family: 'Outfit', sans-serif !important;
     font-weight: 700 !important;
     letter-spacing: -0.5px;
@@ -56,6 +56,16 @@ h1, h2, h3, .hero-title, .metric-number {
     border-color: #FFD166 !important;
     box-shadow: 0 6px 25px rgba(255,209,102,0.3);
     background: linear-gradient(135deg, rgba(123,44,191,0.9), rgba(0,245,212,0.6)) !important;
+}
+
+/* Hide system text inputs */
+div[data-testid="stTextInput"]:has(input[aria-label="hidden_welcome"]),
+div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
+    display: none !important;
+    height: 0px !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 /* AURORA LIGHTS DYNAMIC BACKGROUND ANIMATION */
@@ -307,7 +317,4 @@ body {
 .login-shooting-star {
     position: fixed; width: 2px; height: 2px; background: #00F5D4; border-radius: 50%;
     box-shadow: 0 0 8px 2px #00F5D4, 0 0 20px 4px #4CC9F0;
-    animation: shootingStar linear infinite; z-index: 0; pointer-events: none;
-}
-.floating-emoji { position: fixed; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.7; }
-@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-10vh) rotate(360
+    animation: shootingStar linear infinite
