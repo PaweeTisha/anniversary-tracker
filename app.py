@@ -167,18 +167,6 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     z-index: 2;
 }
 
-.army-badge {
-    background: linear-gradient(135deg, rgba(0,245,212,0.35), rgba(76,201,240,0.25));
-    border: 1px solid rgba(0,245,212,0.6);
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-    color: #E8EDE4;
-    box-shadow: 0 0 20px rgba(0,245,212,0.3);
-    position: relative;
-    z-index: 2;
-}
-
 .stTextInput input, .stTextArea textarea, .stSelectbox select {
     background: rgba(30, 15, 60, 0.85) !important;
     border: 1px solid rgba(76,201,240,0.5) !important;
@@ -1059,47 +1047,65 @@ with tab_stats:
 
     st.markdown("<div style='margin-top:0.4rem'></div>", unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns(3)
+    # 4 การ์ดสถิติด้านล่างครบถ้วน (Weeks, Anniversary, Days Since First, Army Service)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["weeks_together"]}</div><div class="metric-label">Weeks Together</div><div class="metric-desc">{stats["months_together"]} months of us 🌙</div></div>', unsafe_allow_html=True)
     with col2:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_to_anniversary"]}</div><div class="metric-label">Days to Anniversary</div><div class="metric-desc">22 Aug {stats["next_anniversary"].year} 🎉</div></div>', unsafe_allow_html=True)
     with col3:
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div class="metric-desc">27 Jul 2025 (first liked story ✨)</div></div>', unsafe_allow_html=True)
+    with col4:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_army"]}</div><div class="metric-label">Days in Army Service</div><div class="metric-desc">Dawis in Australian Army 🪖</div></div>', unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
+    # กราฟ Timeline ปรับแก้ระยะห่าง (สลับ 4 ระดับความสูง) ไม่ให้ตัวหนังสือทับกันเด็ดขาด
     milestones_df = get_milestones()
     if not milestones_df.empty:
         milestones_df['date'] = pd.to_datetime(milestones_df['date'])
         fig = go.Figure()
         
-        positions = ['top center' if i % 2 == 0 else 'bottom center' for i in range(len(milestones_df))]
+        # กระจายความสูง 4 ระดับ เพื่อไม่ให้ชื่อที่ติดกันซ้อนทับกัน
+        positions = []
+        y_values = []
+        pos_options = ['top center', 'bottom center', 'top center', 'bottom center']
+        y_options = [1.3, 0.7, 1.5, 0.5]
+        
+        for i in range(len(milestones_df)):
+            positions.append(pos_options[i % len(pos_options)])
+            y_values.append(y_options[i % len(y_options)])
+            
         colors = ['#FFD166', '#00F5D4', '#4CC9F0', '#FF6B6B', '#C77DFF', '#FFE188', '#2EE8CC']
         
         for i, row in milestones_df.iterrows():
             fig.add_trace(go.Scatter(
-                x=[row['date']], y=[1.0],
+                x=[row['date']], y=[y_values[i]],
                 mode='markers+text',
                 marker=dict(size=14, color=colors[i % len(colors)], symbol='diamond'),
-                text=[row['title']], 
+                text=[f"<b>{row['title']}</b><br>({row['date'].strftime('%d %b %Y')})"], 
                 textposition=positions[i],
-                textfont=dict(color='#F0E9FA', size=10, family='DM Sans'),
+                textfont=dict(color='#F0E9FA', size=9.5, family='DM Sans'),
                 showlegend=False
             ))
+            # เส้นโยงจากจุดหลักมาที่ตัวหนังสือ
+            fig.add_shape(type='line',
+                x0=row['date'], x1=row['date'],
+                y0=1.0, y1=y_values[i],
+                line=dict(color='rgba(0,245,212,0.3)', width=1, dash='dot'))
         
         fig.add_shape(type='line',
-            x0=milestones_df['date'].min() - pd.Timedelta(days=15), 
-            x1=milestones_df['date'].max() + pd.Timedelta(days=15),
+            x0=milestones_df['date'].min() - pd.Timedelta(days=25), 
+            x1=milestones_df['date'].max() + pd.Timedelta(days=25),
             y0=1.0, y1=1.0,
-            line=dict(color='rgba(0,245,212,0.6)', width=2.5))
+            line=dict(color='rgba(0,245,212,0.8)', width=3))
 
         fig.update_layout(
             title=dict(text='Our Journey Together Timeline 🗺️', font=dict(color='#FFD166', size=13, family='Plus Jakarta Sans')),
             paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-            yaxis=dict(visible=False, range=[0.2, 1.8]), 
+            yaxis=dict(visible=False, range=[0.0, 2.0]), 
             xaxis=dict(showgrid=False, color='#4CC9F0', tickfont=dict(size=10)),
-            height=220, margin=dict(l=20, r=20, t=40, b=15)
+            height=280, margin=dict(l=20, r=20, t=40, b=15)
         )
         st.plotly_chart(fig, use_container_width=True)
 
