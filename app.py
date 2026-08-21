@@ -290,7 +290,7 @@ def init_db():
     c.execute("SELECT COUNT(*) FROM milestones")
     if c.fetchone()[0] == 0:
         default_milestones = [
-            ("First Like on Story 🚌", "2025-07-27", "The day you liked my story on the bus", "start"),
+            ("First Liked Story ✨", "2025-07-27", "The day you first liked my IG story", "start"),
             ("Official Couple 💜", "2025-08-22", "The day we became official", "anniversary"),
             ("Dawis Enlists Army 🪖", "2026-04-20", "Dawis joined the Australian Army", "milestone"),
         ]
@@ -1043,7 +1043,7 @@ with tab_stats:
     <div class="hero-section">
         <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
         <div class="hero-title">Paweetida & Dawis</div>
-        <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
+        <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (first liked my IG story ✨)</div>
         <div style="margin-top:0.5rem; color:#FFD166; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-style:italic;">
             "{stats['days_together']} days of loving you — and counting."
         </div>
@@ -1135,7 +1135,7 @@ with tab_stats:
     with col2:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_to_anniversary"]}</div><div class="metric-label">Days to Anniversary</div><div class="metric-desc">22 Aug {stats["next_anniversary"].year} 🎉</div></div>', unsafe_allow_html=True)
     with col3:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div class="metric-desc">27 Jul 2025 on the bus 🚌</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div class="metric-desc">27 Jul 2025 (first liked story ✨)</div></div>', unsafe_allow_html=True)
     with col4:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_together"]}</div><div class="metric-label">Total Days</div><div class="metric-desc">Counting every single day 💜</div></div>', unsafe_allow_html=True)
 
