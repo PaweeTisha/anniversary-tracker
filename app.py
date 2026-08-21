@@ -180,13 +180,14 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     border: none !important;
     border-radius: 12px !important;
     font-weight: 700 !important;
-    padding: 1rem !important;
+    padding: 0.6rem 1rem !important;
     width: 100% !important;
     box-shadow: 0 0 20px rgba(0,245,212,0.5);
+    transition: transform 0.2s;
 }
-
-.stTabs [data-baseweb="tab"] { color: #4CC9F0 !important; z-index: 2; }
-.stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
+.stButton button:hover {
+    transform: scale(1.02);
+}
 </style>
 
 <script>
@@ -622,15 +623,23 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---- INTERACTIVE NAVIGATION STATE ----
+# ---- NAVIGATION BUTTON BOXES (Replaces radio dots with styled card buttons) ----
 if "active_tab" not in st.session_state:
     st.session_state.active_tab = "💐 Get Flowers"
 
-tab_names = ["💐 Get Flowers", "💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"]
-selected_tab = st.radio("Navigation", tab_names, index=tab_names.index(st.session_state.active_tab), horizontal=True, label_visibility="collapsed")
-st.session_state.active_tab = selected_tab
+nav_tabs = ["💐 Get Flowers", "💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"]
 
-st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 0.5rem 0 1.5rem 0;'>", unsafe_allow_html=True)
+cols = st.columns(len(nav_tabs))
+for i, tab_name in enumerate(nav_tabs):
+    with cols[i]:
+        # Highlight the active button box
+        is_active = (st.session_state.active_tab == tab_name)
+        btn_type = "primary" if is_active else "secondary"
+        if st.button(tab_name, use_container_width=True, key=f"nav_btn_{i}_{tab_name}"):
+            st.session_state.active_tab = tab_name
+            st.rerun()
+
+st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 1rem 0 1.5rem 0;'>", unsafe_allow_html=True)
 
 # ======== TAB 0: GET FLOWERS & 3 STREAMLINED INTERACTIVE MENUS ========
 if st.session_state.active_tab == "💐 Get Flowers":
