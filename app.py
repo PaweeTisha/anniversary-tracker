@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (NORTH & SOUTH AURORA THEME + SHOOTING STARS) ----
+# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -37,7 +37,7 @@ st.markdown("""
     max-width: 1250px !important;
 }
 
-/* SHOOTING STAR GLOBAL BACKGROUND ANIMATION */
+/* GLOBAL SHOOTING STARS ANIMATION */
 @keyframes shootingStar {
     0% { transform: translateX(0) translateY(0); opacity: 1; }
     100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
@@ -197,16 +197,16 @@ st.markdown("""
 .stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
 
-<!-- SCRIPT FOR GLOBAL SHOOTING STARS -->
+<!-- GLOBAL SHOOTING STARS SCRIPT -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const starCount = 12;
+    const starCount = 15;
     for (let i = 0; i < starCount; i++) {
         let star = document.createElement('div');
         star.className = 'shooting-star';
-        star.style.top = Math.random() * 50 + 'vh';
+        star.style.top = Math.random() * 60 + 'vh';
         star.style.left = Math.random() * 100 + 'vw';
-        star.style.animationDuration = (3 + Math.random() * 4) + 's';
+        star.style.animationDuration = (2.5 + Math.random() * 4) + 's';
         star.style.animationDelay = (Math.random() * 5) + 's';
         document.body.appendChild(star);
     }
@@ -303,7 +303,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN ----
+# ---- PASSWORD LOGIN (With Shooting Stars, Original Emojis & "The moon is beautiful") ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -379,7 +379,8 @@ body {
     line-height: 1.1;
 }
 .and { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: #4CC9F0; margin: 0.1rem 0; }
-.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; }
+.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; }
+.moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-family: 'DM Sans', sans-serif; letter-spacing: 0.5px; }
 .stars { font-size: 1.2rem; letter-spacing: 0.4rem; margin: 0.5rem 0; animation: shimmer 2s ease-in-out infinite; }
 
 .pin-section {
@@ -438,12 +439,12 @@ body {
 </head>
 <body>
     <script>
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
         let star = document.createElement('div');
         star.className = 'login-shooting-star';
         star.style.top = Math.random() * 60 + 'vh';
         star.style.left = Math.random() * 100 + 'vw';
-        star.style.animationDuration = (2.5 + Math.random() * 3) + 's';
+        star.style.animationDuration = (2 + Math.random() * 3) + 's';
         star.style.animationDelay = (Math.random() * 4) + 's';
         document.body.appendChild(star);
     }
@@ -454,11 +455,12 @@ body {
         <span class="heart">💜</span>
         <span class="soldier">🪖</span>
     </div>
-    <div class="stars">🌠 🪐 🌙 🌟 🔮</div>
+    <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
     <div class="title">Dawis</div>
-    <div class="subtitle">Aurora Borealis World 🌌</div>
+    <div class="subtitle">Our Private Little World 💜</div>
+    <div class="moon-quote">🌙 "The moon is beautiful, isn't it?" ✨</div>
     </div>
     <div class="pin-section">
         <span class="lock-icon">🔐</span>
@@ -472,7 +474,7 @@ body {
             <input class="pin-box" maxlength="1" type="password" id="p4" inputmode="numeric">
             <input class="pin-box" maxlength="1" type="password" id="p5" inputmode="numeric">
         </div>
-        <button class="enter-btn" onclick="checkPin()">Enter Aurora World 🌌</button>
+        <button class="enter-btn" onclick="checkPin()">Enter Our World 💜</button>
         <div class="error-msg" id="errMsg">Hmm, that's not right... 💔 Try again!</div>
     </div>
     <script>
@@ -517,7 +519,7 @@ body {
     </script>
 </body>
 </html>
-""", height=720, scrolling=False)
+""", height=740, scrolling=False)
 
         password = st.text_input("hidden_pin", type="password", key="pwd_backup", label_visibility="collapsed")
         if password == "220825":
@@ -553,10 +555,10 @@ components.html("""
         <div class="news-header">🚨 BREAKING NEWS 🚨</div>
         <div class="news-title">Upcoming Anniversary Alert! 💜</div>
         <div class="news-desc">
-            Get ready for special dates, love capsules, and epic card duels!
+            Get ready for special dates, love capsules, and epic card duels! 🌙
         </div>
         <div class="warning-box">
-            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🚨🔥
+            ⚠️ WARNING: "The moon is beautiful, isn't it?" DO NOT MISS IT! 🚨✨
         </div>
         <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
     </div>
@@ -574,12 +576,12 @@ function closeNews() {
 init_db()
 stats = calculate_stats()
 
-# ---- BREAKING NEWS TICKER BANNER (Original text + Aurora Theme) ----
+# ---- BREAKING NEWS TICKER BANNER (With Moon Quote) ----
 st.markdown("""
 <div class="breaking-news-bar">
     <div class="breaking-badge">🔴 BREAKING NEWS</div>
     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 700;">
-        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
+        🌙 "The moon is beautiful, isn't it?" ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -632,6 +634,7 @@ with tab_capsule:
 
     <script>
     const messages = [
+        "The moon is beautiful, isn't it? I love you so much, my favorite rival!",
         "I love you so much! Keep crushing your goals, my favorite rival!",
         "¡Muchísima suerte hoy! You are going to do amazing things, my favorite rival.",
         "I admire you so much. Proud of you every single day, soldier!",
@@ -663,7 +666,7 @@ with tab_capsule:
     </html>
     """, height=380, scrolling=False)
 
-# ======== TAB 1: BATTLE PHASE (Aurora Theme + Original Text) ========
+# ======== TAB 1: BATTLE PHASE ========
 with tab_battle:
     st.markdown('<div class="section-title">Battle Phase: 5 Cards Choice & Tap/Untap ⚔️🃏</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.0rem;">Pick one of 5 cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
@@ -922,11 +925,11 @@ with tab_battle:
 with tab_stats:
     st.markdown(f"""
     <div class="hero-section">
-        <div style="font-size:2.2rem; margin-bottom:0.2rem">🌌 💚</div>
+        <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
         <div class="hero-title">Paweetida & Dawis</div>
         <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
         <div style="margin-top:0.5rem; color:#FFD166; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-style:italic;">
-            "{stats['days_together']} days of loving you under the aurora lights — and counting."
+            "{stats['days_together']} days of loving you — and counting."
         </div>
     </div>
     """, unsafe_allow_html=True)
