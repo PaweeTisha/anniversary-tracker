@@ -650,16 +650,17 @@ st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 1rem 0 
 
 # ======== TAB 0: GET FLOWERS & SUNFLOWER BOUQUET ========
 if st.session_state.active_tab == "💐 Get Flowers":
+    # จัดข้อความหัวข้อให้อยู่ตรงกลางเป๊ะๆ และไม่มีอีโมจิรกๆ ด้านหลัง
     st.markdown("""
-    <div style="text-align: center; padding: 1.5rem 0;">
-        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5);">Get Flowers! 🌻</h1>
-        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px;">Well done! A bright sunflower bouquet for my favorite enemy. 😜</p>
+    <div style="text-align: center; padding: 1.5rem 0; width: 100%;">
+        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5); text-align: center;">Get Flowers!</h1>
+        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px; text-align: center;">Well done! A bright sunflower bouquet for my favorite enemy. 😜</p>
     </div>
     """, unsafe_allow_html=True)
 
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
-        # Sunflower bouquet with floating hearts & click-to-change tease message
+        # Sunflower bouquet with floating hearts & expanded diverse surprise messages
         components.html("""
         <!DOCTYPE html>
         <html>
@@ -717,7 +718,7 @@ if st.session_state.active_tab == "💐 Get Flowers":
         .heart-3 { bottom: 20px; left: 0px; animation-delay: 1.4s; }
         
         .rival-title { font-size: 1.3rem; color: #FFD166; font-weight: 700; margin: 1rem 0 0.5rem 0; }
-        .rival-desc { font-size: 0.95rem; color: #F0E9FA; line-height: 1.6; font-weight: 500; }
+        .rival-desc { font-size: 0.95rem; color: #F0E9FA; line-height: 1.6; font-weight: 500; min-height: 75px; }
         .click-hint { font-size: 0.7rem; color: #4CC9F0; margin-top: 0.6rem; font-style: italic; }
         </style>
         </head>
@@ -729,7 +730,7 @@ if st.session_state.active_tab == "💐 Get Flowers":
                     <span class="floating-heart heart-3">🌻</span>
                     <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80" class="flower-img">
                 </div>
-                <div class="rival-title">For My Favorite Rival 😈</div>
+                <div class="rival-title">For my No.1 enemy 🤭</div>
                 <div class="rival-desc" id="teaseText">
                     Sunflowers for my sunshine! Thanks for staying loyal, bright, and crazy through every single season. Let's keep driving each other nuts for a long, long time. 🌻💜
                 </div>
@@ -740,7 +741,11 @@ if st.session_state.active_tab == "💐 Get Flowers":
                 "Sunflowers for my sunshine! Thanks for staying loyal, bright, and crazy through every single season. Let's keep driving each other nuts for a long, long time. 🌻💜",
                 "Warning: Clicking these sunflowers won't make you win our card duels! 😤 But you're still my favorite. ✨",
                 "You're like a sunflower—always bright, stubborn, and following my light! 🌻😜",
-                "Teasing you is my full-time job, but loving you is my favorite hobby. 💛"
+                "Teasing you is my full-time job, but loving you is my absolute favorite hobby. 💛",
+                "Even when you're being super moody, you're still the only person I want to talk to. (Don't let this go to your head!) 🤫555",
+                "No matter how hard things get or how crazy work/study is, I'm always cheering for you from the sidelines. You've got this! 🌟",
+                "I built this whole digital world just so you'd remember how amazing you are... and because I wanted to flex my coding skills to my favorite rival! 💻😎",
+                "You + Me = The most chaotic, unstoppable team in the universe. Let's conquer everything together! 🚀💜"
             ];
             let index = 0;
             function changeTease() {
@@ -750,7 +755,7 @@ if st.session_state.active_tab == "💐 Get Flowers":
             </script>
         </body>
         </html>
-        """, height=410, scrolling=False)
+        """, height=420, scrolling=False)
 
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
     st.markdown('<div class="section-title" style="text-align: center;">💖 Select Our Memory Menu 💖</div>', unsafe_allow_html=True)
