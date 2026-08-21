@@ -648,18 +648,18 @@ for i, tab_name in enumerate(nav_tabs):
 
 st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 1rem 0 1.5rem 0;'>", unsafe_allow_html=True)
 
-# ======== TAB 0: GET FLOWERS & INTERACTIVE BOUQUET ========
+# ======== TAB 0: GET FLOWERS & SUNFLOWER BOUQUET ========
 if st.session_state.active_tab == "💐 Get Flowers":
     st.markdown("""
     <div style="text-align: center; padding: 1.5rem 0;">
-        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5);">Get Flowers! 🌷</h1>
-        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px;">Well done! A bouquet for my favorite enemy. 😜</p>
+        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5);">Get Flowers! 🌻</h1>
+        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px;">Well done! A bright sunflower bouquet for my favorite enemy. 😜</p>
     </div>
     """, unsafe_allow_html=True)
 
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
-        # Interactive bouquet with floating hearts & click-to-change tease message
+        # Sunflower bouquet with floating hearts & click-to-change tease message
         components.html("""
         <!DOCTYPE html>
         <html>
@@ -668,12 +668,12 @@ if st.session_state.active_tab == "💐 Get Flowers":
         <style>
         body { background: transparent; display: flex; justify-content: center; align-items: center; margin: 0; font-family: 'Outfit', sans-serif; overflow: visible; }
         .flower-card {
-            background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(255,182,193,0.25));
-            border: 2px solid rgba(255,192,203,0.7);
+            background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(255,215,0,0.25));
+            border: 2px solid rgba(255,215,0,0.7);
             border-radius: 28px;
             padding: 2rem;
             text-align: center;
-            box-shadow: 0 0 40px rgba(255,182,193,0.35);
+            box-shadow: 0 0 40px rgba(255,215,0,0.3);
             backdrop-filter: blur(12px);
             position: relative;
             max-width: 420px;
@@ -690,7 +690,7 @@ if st.session_state.active_tab == "💐 Get Flowers":
             object-fit: cover;
             border-radius: 50%;
             border: 4px solid #FFD166;
-            box-shadow: 0 0 25px rgba(255,209,102,0.5);
+            box-shadow: 0 0 25px rgba(255,215,0,0.6);
             animation: float 3s ease-in-out infinite;
             transition: transform 0.3s ease;
         }
@@ -724,23 +724,23 @@ if st.session_state.active_tab == "💐 Get Flowers":
         <body>
             <div class="flower-card">
                 <div class="img-container" onclick="changeTease()" title="Click me! ✨">
-                    <span class="floating-heart heart-1">💜</span>
+                    <span class="floating-heart heart-1">💛</span>
                     <span class="floating-heart heart-2">✨</span>
-                    <span class="floating-heart heart-3">💖</span>
-                    <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=600&q=80" class="flower-img">
+                    <span class="floating-heart heart-3">🌻</span>
+                    <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80" class="flower-img">
                 </div>
                 <div class="rival-title">For My Favorite Rival 😈</div>
                 <div class="rival-desc" id="teaseText">
-                    Thanks for sticking around, even when I'm super moody and don't want to talk! 555. Let's keep supporting and driving each other crazy for a long, long time. 💜
+                    Sunflowers for my sunshine! Thanks for staying loyal, bright, and crazy through every single season. Let's keep driving each other nuts for a long, long time. 🌻💜
                 </div>
-                <div class="click-hint">(Click the bouquet for a surprise message 🌷)</div>
+                <div class="click-hint">(Click the sunflowers for a surprise message 🌻)</div>
             </div>
             <script>
             const teases = [
-                "Thanks for sticking around, even when I'm super moody and don't want to talk! 555. Let's keep supporting and driving each other crazy for a long, long time. 💜",
-                "Warning: Clicking these flowers too much won't make me less stubborn! 😤 But okay, luv u 💜",
-                "You're lucky you're my favorite rival. Otherwise, no flowers for you! 😜🌷",
-                "Teasing you is my full-time job, but loving you is my favorite hobby. ✨"
+                "Sunflowers for my sunshine! Thanks for staying loyal, bright, and crazy through every single season. Let's keep driving each other nuts for a long, long time. 🌻💜",
+                "Warning: Clicking these sunflowers won't make you win our card duels! 😤 But you're still my favorite. ✨",
+                "You're like a sunflower—always bright, stubborn, and following my light! 🌻😜",
+                "Teasing you is my full-time job, but loving you is my favorite hobby. 💛"
             ];
             let index = 0;
             function changeTease() {
