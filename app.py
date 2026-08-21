@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (MODERN MINIMALIST TYPOGRAPHY & SAFE PADDING) ----
+# ---- CUSTOM CSS (MODERN MINIMALIST TYPOGRAPHY) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
@@ -295,13 +295,13 @@ def check_password():
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
 body {
     background: transparent;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem;
     overflow: hidden;
 }
 @keyframes shootingStar {
@@ -313,61 +313,61 @@ body {
     box-shadow: 0 0 8px 2px #00F5D4, 0 0 20px 4px #4CC9F0;
     animation: shootingStar linear infinite; z-index: 0; pointer-events: none;
 }
-.floating-emoji { position: fixed; font-size: 1.5rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.7; }
+.floating-emoji { position: fixed; font-size: 1.3rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.7; }
 @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
 
-@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-15px) rotate(3deg); } 50% { transform: translateY(-8px) rotate(-2deg); } 75% { transform: translateY(-20px) rotate(4deg); } }
-@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-20px) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(2deg); } 75% { transform: translateY(-15px) rotate(-4deg); } }
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.2); } 60% { transform: scale(1); } }
-@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-12px) rotate(3deg); } 50% { transform: translateY(-6px) rotate(-2deg); } 75% { transform: translateY(-15px) rotate(4deg); } }
+@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-15px) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(2deg); } 75% { transform: translateY(-12px) rotate(-4deg); } }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
 @keyframes shimmer { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
 @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
-.chars { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 0.5rem; }
-.girl { font-size: 3.5rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
-.heart { font-size: 2.3rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
-.soldier { font-size: 3.5rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
+.chars { display: flex; justify-content: center; align-items: center; gap: 1.2rem; margin-bottom: 0.3rem; }
+.girl { font-size: 3rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
+.heart { font-size: 2rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
+.soldier { font-size: 3rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
 .title {
     font-family: 'Pacifico', cursive;
-    font-size: 2.3rem;
+    font-size: 2rem;
     background: linear-gradient(135deg, #00F5D4, #FFD166);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: float 3s ease-in-out infinite;
-    line-height: 1.4;
-    margin-top: 25px;
+    line-height: 1.2;
+    margin-top: 5px;
     position: relative;
     z-index: 10;
 }
-.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.6rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
-.moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-weight: 500; position: relative; z-index: 10; }
-.stars { font-size: 1.1rem; letter-spacing: 0.4rem; margin: 0.2rem 0; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
+.subtitle { font-size: 0.7rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.4rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
+.moon-quote { font-size: 0.78rem; color: #FFD166; font-style: italic; margin-top: 0.3rem; font-weight: 500; position: relative; z-index: 10; }
+.stars { font-size: 1rem; letter-spacing: 0.3rem; margin: 0.1rem 0; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
 
 .pin-section {
-    margin-top: 1.2rem;
+    margin-top: 1rem;
     background: rgba(30, 15, 60, 0.75);
     border: 1px solid rgba(0, 245, 212, 0.4);
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
-    max-width: 400px;
+    border-radius: 18px;
+    padding: 1.2rem 1.5rem;
+    max-width: 360px;
     width: 100%;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 25px rgba(123, 44, 191, 0.3);
     position: relative;
     z-index: 10;
 }
-.pin-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: #00F5D4; margin-bottom: 0.3rem; font-weight: 600; }
-.pin-hint { font-size: 0.75rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 1.2rem; font-style: italic; }
-.pin-boxes { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 1.2rem; }
+.pin-title { font-family: 'Outfit', sans-serif; font-size: 1rem; color: #00F5D4; margin-bottom: 0.2rem; font-weight: 600; }
+.pin-hint { font-size: 0.7rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 0.8rem; font-style: italic; }
+.pin-boxes { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; }
 .pin-box {
-    width: 46px;
-    height: 56px;
+    width: 40px;
+    height: 48px;
     border: 2px solid rgba(0, 245, 212, 0.4);
-    border-radius: 10px;
+    border-radius: 8px;
     background: rgba(10, 4, 26, 0.6);
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: #FFD166;
     text-align: center;
     font-weight: 600;
@@ -383,8 +383,8 @@ body {
     color: #0A041A;
     border: none;
     border-radius: 10px;
-    padding: 0.75rem 2.5rem;
-    font-size: 0.9rem;
+    padding: 0.65rem 2rem;
+    font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
     width: 100%;
@@ -393,8 +393,8 @@ body {
     box-shadow: 0 0 15px rgba(0,245,212,0.4);
 }
 .enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,245,212,0.6); }
-.error-msg { color: #FF6B6B; font-size: 0.8rem; margin-top: 0.8rem; display: none; }
-.lock-icon { font-size: 1.8rem; margin-bottom: 0.5rem; animation: float 2.5s ease-in-out infinite; display: block; }
+.error-msg { color: #FF6B6B; font-size: 0.75rem; margin-top: 0.6rem; display: none; }
+.lock-icon { font-size: 1.5rem; margin-bottom: 0.3rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
 </head>
 <body>
@@ -420,16 +420,16 @@ body {
         document.body.appendChild(el);
     }
     </script>
-    <div style="position:relative; z-index:10; padding-top: 35px;">
-    <div class="chars">
-        <span class="girl">💻</span>
-        <span class="heart">💜</span>
-        <span class="soldier">🪖</span>
-    </div>
-    <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
-    <div class="title">Happy YOU &amp; ME day 💜</div>
-    <div class="subtitle">Our Private Little World ✨</div>
-    <div class="moon-quote">🌙 "The moon is beautiful, isn't it?" ✨</div>
+    <div style="position:relative; z-index:10; padding-top: 10px;">
+        <div class="chars">
+            <span class="girl">💻</span>
+            <span class="heart">💜</span>
+            <span class="soldier">🪖</span>
+        </div>
+        <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
+        <div class="title">Happy YOU &amp; ME day 💜</div>
+        <div class="subtitle">Our Private Little World ✨</div>
+        <div class="moon-quote">🌙 "The moon is beautiful, isn't it?" ✨</div>
     </div>
     <div class="pin-section">
         <span class="lock-icon">🔐</span>
@@ -488,7 +488,7 @@ body {
     </script>
 </body>
 </html>
-""", height=780, scrolling=False)
+""", height=580, scrolling=False)
 
         password = st.text_input("hidden_pin", type="password", key="pwd_backup", label_visibility="collapsed")
         if password == "220825":
@@ -508,26 +508,26 @@ body {
             background: linear-gradient(135deg, rgba(123,44,191,0.85), rgba(0,245,212,0.6));
             border: 2px solid #FFD166;
             border-radius: 28px;
-            padding: 2.8rem 2.2rem;
+            padding: 2.5rem 2rem;
             text-align: center;
-            max-width: 460px;
+            max-width: 440px;
             width: 90%;
             box-shadow: 0 0 50px rgba(0,245,212,0.5);
             animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             color: #FFFFFF;
         }
         @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        .welcome-title { font-family: 'Pacifico', cursive; font-size: 2.6rem; color: #FFD166; margin-bottom: 0.4rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
-        .welcome-sub { font-size: 0.95rem; font-weight: 600; margin-bottom: 1.2rem; color: #FF6B6B; letter-spacing: 0.5px; }
-        .welcome-desc { font-size: 0.92rem; line-height: 1.7; margin-bottom: 2rem; color: #F0E9FA; font-weight: 500; }
+        .welcome-title { font-family: 'Pacifico', cursive; font-size: 2.4rem; color: #FFD166; margin-bottom: 0.3rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
+        .welcome-sub { font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; color: #FF6B6B; letter-spacing: 0.5px; }
+        .welcome-desc { font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.8rem; color: #F0E9FA; font-weight: 500; }
         .highlight-text { color: #FFD166; font-weight: 600; }
         .explore-btn {
             background: linear-gradient(135deg, #FFD166, #00F5D4);
             color: #0A041A;
             border: none;
             border-radius: 14px;
-            padding: 0.85rem 2.2rem;
-            font-size: 1.02rem;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 0 20px rgba(0,245,212,0.6);
@@ -538,7 +538,7 @@ body {
         </head>
         <body>
             <div class="welcome-card">
-                <div style="font-size: 3.2rem; margin-bottom: 0.4rem;">🚨💻😏</div>
+                <div style="font-size: 2.8rem; margin-bottom: 0.3rem;">🚨💻😏</div>
                 <div class="welcome-title">¡Buenos, Dawis!</div>
                 <div class="welcome-sub">⚠️ Watch out for potential scammers if you click randomly! 💸</div>
                 <div class="welcome-desc">
@@ -566,7 +566,7 @@ body {
             </script>
         </body>
         </html>
-        """, height=700, scrolling=False)
+        """, height=620, scrolling=False)
 
         welcome_trigger = st.text_input("hidden_welcome", key="welcome_backup", label_visibility="collapsed")
         if welcome_trigger == "done":
