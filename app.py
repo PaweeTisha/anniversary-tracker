@@ -452,7 +452,7 @@ stats = calculate_stats()
 # ---- TABS ----
 tab_capsule, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["💌 Love Capsule", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
-# ======== TAB 0: LOVE CAPSULE (Extended Sweet & Spicy / Support & Banter Messages) ========
+# ======== TAB 0: LOVE CAPSULE (Pure English or Pure Spanish per card) ========
 with tab_capsule:
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
@@ -491,26 +491,26 @@ with tab_capsule:
             <div style="font-size: 2.2rem;">💌</div>
             <div style="font-size:0.7rem; color:#6B3FA0; text-transform:uppercase; font-weight:700; letter-spacing:1.5px; margin-top:0.4rem;">Secret Note Unlocked</div>
             <div class="msg-box" id="secretMsg">...</div>
-            <button class="close-btn" onclick="closeModal()">¡Listo! / Got it</button>
+            <button class="close-btn" onclick="closeModal()">Got it / ¡Listo!</button>
         </div>
     </div>
 
     <script>
     const messages = [
-        "¡Te amo mucho! 💜 Keep crushing your goals, my favorite rival!",
-        "You've got this! Pero igual, ¡mucha suerte! You'll need it against me 😜✨",
-        "Te admiro muchísimo. Proud of you every single day, soldier! 🪖💜",
-        "¡Eres el mejor! (Even if you're a stubborn little trouble-maker 🤭)",
-        "Todo saldrá bien. ¡Mucho éxito hoy y siempre, mi amor! 🌟",
-        "You + Me = Unstoppable team. (And yes, I'm the brain, you're the brawn 🤭💜)",
-        "¡Muchísima suerte! Te mando un abrazo giganteและหมัดฮุคเบาๆ 1 ที 🤗🥊",
-        "No matter how tough it gets, I've got your back forever. ¡A por todas! 🚀",
-        "Te quiero un montón. Now go ace it so I can brag about you! 😎🏆",
-        "¡A triunfar! Pero recuerda quién manda en esta relación 👑😏",
-        "So proud of the hard worker you are. ¡Eres increíble, mi vida! 💫",
+        "I love you so much! Keep crushing your goals, my favorite rival!",
+        "¡Muchísima suerte hoy! You'll need it when competing against me 😜✨",
+        "I admire you so much. Proud of you every single day, soldier! 🪖💜",
+        "¡Eres el mejor! Even if you are a stubborn little trouble-maker 🤭",
+        "Everything is going to be amazing. Sending you all my love and energy! 🌟",
+        "You + Me = Unstoppable team. (And yes, I am definitely the brain 🤭💜)",
+        "¡Qué tengas un día increíble! Sending you a giant hug and a playful punch 🤗🥊",
+        "No matter how tough it gets, I've got your back forever. Let's conquer it all! 🚀",
+        "¡Te quiero un montón! Now go ace it so I can proudly brag about you 😎🏆",
+        "A triunfar hoy. But remember who is actually in charge here 👑😏",
+        "So proud of the hard worker you are. You are truly incredible, my love! 💫",
         "Warning: High level of cuteness and unstoppable support ahead! ⚠️💜",
-        "¡A por todas, soldado! Make me proud, or else... 🪖👀",
-        "You are my favorite distraction and my greatest motivation. ¡Te amo! 🪐"
+        "¡A por todas, soldado! Make me proud, or prepare to face the consequences 🪖👀",
+        "You are my favorite distraction and my greatest motivation. I love you! 🪐"
     ];
 
     function openLetter() {
