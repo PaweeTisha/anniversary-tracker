@@ -37,29 +37,31 @@ st.markdown("""
     max-width: 1250px !important;
 }
 
-/* BREAKING NEWS TICKER BANNER */
+/* BREAKING NEWS TICKER BANNER (Fixed width & font size) */
 .breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #C9A84C, #8B0000);
     border: 1px solid #FFD700;
     border-radius: 8px;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     color: #FFFFFF;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     box-shadow: 0 4px 15px rgba(139,0,0,0.5);
 }
 .breaking-badge {
     background: #FFFFFF;
     color: #8B0000;
-    padding: 0.2rem 0.5rem;
+    padding: 0.3rem 0.7rem;
     border-radius: 4px;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
+    white-space: nowrap;
     animation: pulse 1.5s infinite;
 }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
@@ -482,7 +484,7 @@ components.html("""
 .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26,10,46,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
 .news-modal { background: linear-gradient(135deg, #8B0000, #3D1A6E); border: 3px solid #FFD700; border-radius: 20px; padding: 2.2rem; max-width: 440px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 25px 50px rgba(0,0,0,0.8); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-.news-header { background: #FFD700; color: #8B0000; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.9rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.8rem; }
+.news-header { background: #FFD700; color: #8B0000; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.9rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.8rem; white-space: nowrap; }
 .news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; color: #FFD700; }
 .news-desc { font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; color: #F0E9FA; font-weight: 500; }
 .warning-box { background: rgba(255, 215, 0, 0.15); border: 2px dashed #FFD700; border-radius: 10px; padding: 0.8rem; margin-bottom: 1.5rem; color: #FFD700; font-weight: 700; font-size: 0.9rem; }
@@ -521,7 +523,7 @@ stats = calculate_stats()
 st.markdown("""
 <div class="breaking-news-bar">
     <div class="breaking-badge">🔴 BREAKING NEWS</div>
-    <div style="overflow: white-space: nowrap;">
+    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
         ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels, daily love capsules, and wonderful memories! 💜🪖
     </div>
 </div>
@@ -576,7 +578,7 @@ with tab_capsule:
     <script>
     const messages = [
         "I love you so much! Keep crushing your goals, my favorite rival!",
-        "¡Muchísima suerte сегодня! You are going to do amazing things, my favorite rival.",
+        "¡Muchísima suerte hoy! You are going to do amazing things, my favorite rival.",
         "I admire you so much. Proud of you every single day, soldier!",
         "¡Eres el mejor! Even if you are a stubborn little trouble-maker.",
         "Everything is going to be amazing. Sending you all my love and energy!",
@@ -653,7 +655,7 @@ with tab_battle:
     .mtg-card.tapped { transform: rotate(90deg) scale(1.03); border-color: #7A8C6A; box-shadow: -12px 8px 20px rgba(0,0,0,0.6); }
     
     .turn-indicator { font-size: 0.95rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .action-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(107,63,160,0.4); transition: transform 0.2s; margin-top: 0.4rem; }
+    .action-btn { background: linear-gradient(135deg, #6B3FA0, #4A5C3A); color: white; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(107,63,160,0.4); transition: transform 0.2s; margin-top: 0.4rem; }
     .action-btn:hover { transform: scale(1.05); }
     .game-log { font-size: 0.75rem; color: #B08FD4; margin-top: 0.6rem; font-style: italic; min-height: 30px; }
     
