@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS ONLY, NO FLOATING EMOJIS ON MAIN PAGES) ----
+# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -229,7 +229,7 @@ st.markdown("""
 .stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
 
-<!-- GLOBAL SCRIPT FOR SHOOTING STARS ONLY (NO FLOATING EMOJIS ON MAIN PAGES) -->
+<!-- GLOBAL SCRIPT FOR SHOOTING STARS -->
 <script>
 window.addEventListener('DOMContentLoaded', (event) => {
     for (let i = 0; i < 18; i++) {
@@ -334,10 +334,12 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN (WITH FLOATING EMOJIS, SHOOTING STARS & MOON QUOTE) ----
+# ---- PASSWORD LOGIN & WELCOME SCREEN FOR DAWIS ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
+    if "welcomed" not in st.session_state:
+        st.session_state.welcomed = False
 
     if not st.session_state.authenticated:
         st.markdown("""
@@ -464,9 +466,9 @@ body {
     width: 100%;
     transition: all 0.2s;
     letter-spacing: 0.5px;
-    box-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
+    box-shadow: 0 0 15px rgba(0,245,212,0.4);
 }
-.enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0, 245, 212, 0.6); }
+.enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,245,212,0.6); }
 .error-msg { color: #FF6B6B; font-size: 0.8rem; margin-top: 0.8rem; display: none; }
 .lock-icon { font-size: 1.8rem; margin-bottom: 0.5rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
@@ -571,6 +573,79 @@ body {
             st.session_state.authenticated = True
             st.rerun()
         return False
+
+    if not st.session_state.welcomed:
+        components.html("""
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+        <style>
+        body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .welcome-card {
+            background: linear-gradient(135deg, rgba(123,44,191,0.85), rgba(0,245,212,0.6));
+            border: 2px solid #FFD166;
+            border-radius: 28px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(0,245,212,0.5);
+            animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #FFFFFF;
+        }
+        @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .welcome-title { font-family: 'Pacifico', cursive; font-size: 2.8rem; color: #FFD166; margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
+        .welcome-sub { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #00F5D4; }
+        .welcome-desc { font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; color: #F0E9FA; font-weight: 500; }
+        .explore-btn {
+            background: linear-gradient(135deg, #FFD166, #00F5D4);
+            color: #0A041A;
+            border: none;
+            border-radius: 14px;
+            padding: 0.85rem 2.5rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0,245,212,0.6);
+            transition: transform 0.2s;
+        }
+        .explore-btn:hover { transform: scale(1.08); background: linear-gradient(135deg, #FFE188, #2EE8CC); }
+        </style>
+        </head>
+        <body>
+            <div class="welcome-card">
+                <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">💻✨😏</div>
+                <div class="welcome-title">Yo, Dawis!</div>
+                <div class="welcome-sub">Welcome to our Aurora World! 🌌</div>
+                <div class="welcome-desc">
+                    🌙 <i>"The moon is beautiful, isn't it?"</i><br>
+                    Just to be clear... I didn't build this website because I love you so much or anything! <br>
+                    I just wanted to level up my IT and Data Engineering skills, you know? 55555
+                </div>
+                <button class="explore-btn" onclick="letMeIn()">Go check my coding skills! 🚀</button>
+            </div>
+            <script>
+            function letMeIn() {
+                const parentDoc = window.parent.document;
+                const hiddenInput = parentDoc.querySelector('input[aria-label="hidden_welcome"]');
+                if (hiddenInput) {
+                    let nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+                    nativeSetter.call(hiddenInput, 'done');
+                    hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    hiddenInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true }));
+                }
+            }
+            </script>
+        </body>
+        </html>
+        """, height=700, scrolling=False)
+
+        welcome_trigger = st.text_input("hidden_welcome", key="welcome_backup", label_visibility="collapsed")
+        if welcome_trigger == "done":
+            st.session_state.welcomed = True
+            st.rerun()
+        return False
     return True
 
 if not check_password():
@@ -626,7 +701,7 @@ st.markdown("""
 <div class="breaking-news-bar">
     <div class="breaking-badge">🔴 BREAKING NEWS</div>
     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 700;">
-        🌙 "The moon is beautiful, isn't it?" ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
+        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
     </div>
 </div>
 """, unsafe_allow_html=True)
