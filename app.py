@@ -178,9 +178,10 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     background: linear-gradient(135deg, #7B2CBF, #00F5D4) !important;
     color: #0A041A !important;
     border: none !important;
-    border-radius: 8px !important;
+    border-radius: 12px !important;
     font-weight: 700 !important;
-    padding: 0.4rem 1.2rem !important;
+    padding: 1rem !important;
+    width: 100% !important;
     box-shadow: 0 0 20px rgba(0,245,212,0.5);
 }
 
@@ -621,11 +622,18 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---- TABS (Strictly English UI) ----
-tab_flower, tab_capsule, tab_battle, tab_stats = st.tabs(["💐 Get Flowers", "💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"])
+# ---- INTERACTIVE NAVIGATION STATE ----
+if "active_tab" not in st.session_state:
+    st.session_state.active_tab = "💐 Get Flowers"
+
+tab_names = ["💐 Get Flowers", "💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"]
+selected_tab = st.radio("Navigation", tab_names, index=tab_names.index(st.session_state.active_tab), horizontal=True, label_visibility="collapsed")
+st.session_state.active_tab = selected_tab
+
+st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 0.5rem 0 1.5rem 0;'>", unsafe_allow_html=True)
 
 # ======== TAB 0: GET FLOWERS & 3 STREAMLINED INTERACTIVE MENUS ========
-with tab_flower:
+if st.session_state.active_tab == "💐 Get Flowers":
     st.markdown("""
     <div style="text-align: center; padding: 1.5rem 0;">
         <h1 style="font-family: 'Pacifico', cursive; color: #FFD166; font-size: 2.8rem; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5);">Get Flowers! 🌷</h1>
@@ -633,7 +641,6 @@ with tab_flower:
     </div>
     """, unsafe_allow_html=True)
 
-    # Real stunning bouquet image (Guaranteed floral bouquet URL)
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
         st.markdown("""
@@ -652,37 +659,23 @@ with tab_flower:
     st.markdown('<div class="section-title" style="text-align: center;">💖 Select Our Memory Menu 💖</div>', unsafe_allow_html=True)
     st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
 
-    # 3 Streamlined Menu Cards (No duplicates)
+    # 3 Interactive Streamlined Menu Buttons linking directly to tabs
     mcol1, mcol2, mcol3 = st.columns(3)
     with mcol1:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(255,105,180,0.3)); border: 2px solid #FFD166; border-radius: 20px; padding: 1.8rem; text-align: center; margin-bottom: 1rem; box-shadow: 0 0 20px rgba(123,44,191,0.4);">
-            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🍒</div>
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FFD166; margin-bottom: 0.3rem;">Our Time Together</div>
-            <div style="font-size: 0.85rem; color: #F0E9FA;">Check our live counter & journey 💜</div>
-        </div>
-        """, unsafe_allow_html=True)
-
+        if st.button("🍒 Our Time Together\n\nCheck our live counter & journey 💜", use_container_width=True):
+            st.session_state.active_tab = "📊 Our Stats"
+            st.rerun()
     with mcol2:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(255,105,180,0.3)); border: 2px solid #FFD166; border-radius: 20px; padding: 1.8rem; text-align: center; margin-bottom: 1rem; box-shadow: 0 0 20px rgba(123,44,191,0.4);">
-            <div style="font-size: 3rem; margin-bottom: 0.5rem;">💌</div>
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FFD166; margin-bottom: 0.3rem;">Love Capsule</div>
-            <div style="font-size: 0.85rem; color: #F0E9FA;">Open a secret note from me ✉️</div>
-        </div>
-        """, unsafe_allow_html=True)
-
+        if st.button("💌 Love Capsule\n\nOpen a secret note from me ✉️", use_container_width=True):
+            st.session_state.active_tab = "💌 Love Capsule"
+            st.rerun()
     with mcol3:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(255,105,180,0.3)); border: 2px solid #FFD166; border-radius: 20px; padding: 1.8rem; text-align: center; margin-bottom: 1rem; box-shadow: 0 0 20px rgba(123,44,191,0.4);">
-            <div style="font-size: 3rem; margin-bottom: 0.5rem;">⚔️</div>
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FFD166; margin-bottom: 0.3rem;">Card Duel Arena</div>
-            <div style="font-size: 0.85rem; color: #F0E9FA;">Test our teamwork & stats 🌟</div>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button("⚔️ Card Duel Arena\n\nTest our teamwork & stats 🌟", use_container_width=True):
+            st.session_state.active_tab = "⚔️ Battle Phase"
+            st.rerun()
 
 # ======== TAB 1: LOVE CAPSULE ========
-with tab_capsule:
+elif st.session_state.active_tab == "💌 Love Capsule":
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
     
@@ -753,7 +746,7 @@ with tab_capsule:
     """, height=380, scrolling=False)
 
 # ======== TAB 2: BATTLE PHASE ========
-with tab_battle:
+elif st.session_state.active_tab == "⚔️ Battle Phase":
     st.markdown('<div class="section-title">Battle Phase: 5 Cards Choice & Tap/Untap ⚔️🃏</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.0rem;">Pick one of 5 cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
     
@@ -1008,7 +1001,7 @@ with tab_battle:
     """, height=440, scrolling=False)
 
 # ======== TAB 3: STATS ========
-with tab_stats:
+elif st.session_state.active_tab == "📊 Our Stats":
     st.markdown(f"""
     <div class="hero-section">
         <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
