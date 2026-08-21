@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS ONLY) ----
+# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -25,7 +25,6 @@ st.markdown("""
 
 * { font-family: 'DM Sans', sans-serif; }
 
-/* AURORA LIGHTS DYNAMIC BACKGROUND ANIMATION */
 .stApp {
     background: linear-gradient(135deg, #050210 0%, #10072B 30%, #031B26 70%, #020C1B 100%);
     background-size: 400% 400%;
@@ -41,7 +40,6 @@ st.markdown("""
     100% { background-position: 0% 50%; }
 }
 
-/* AURORA GLOW EFFECT OVERLAYS */
 .stApp::before {
     content: '';
     position: fixed;
@@ -68,7 +66,6 @@ st.markdown("""
     z-index: 1;
 }
 
-/* GLOBAL SHOOTING STARS ANIMATION */
 @keyframes shootingStar {
     0% { transform: translateX(0) translateY(0); opacity: 1; }
     100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
@@ -86,7 +83,6 @@ st.markdown("""
     pointer-events: none;
 }
 
-/* BREAKING NEWS TICKER BANNER */
 .breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #00F5D4, #8B0000);
     border: 1px solid #FFD166;
@@ -130,21 +126,8 @@ st.markdown("""
     z-index: 2;
 }
 
-.hero-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #F0E9FA;
-    margin: 0;
-}
-
-.hero-subtitle {
-    font-size: 0.8rem;
-    color: #4CC9F0;
-    margin-top: 0.2rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-}
+.hero-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2rem; font-weight: 700; color: #F0E9FA; margin: 0; }
+.hero-subtitle { font-size: 0.8rem; color: #4CC9F0; margin-top: 0.2rem; letter-spacing: 1.5px; text-transform: uppercase; }
 
 .metric-card {
     background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(76,201,240,0.25));
@@ -158,21 +141,8 @@ st.markdown("""
     box-shadow: 0 0 15px rgba(123,44,191,0.2);
 }
 
-.metric-number {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #FFD166;
-    line-height: 1;
-}
-
-.metric-label {
-    font-size: 0.75rem;
-    color: #4CC9F0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 0.3rem;
-}
+.metric-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 700; color: #FFD166; line-height: 1; }
+.metric-label { font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
 
 .section-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -229,7 +199,6 @@ st.markdown("""
 .stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
 
-<!-- GLOBAL SCRIPT FOR SHOOTING STARS -->
 <script>
 window.addEventListener('DOMContentLoaded', (event) => {
     for (let i = 0; i < 18; i++) {
@@ -334,7 +303,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN & SAY HI WELCOME SCREEN ----
+# ---- PASSWORD LOGIN (With Shooting Stars & Floating Emojis) ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -344,23 +313,10 @@ def check_password():
     if not st.session_state.authenticated:
         st.markdown("""
         <style>
-        .block-container {
-            padding-top: 1rem !important;
-            padding-bottom: 1rem !important;
-            max-width: 100% !important;
-        }
-        div[data-testid="stTextInput"] {
-            position: absolute !important;
-            width: 0px !important;
-            height: 0px !important;
-            overflow: hidden !important;
-            opacity: 0 !important;
-            z-index: -9999 !important;
-            pointer-events: none !important;
-        }
+        .block-container { padding-top: 1rem !important; padding-bottom: 1rem !important; max-width: 100% !important; }
+        div[data-testid="stTextInput"] { position: absolute !important; width: 0px !important; height: 0px !important; opacity: 0 !important; z-index: -9999 !important; }
         </style>
         """, unsafe_allow_html=True)
-
         components.html("""
 <!DOCTYPE html>
 <html>
@@ -368,182 +324,39 @@ def check_password():
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-    background: transparent;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    text-align: center;
-    padding: 1rem;
-    overflow: hidden;
-}
-@keyframes shootingStar {
-    0% { transform: translateX(0) translateY(0); opacity: 1; }
-    100% { transform: translateX(-500px) translateY(500px); opacity: 0; }
-}
-.login-shooting-star {
-    position: fixed; width: 2px; height: 2px; background: #00F5D4; border-radius: 50%;
-    box-shadow: 0 0 8px 2px #00F5D4, 0 0 20px 4px #4CC9F0;
-    animation: shootingStar linear infinite; z-index: 0; pointer-events: none;
-}
-.floating-emoji { position: fixed; font-size: 1.5rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.7; }
-@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
-
-@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-15px) rotate(3deg); } 50% { transform: translateY(-8px) rotate(-2deg); } 75% { transform: translateY(-20px) rotate(4deg); } }
-@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-20px) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(2deg); } 75% { transform: translateY(-15px) rotate(-4deg); } }
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.2); } 60% { transform: scale(1); } }
-@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-@keyframes shimmer { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
-@keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
-@keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
-
+body { background: transparent; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif; text-align: center; padding: 1rem; overflow: hidden; }
+@keyframes shootingStar { 0% { transform: translateX(0) translateY(0); opacity: 1; } 100% { transform: translateX(-500px) translateY(500px); opacity: 0; } }
+.login-star { position: fixed; width: 2px; height: 2px; background: #00F5D4; border-radius: 50%; box-shadow: 0 0 8px #00F5D4; animation: shootingStar linear infinite; }
+.floating-emoji { position: fixed; font-size: 1.5rem; animation: floatUp linear infinite; pointer-events: none; opacity: 0.7; }
+@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 50% { opacity: 0.7; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
 .chars { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 1rem; }
-.girl { font-size: 4rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
-.heart { font-size: 2.8rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
-.soldier { font-size: 4rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
-.title {
-    font-family: 'Pacifico', cursive;
-    font-size: 3.2rem;
-    background: linear-gradient(135deg, #00F5D4, #FFD166);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: float 3s ease-in-out infinite;
-    line-height: 1.1;
-}
-.and { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: #4CC9F0; margin: 0.1rem 0; }
-.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; }
-.moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-family: 'DM Sans', sans-serif; letter-spacing: 0.5px; }
-.stars { font-size: 1.2rem; letter-spacing: 0.4rem; margin: 0.5rem 0; animation: shimmer 2s ease-in-out infinite; }
-
-.pin-section {
-    margin-top: 1.5rem;
-    background: rgba(30, 15, 60, 0.75);
-    border: 1px solid rgba(0, 245, 212, 0.4);
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
-    max-width: 400px;
-    width: 100%;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 25px rgba(123, 44, 191, 0.3);
-    position: relative;
-    z-index: 1;
-}
-.pin-title { font-family: 'Pacifico', cursive; font-size: 1.2rem; color: #00F5D4; margin-bottom: 0.3rem; }
-.pin-hint { font-size: 0.75rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 1.2rem; font-style: italic; }
-.pin-boxes { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 1.2rem; }
-.pin-box {
-    width: 46px;
-    height: 56px;
-    border: 2px solid rgba(0, 245, 212, 0.4);
-    border-radius: 10px;
-    background: rgba(10, 4, 26, 0.6);
-    font-size: 1.6rem;
-    color: #FFD166;
-    text-align: center;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
-    outline: none;
-    transition: all 0.2s;
-    caret-color: transparent;
-}
-.pin-box:focus { border-color: #00F5D4; background: rgba(123, 44, 191, 0.4); box-shadow: 0 0 15px rgba(0, 245, 212, 0.5); transform: scale(1.05); }
-.pin-box.filled { border-color: #FFD166; animation: pop 0.2s ease; }
-.pin-box.error { border-color: #FF6B6B; animation: shake 0.4s ease; }
-.enter-btn {
-    background: linear-gradient(135deg, #7B2CBF, #00F5D4);
-    color: #0A041A;
-    border: none;
-    border-radius: 10px;
-    padding: 0.75rem 2.5rem;
-    font-size: 0.9rem;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.2s;
-    letter-spacing: 0.5px;
-    box-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
-}
-.enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0, 245, 212, 0.6); }
-.error-msg { color: #FF6B6B; font-size: 0.8rem; margin-top: 0.8rem; display: none; }
-.lock-icon { font-size: 1.8rem; margin-bottom: 0.5rem; animation: float 2.5s ease-in-out infinite; display: block; }
+.girl { font-size: 4rem; animation: bounce 1.4s ease-in-out infinite; }
+.heart { font-size: 2.8rem; animation: heartbeat 1.2s ease-in-out infinite; }
+.soldier { font-size: 4rem; animation: bounce2 1.6s ease-in-out infinite; }
+.title { font-family: 'Pacifico', cursive; font-size: 3.2rem; background: linear-gradient(135deg, #00F5D4, #FFD166); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.pin-section { margin-top: 1.5rem; background: rgba(30, 15, 60, 0.75); border: 2px solid #00F5D4; border-radius: 20px; padding: 1.5rem 2rem; max-width: 400px; width: 100%; backdrop-filter: blur(10px); }
+.pin-box { width: 45px; height: 55px; border: 2px solid #00F5D4; border-radius: 10px; background: rgba(10,4,26,0.6); color: #FFD166; text-align: center; font-size: 1.5rem; }
+.enter-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.7rem 2rem; font-weight: 700; cursor: pointer; }
 </style>
 </head>
 <body>
     <script>
-    for (let i = 0; i < 12; i++) {
-        let star = document.createElement('div');
-        star.className = 'login-shooting-star';
-        star.style.top = Math.random() * 60 + 'vh';
-        star.style.left = Math.random() * 100 + 'vw';
-        star.style.animationDuration = (2 + Math.random() * 3) + 's';
-        star.style.animationDelay = (Math.random() * 4) + 's';
-        document.body.appendChild(star);
+    for (let i = 0; i < 15; i++) {
+        let s = document.createElement('div'); s.className = 'login-star'; s.style.top = Math.random()*60+'vh'; s.style.left = Math.random()*100+'vw'; s.style.animationDuration = (2+Math.random()*3)+'s'; document.body.appendChild(s);
     }
-    const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
+    const e = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','💻','📡','🛜','🪖'];
     for (let i = 0; i < 20; i++) {
-        let el = document.createElement('div');
-        el.className = 'floating-emoji';
-        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.animationDuration = (5 + Math.random() * 8) + 's';
-        el.style.animationDelay = (Math.random() * 8) + 's';
-        el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
-        document.body.appendChild(el);
+        let el = document.createElement('div'); el.className = 'floating-emoji'; el.textContent = e[Math.floor(Math.random()*e.length)]; el.style.left = Math.random()*100+'vw'; el.style.animationDuration = (5+Math.random()*8)+'s'; document.body.appendChild(el);
     }
     </script>
-    <div style="position:relative; z-index:1;">
-    <div class="chars">
-        <span class="girl">💻</span>
-        <span class="heart">💜</span>
-        <span class="soldier">🪖</span>
-    </div>
-    <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
-    <div class="title">Paweetida</div>
-    <div class="and">&amp;</div>
-    <div class="title">Dawis</div>
-    <div class="subtitle">Our Private Little World 💜</div>
-    <div class="moon-quote">🌙 "The moon is beautiful, isn't it?" ✨</div>
-    </div>
+    <div class="chars"><span class="girl">💻</span><span class="heart">💜</span><span class="soldier">🪖</span></div>
+    <div class="title">Paweetida & Dawis</div>
     <div class="pin-section">
-        <span class="lock-icon">🔐</span>
-        <div class="pin-title">Enter our secret code</div>
-        <div class="pin-hint">hint: our special date 💜</div>
-        <div class="pin-boxes">
-            <input class="pin-box" maxlength="1" type="password" id="p0" inputmode="numeric">
-            <input class="pin-box" maxlength="1" type="password" id="p1" inputmode="numeric">
-            <input class="pin-box" maxlength="1" type="password" id="p2" inputmode="numeric">
-            <input class="pin-box" maxlength="1" type="password" id="p3" inputmode="numeric">
-            <input class="pin-box" maxlength="1" type="password" id="p4" inputmode="numeric">
-            <input class="pin-box" maxlength="1" type="password" id="p5" inputmode="numeric">
-        </div>
+        <div class="pin-boxes"><input class="pin-box" maxlength="1" type="password" id="p0" inputmode="numeric"><input class="pin-box" maxlength="1" type="password" id="p1" inputmode="numeric"><input class="pin-box" maxlength="1" type="password" id="p2" inputmode="numeric"><input class="pin-box" maxlength="1" type="password" id="p3" inputmode="numeric"><input class="pin-box" maxlength="1" type="password" id="p4" inputmode="numeric"><input class="pin-box" maxlength="1" type="password" id="p5" inputmode="numeric"></div>
         <button class="enter-btn" onclick="checkPin()">Enter Our World 💜</button>
-        <div class="error-msg" id="errMsg">Hmm, that's not right... 💔 Try again!</div>
     </div>
     <script>
-    const boxes = document.querySelectorAll('.pin-box');
-    boxes[0].focus();
-    boxes.forEach((box, i) => {
-        box.addEventListener('input', (e) => {
-            if (box.value) {
-                box.classList.add('filled');
-                box.classList.remove('error');
-                if (i < 5) boxes[i+1].focus();
-            }
-        });
-        box.addEventListener('keydown', (e) => {
-            if (e.key === 'Backspace' && !box.value && i > 0) {
-                boxes[i-1].focus();
-                boxes[i-1].value = '';
-                boxes[i-1].classList.remove('filled');
-            }
-            if (e.key === 'Enter') checkPin();
-        });
-    });
+    const boxes = document.querySelectorAll('.pin-box'); boxes[0].focus(); boxes.forEach((b,i) => { b.addEventListener('input', (e) => { if(b.value && i<5) boxes[i+1].focus(); }); });
     function checkPin() {
         let pin = Array.from(boxes).map(b => b.value).join('');
         if (pin === '220825') {
@@ -555,26 +368,18 @@ body {
                 hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
                 hiddenInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true }));
             }
-        } else {
-            boxes.forEach(b => { b.classList.add('error'); b.classList.remove('filled'); });
-            setTimeout(() => { boxes.forEach(b => b.classList.remove('error')); }, 500);
-            document.getElementById('errMsg').style.display = 'block';
-            boxes.forEach(b => b.value = '');
-            boxes[0].focus();
         }
     }
     </script>
 </body>
 </html>
-""", height=740, scrolling=False)
-
+""", height=720, scrolling=False)
         password = st.text_input("hidden_pin", type="password", key="pwd_backup", label_visibility="collapsed")
         if password == "220825":
             st.session_state.authenticated = True
             st.rerun()
         return False
 
-    # ---- WELCOME / SAY HI SCREEN (Post-Login) ----
     if not st.session_state.welcomed:
         components.html("""
         <!DOCTYPE html>
@@ -583,47 +388,17 @@ body {
         <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
         <style>
         body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .welcome-card {
-            background: linear-gradient(135deg, rgba(123,44,191,0.85), rgba(0,245,212,0.6));
-            border: 2px solid #FFD166;
-            border-radius: 28px;
-            padding: 3rem 2.5rem;
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 0 50px rgba(0,245,212,0.5);
-            animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            color: #FFFFFF;
-        }
-        @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        .welcome-title { font-family: 'Pacifico', cursive; font-size: 2.8rem; color: #FFD166; margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
-        .welcome-sub { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #00F5D4; }
-        .welcome-desc { font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; color: #F0E9FA; font-weight: 500; }
-        .explore-btn {
-            background: linear-gradient(135deg, #FFD166, #00F5D4);
-            color: #0A041A;
-            border: none;
-            border-radius: 14px;
-            padding: 0.85rem 2.5rem;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(0,245,212,0.6);
-            transition: transform 0.2s;
-        }
-        .explore-btn:hover { transform: scale(1.08); background: linear-gradient(135deg, #FFE188, #2EE8CC); }
+        .welcome-card { background: linear-gradient(135deg, rgba(123,44,191,0.85), rgba(0,245,212,0.6)); border: 2px solid #FFD166; border-radius: 28px; padding: 3rem 2.5rem; text-align: center; max-width: 450px; width: 90%; box-shadow: 0 0 50px rgba(0,245,212,0.5); color: #FFFFFF; }
+        .welcome-title { font-family: 'Pacifico', cursive; font-size: 2.5rem; color: #FFD166; margin-bottom: 0.5rem; }
+        .explore-btn { background: linear-gradient(135deg, #FFD166, #00F5D4); color: #0A041A; border: none; border-radius: 14px; padding: 0.85rem 2.5rem; font-weight: 700; cursor: pointer; }
         </style>
         </head>
         <body>
             <div class="welcome-card">
-                <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">👋✨💜</div>
-                <div class="welcome-title">Hello, Paweetida!</div>
-                <div class="welcome-sub">Welcome to our Aurora World! 🌌</div>
-                <div class="welcome-desc">
-                    🌙 <i>"The moon is beautiful, isn't it?"</i><br>
-                    Ready to check our love stats, unlock secret notes, or challenge Dawis to an epic card duel? Let's explore together! ✨
-                </div>
-                <button class="explore-btn" onclick="letMeIn()">Let's Go Explore! 🚀</button>
+                <div style="font-size: 3.5rem;">💻✨😏</div>
+                <div class="welcome-title">Yo, Dawis!</div>
+                <p>บอกก่อนนะ... ที่นั่งทำเว็บนี้ขึ้นมา ไม่ใช่เพราะรักเธอมากหรอก! ก็แค่... อยากฝึกสกิล IT พัฒนาทักษะ Data Engineering ของตัวเองเฉยๆ หรอกน่า! 55555</p>
+                <button class="explore-btn" onclick="letMeIn()">Go check my coding skills! 🚀</button>
             </div>
             <script>
             function letMeIn() {
@@ -640,7 +415,6 @@ body {
         </body>
         </html>
         """, height=700, scrolling=False)
-
         welcome_trigger = st.text_input("hidden_welcome", key="welcome_backup", label_visibility="collapsed")
         if welcome_trigger == "done":
             st.session_state.welcomed = True
@@ -754,7 +528,6 @@ with tab_capsule:
 
     <script>
     const messages = [
-        "The moon is beautiful, isn't it? I love you so much, my favorite rival!",
         "I love you so much! Keep crushing your goals, my favorite rival!",
         "¡Muchísima suerte hoy! You are going to do amazing things, my favorite rival.",
         "I admire you so much. Proud of you every single day, soldier!",
