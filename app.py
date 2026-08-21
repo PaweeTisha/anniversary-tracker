@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (NORTH & SOUTH AURORA THEME) ----
+# ---- CUSTOM CSS (AURORA THEME WITH ORIGINAL TEXT) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -39,22 +39,22 @@ st.markdown("""
 
 /* BREAKING NEWS TICKER BANNER (Aurora Glow) */
 .breaking-news-bar {
-    background: linear-gradient(90deg, #7B2CBF, #00F5D4, #4CC9F0);
+    background: linear-gradient(90deg, #8B0000, #00F5D4, #8B0000);
     border: 1px solid #FFD166;
     border-radius: 8px;
     padding: 0.5rem 1rem;
-    color: #0A041A;
+    color: #FFFFFF;
     font-weight: 700;
     font-size: 0.9rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.0rem;
     display: flex;
     align-items: center;
     gap: 12px;
     box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
 }
 .breaking-badge {
-    background: #0A041A;
-    color: #00F5D4;
+    background: #FFFFFF;
+    color: #8B0000;
     padding: 0.25rem 0.6rem;
     border-radius: 4px;
     font-size: 0.7rem;
@@ -133,7 +133,7 @@ st.markdown("""
     border: 1px solid rgba(76,201,240,0.3);
     border-radius: 10px;
     padding: 0.8rem 1rem;
-    margin-bottom: 0.5nsrem;
+    margin-bottom: 0.5rem;
 }
 
 .army-badge {
@@ -386,18 +386,18 @@ body {
     <div id="floaters"></div>
     <div style="position:relative; z-index:1;">
     <div class="chars">
-        <span class="girl">🌌</span>
-        <span class="heart">💚</span>
-        <span class="soldier">✨</span>
+        <span class="girl">💻</span>
+        <span class="heart">💜</span>
+        <span class="soldier">🪖</span>
     </div>
-    <div class="stars">🌠 🪐 🌙 🌟 🔮</div>
+    <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
     <div class="title">Dawis</div>
-    <div class="subtitle">Aurora Borealis World 🌌</div>
+    <div class="subtitle">Our Private Little World 💜</div>
     </div>
     <script>
-    const emojis = ['🌌','💚','✨','🌠','🪐','🌜','🔮','🌟','💙','❄️','⭐','🤍','💛','🌐','💻','📡','🛜','🍀','💜'];
+    const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
     const container = document.getElementById('floaters');
     for (let i = 0; i < 25; i++) {
         const el = document.createElement('div');
@@ -422,7 +422,7 @@ body {
             <input class="pin-box" maxlength="1" type="password" id="p4" inputmode="numeric">
             <input class="pin-box" maxlength="1" type="password" id="p5" inputmode="numeric">
         </div>
-        <button class="enter-btn" onclick="checkPin()">Enter Aurora World 🌌</button>
+        <button class="enter-btn" onclick="checkPin()">Enter Our World 💜</button>
         <div class="error-msg" id="errMsg">Hmm, that's not right... 💔 Try again!</div>
     </div>
     <script>
@@ -479,7 +479,7 @@ body {
 if not check_password():
     st.stop()
 
-# ---- BREAKING NEWS POPUP ----
+# ---- BREAKING NEWS POPUP (Original text + Aurora Theme) ----
 components.html("""
 <!DOCTYPE html>
 <html>
@@ -487,7 +487,7 @@ components.html("""
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
 .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
-.news-modal { background: linear-gradient(135deg, #7B2CBF, #0A041A); border: 3px solid #00F5D4; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 0 40px rgba(0,245,212,0.4); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.news-modal { background: linear-gradient(135deg, #8B0000, #1E0B36); border: 3px solid #00F5D4; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 0 40px rgba(0,245,212,0.4); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 .news-header { background: #00F5D4; color: #0A041A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.6rem; white-space: nowrap; }
 .news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #FFD166; }
@@ -500,13 +500,13 @@ components.html("""
 <body>
 <div class="news-overlay" id="newsModal">
     <div class="news-modal">
-        <div class="news-header">🌌 AURORA BREAKING NEWS 🌌</div>
-        <div class="news-title">Upcoming Anniversary Alert! 💚</div>
+        <div class="news-header">🚨 BREAKING NEWS 🚨</div>
+        <div class="news-title">Upcoming Anniversary Alert! 💜</div>
         <div class="news-desc">
-            Get ready under the aurora lights for special dates, love capsules, and epic card duels!
+            Get ready for special dates, love capsules, and epic card duels!
         </div>
         <div class="warning-box">
-            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🌠✨
+            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🚨🔥
         </div>
         <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
     </div>
@@ -524,12 +524,12 @@ function closeNews() {
 init_db()
 stats = calculate_stats()
 
-# ---- BREAKING NEWS TICKER BANNER (Aurora Glow) ----
+# ---- BREAKING NEWS TICKER BANNER (Original text + Aurora Theme) ----
 st.markdown("""
 <div class="breaking-news-bar">
-    <div class="breaking-badge">🌌 AURORA NEWS</div>
-    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #0A041A; font-weight: 800;">
-        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned under the aurora lights for card duels and memories! 💚🌌
+    <div class="breaking-badge">🔴 BREAKING NEWS</div>
+    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 700;">
+        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -540,7 +540,7 @@ tab_capsule, tab_battle, tab_stats, tab_memories, tab_timeline, tab_add = st.tab
 # ======== TAB 0: LOVE CAPSULE ========
 with tab_capsule:
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter under the aurora sky to reveal a supportive message or a playful tease! ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -566,15 +566,15 @@ with tab_capsule:
     <body>
     <div class="capsule-container">
         <div class="letter-icon">✉️</div>
-        <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#FFD166; font-size:1.3rem; font-weight:700; margin-bottom:0.3rem;">Aurora Love Letter</div>
-        <div style="color:#4CC9F0; font-size:0.75rem; margin-bottom:1.5rem; letter-spacing:0.5px;">Open a note under the lights ✨</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#FFD166; font-size:1.3rem; font-weight:700; margin-bottom:0.3rem;">Love Capsule Letter</div>
+        <div style="color:#4CC9F0; font-size:0.75rem; margin-bottom:1.5rem; letter-spacing:0.5px;">Open a note from me ✨</div>
         <button class="open-btn" onclick="openLetter()">Open Letter 💌</button>
     </div>
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <div style="font-size: 2.2rem;">🌌</div>
-            <div style="font-size:0.7rem; color:#4CC9F0; text-transform:uppercase; font-weight:700; letter-spacing:1.5px; margin-top:0.4rem;" id="modalSub">Aurora Note Unlocked</div>
+            <div style="font-size: 2.2rem;">💌</div>
+            <div style="font-size:0.7rem; color:#4CC9F0; text-transform:uppercase; font-weight:700; letter-spacing:1.5px; margin-top:0.4rem;" id="modalSub">Secret Note Unlocked</div>
             <div class="msg-box" id="secretMsg">...</div>
             <button class="close-btn" onclick="closeModal()">Got it</button>
         </div>
@@ -582,26 +582,26 @@ with tab_capsule:
 
     <script>
     const messages = [
-        "I love you so much! Keep crushing your goals under the aurora lights!",
+        "I love you so much! Keep crushing your goals, my favorite rival!",
         "¡Muchísima suerte hoy! You are going to do amazing things, my favorite rival.",
-        "I admire you so much. Proud of you every single day, star of my sky!",
+        "I admire you so much. Proud of you every single day, soldier!",
         "¡Eres el mejor! Even if you are a stubborn little trouble-maker.",
-        "Everything is going to be amazing. Sending you all my love and aurora energy!",
-        "You and me make an unstoppable team under the northern lights.",
+        "Everything is going to be amazing. Sending you all my love and energy!",
+        "You and me make an unstoppable team. I am definitely the smart one here.",
         "Have an incredible day! Sending you a giant hug and all my support.",
         "No matter how tough it gets, I have your back forever. Let us conquer it all!",
         "I love you a lot! Now go ace it so I can proudly brag about you.",
         "A triunfar hoy. But always remember who is actually in charge here.",
         "So proud of the hard worker you are. You are truly incredible, my love!",
-        "Warning: High level of cuteness and aurora energy coming your way!",
-        "Go get them, star! Make me proud today and always.",
+        "Warning: High level of cuteness and unstoppable support coming your way!",
+        "Go get them, soldier! Make me proud today and always.",
         "You are my favorite distraction and my greatest motivation. I love you!"
     ];
 
     function openLetter() {
         const randomMsg = messages[Math.floor(Math.random() * messages.length)];
         document.getElementById('secretMsg').innerText = randomMsg;
-        document.getElementById('modalSub').innerText = "Aurora Note Unlocked";
+        document.getElementById('modalSub').innerText = "Secret Note Unlocked";
         document.getElementById('modal').style.display = 'flex';
     }
 
@@ -613,10 +613,10 @@ with tab_capsule:
     </html>
     """, height=380, scrolling=False)
 
-# ======== TAB 1: BATTLE PHASE (Aurora Theme) ========
+# ======== TAB 1: BATTLE PHASE (Aurora Theme + Original Text) ========
 with tab_battle:
-    st.markdown('<div class="section-title">Battle Phase: Aurora Card Arena ⚔️🃏</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.0rem;">Pick one of 5 aurora cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Battle Phase: 5 Cards Choice & Tap/Untap ⚔️🃏</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.0rem;">Pick one of 5 cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -676,24 +676,24 @@ with tab_battle:
     </head>
     <body>
     <div class="duel-arena">
-        <!-- PICKER PHASE -->
+        <!-- PICKER PHASE (5 Cards including Matcha Boost) -->
         <div id="pickerPhase">
-            <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#FFD166; font-size:1.1rem; font-weight:700; margin-bottom:0.3rem;" id="pickerTitle">Player 1 (Paweetida): Choose your Aurora Card! 🎴</div>
-            <div style="font-size:0.75rem; color:#4CC9F0; margin-bottom:0.8rem;">Select 1 of 5 cards under the aurora lights for this turn.</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#FFD166; font-size:1.1rem; font-weight:700; margin-bottom:0.3rem;" id="pickerTitle">Player 1 (Paweetida): Choose your Card! 🎴</div>
+            <div style="font-size:0.75rem; color:#4CC9F0; margin-bottom:0.8rem;">Select 1 of 5 cards to summon for this turn.</div>
             <div class="card-options">
-                <div class="option-card" onclick="pickCard('🌌', 'Aurora Coder', 5)">
-                    <div style="font-size:1.8rem;">🌌</div>
-                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Aurora Coder</div>
+                <div class="option-card" onclick="pickCard('💻', 'Coder Tech', 5)">
+                    <div style="font-size:1.8rem;">💻</div>
+                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Coder Tech</div>
                     <div style="font-size:0.5rem; color:#FFD166;">Attack: 5</div>
                 </div>
-                <div class="option-card" onclick="pickCard('✨', 'Starlight Scout', 6)">
-                    <div style="font-size:1.8rem;">✨</div>
-                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Starlight Scout</div>
+                <div class="option-card" onclick="pickCard('🪖', 'Army Scout', 6)">
+                    <div style="font-size:1.8rem;">🪖</div>
+                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Army Scout</div>
                     <div style="font-size:0.5rem; color:#FFD166;">Attack: 6</div>
                 </div>
-                <div class="option-card" onclick="pickCard('🔮', 'Aurora Queen', 8)">
-                    <div style="font-size:1.8rem;">🔮</div>
-                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Aurora Queen</div>
+                <div class="option-card" onclick="pickCard('👑', 'Rival Queen', 8)">
+                    <div style="font-size:1.8rem;">👑</div>
+                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Rival Queen</div>
                     <div style="font-size:0.5rem; color:#FFD166;">Attack: 8</div>
                 </div>
                 <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('🍵', 'Matcha Boost', 3)">
@@ -701,9 +701,9 @@ with tab_battle:
                     <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Matcha Boost</div>
                     <div style="font-size:0.5rem; color:#00F5D4;">Atk 3 & Heal 2</div>
                 </div>
-                <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('💚', 'Aurora Buff', -5)">
-                    <div style="font-size:1.8rem;">💚</div>
-                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Aurora Buff</div>
+                <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('💖', 'Love Buff', -5)">
+                    <div style="font-size:1.8rem;">💖</div>
+                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Love Buff</div>
                     <div style="font-size:0.5rem; color:#00F5D4;">Heal: +5 HP</div>
                 </div>
             </div>
@@ -721,7 +721,7 @@ with tab_battle:
                     <div class="card-container" onclick="playerTap(1)">
                         <div class="mtg-card" id="p1Card">
                             <div style="font-size: 0.6rem; color: #FFD166; font-weight: 700;" id="p1CardName">Ready</div>
-                            <div style="font-size: 2.2rem;" id="p1Art">🌌</div>
+                            <div style="font-size: 2.2rem;" id="p1Art">💻</div>
                             <div style="font-size: 0.55rem; color: #F0E9FA;" id="p1Status">Untapped</div>
                         </div>
                     </div>
@@ -734,7 +734,7 @@ with tab_battle:
                     <div class="card-container" onclick="playerTap(2)">
                         <div class="mtg-card" id="p2Card">
                             <div style="font-size: 0.6rem; color: #FFD166; font-weight: 700;" id="p2CardName">Ready</div>
-                            <div style="font-size: 2.2rem;" id="p2Art">✨</div>
+                            <div style="font-size: 2.2rem;" id="p2Art">🪖</div>
                             <div style="font-size: 0.55rem; color: #F0E9FA;" id="p2Status">Untapped</div>
                         </div>
                     </div>
@@ -753,17 +753,17 @@ with tab_battle:
         <div class="win-content">
             <div style="font-size: 3rem;">🎉🏆✨</div>
             <div class="win-title">CONGRATULATIONS U WIN!</div>
-            <div class="win-msg" id="winMsg">Winner is Player 1! Aurora lights shine upon your victory! 💚</div>
+            <div class="win-msg" id="winMsg">Winner is Player 1! Pure love and strategy triumph! 💜</div>
             <button class="restart-btn" onclick="location.reload()">Play Again 🔄</button>
         </div>
     </div>
 
     <script>
-    let currentTurn = 1;
+    let currentTurn = 1; // 1 = P1, 2 = P2
     let p1Hp = 20;
     let p2Hp = 20;
-    let p1Card = { emoji: '🌌', name: 'Coder', power: 5 };
-    let p2Card = { emoji: '✨', name: 'Scout', power: 6 };
+    let p1Card = { emoji: '💻', name: 'Coder', power: 5 };
+    let p2Card = { emoji: '🪖', name: 'Soldier', power: 6 };
     let hasActed = false;
 
     function pickCard(emoji, name, power) {
@@ -834,8 +834,8 @@ with tab_battle:
         }
 
         if (p1Hp <= 0 || p2Hp <= 0) {
-            const winner = p1Hp <= 0 ? "Player 2 (Dawis ✨)" : "Player 1 (Paweetida 🌌)";
-            document.getElementById('winMsg').innerText = `${winner} wins the ultimate aurora duel with unmatched strategy! 🎉`;
+            const winner = p1Hp <= 0 ? "Player 2 (Dawis 🪖)" : "Player 1 (Paweetida 💻)";
+            document.getElementById('winMsg').innerText = `${winner} wins the ultimate duel with unmatched love and strategy! 🎉`;
             document.getElementById('winModal').style.display = 'flex';
         }
     }
@@ -861,7 +861,7 @@ with tab_battle:
 
         document.getElementById('battlePhase').style.display = 'none';
         document.getElementById('pickerPhase').style.display = 'block';
-        document.getElementById('pickerTitle').innerText = `Player ${currentTurn} (${currentTurn === 1 ? 'Paweetida' : 'Dawis'}): Pick your Aurora Card for this turn! 🎴`;
+        document.getElementById('pickerTitle').innerText = `Player ${currentTurn} (${currentTurn === 1 ? 'Paweetida' : 'Dawis'}): Pick your Card for this turn! 🎴`;
     }
     </script>
     </body>
@@ -976,7 +976,7 @@ with tab_stats:
     with col_a:
         st.markdown(f"""
         <div class="army-badge">
-            <div style="font-size:1.8rem">🌌</div>
+            <div style="font-size:1.8rem">🪖</div>
             <div style="font-size:1.4rem; font-family:'Playfair Display',serif; color:#FFD166; font-weight:700;">{stats['days_since_army']}</div>
             <div style="font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; color:#00F5D4;">Days in Service</div>
             <div style="font-size:0.8rem; margin-top:0.2rem; color:#F0E9FA;">Dawis in Australian Army (20 Apr 2026)</div>
