@@ -12,7 +12,7 @@ st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout
 # ---- CUSTOM CSS ----
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
 
 :root {
     --aurora-purple: #4A154B;
@@ -287,7 +287,7 @@ def check_password():
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
 body {
@@ -326,15 +326,15 @@ body {
 .heart { font-size: 1.6rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
 .soldier { font-size: 2.5rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
 .title {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Outfit', sans-serif;
     font-size: 1.8rem;
+    font-weight: 700;
     background: linear-gradient(135deg, #00F5D4, #FFD166);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: float 3s ease-in-out infinite;
-    line-height: 1.6;
-    padding-top: 10px;
+    line-height: 1.4;
+    margin-top: 15px;
     margin-bottom: 8px;
     position: relative;
     z-index: 10;
