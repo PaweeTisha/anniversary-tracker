@@ -528,10 +528,10 @@ with tab_capsule:
     </html>
     """, height=380, scrolling=False)
 
-# ======== TAB 1: BATTLE PHASE (MTG Tap/Untap Smooth Card Animation) ========
+# ======== TAB 1: BATTLE PHASE (MTG Draw Spell & Combat Game) ========
 with tab_battle:
-    st.markdown('<div class="section-title">Battle Phase: Tap or Untap ⚔️🃏</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Test your Magic resources! Click the card to Tap (Attack) or Untap (Prepare). ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Battle Phase: Draw & Combat ⚔️🃏</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Draw a spell card to trigger a combat phase or Tap/Untap your resource! ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -540,11 +540,11 @@ with tab_battle:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
     body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
-    .card-table { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 400px; width: 100%; }
+    .card-table { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 1.5rem 2rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 420px; width: 100%; }
     
-    .card-container { perspective: 1000px; display: inline-block; margin-bottom: 1rem; cursor: pointer; }
+    .card-container { perspective: 1000px; display: inline-block; margin-bottom: 0.8rem; cursor: pointer; }
     .mtg-card { 
-        width: 170px; height: 240px; 
+        width: 160px; height: 225px; 
         background: linear-gradient(135deg, #3D1A6E, #6B3FA0); 
         border: 3px solid #C9A84C; 
         border-radius: 14px; 
@@ -556,27 +556,43 @@ with tab_battle:
     .mtg-card:hover { border-color: #F0E9FA; box-shadow: 0 15px 30px rgba(201,168,76,0.4); }
     .mtg-card.tapped { transform: rotate(90deg) scale(1.05); border-color: #7A8C6A; box-shadow: -15px 10px 25px rgba(0,0,0,0.6); }
     
-    .card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.5rem; text-align: center; }
-    .card-art { font-size: 3.8rem; margin-bottom: 0.5rem; transition: transform 0.3s; }
-    .card-status { font-size: 0.9rem; color: #F0E9FA; font-weight: 600; margin-top: 0.5rem; }
-    .action-hint { font-size: 0.75rem; color: #B08FD4; font-style: italic; margin-top: 0.5rem; }
+    .card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.3rem; text-align: center; }
+    .card-art { font-size: 3.2rem; margin-bottom: 0.3rem; }
+    .card-desc { font-size: 0.65rem; color: #F0E9FA; padding: 0 8px; text-align: center; line-height: 1.2; }
+    
+    .draw-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 10px; padding: 0.5rem 1.2rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(107,63,160,0.4); transition: transform 0.2s; margin-top: 0.5rem; }
+    .draw-btn:hover { transform: scale(1.05); }
+    
+    .card-status { font-size: 0.8rem; color: #F0E9FA; font-weight: 600; margin-top: 0.4rem; }
+    .action-hint { font-size: 0.7rem; color: #B08FD4; font-style: italic; margin-top: 0.2rem; }
     </style>
     </head>
     <body>
     <div class="card-table">
         <div class="card-container" onclick="toggleCard()">
             <div class="mtg-card" id="card">
-                <div class="card-title">Tisha & Dawis 💜</div>
+                <div class="card-title" id="cardTitle">Tisha & Dawis 💜</div>
                 <div class="card-art" id="artEmoji">🪖</div>
-                <div style="font-size: 0.7rem; color: #F0E9FA;">Legendary Couple</div>
+                <div class="card-desc" id="cardDesc">Legendary Couple<br>Tap to Attack / Untap to Defend</div>
             </div>
         </div>
+        <div>
+            <button class="draw-btn" onclick="drawSpell()">Draw Spell Card 🔮</button>
+        </div>
         <div class="card-status" id="statusText">Status: UNTAPPED (Ready for combat!)</div>
-        <div class="action-hint">Click the card to Tap / Untap</div>
+        <div class="action-hint">Click card to Tap/Untap | Click button to Draw Spell</div>
     </div>
 
     <script>
     let isTapped = false;
+    const spells = [
+        { title: "Infinite Support ⚡", emoji: "💖", desc: "Target partner gains +100 to motivation and endless love." },
+        { title: "Army Shield 🛡️", emoji: "🪖", desc: "Prevents all long-distance stress. Unbreakable defense!" },
+        { title: "Coffee Boost ☕", emoji: "✨", desc: "Draw 2 cards and instantly survive any tough coding bug." },
+        { title: "Rrival Tease 😜", emoji: "🥊", desc: "Deal 99 emotional damage to your favorite rival with a cute smirk." },
+        { title: "Victory Kiss 💋", emoji: "🏆", desc: "Instantly wins the game of the day. No arguments allowed!" }
+    ];
+
     function toggleCard() {
         isTapped = !isTapped;
         const card = document.getElementById('card');
@@ -591,6 +607,15 @@ with tab_battle:
             art.innerText = "🪖";
             status.innerText = "Status: UNTAPPED (Ready for combat!)";
         }
+    }
+
+    function drawSpell(event) {
+        if (event) event.stopPropagation();
+        const spell = spells[Math.floor(Math.random() * spells.length)];
+        document.getElementById('cardTitle').innerText = spell.title;
+        document.getElementById('artEmoji').innerText = spell.emoji;
+        document.getElementById('cardDesc').innerText = spell.desc;
+        document.getElementById('statusText').innerText = "Status: SPELL CAST! (" + spell.title + ")";
     }
     </script>
     </body>
