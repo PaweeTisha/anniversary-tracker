@@ -324,24 +324,25 @@ body {
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
 @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
-.chars { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 1rem; }
-.girl { font-size: 4rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
-.heart { font-size: 2.8rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
-.soldier { font-size: 4rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
+.chars { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 0.8rem; }
+.girl { font-size: 3.8rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
+.heart { font-size: 2.5rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
+.soldier { font-size: 3.8rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
 .title {
     font-family: 'Pacifico', cursive;
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     background: linear-gradient(135deg, #00F5D4, #FFD166);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: float 3s ease-in-out infinite;
-    line-height: 1.1;
+    line-height: 1.3;
+    margin-top: 15px;
+    padding-top: 10px;
 }
-.and { font-family: 'Pacifico', cursive; font-size: 1.4rem; color: #4CC9F0; margin: 0.1rem 0; }
 .subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; }
 .moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-weight: 500; }
-.stars { font-size: 1.2rem; letter-spacing: 0.4rem; margin: 0.5rem 0; animation: shimmer 2s ease-in-out infinite; }
+.stars { font-size: 1.2rem; letter-spacing: 0.4rem; margin: 0.3rem 0; animation: shimmer 2s ease-in-out infinite; }
 
 .pin-section {
     margin-top: 1.5rem;
@@ -418,16 +419,16 @@ body {
         document.body.appendChild(el);
     }
     </script>
-    <div style="position:relative; z-index:1;">
+    <div style="position:relative; z-index:1; padding-top: 20px;">
     <div class="chars">
         <span class="girl">💻</span>
         <span class="heart">💜</span>
         <span class="soldier">🪖</span>
     </div>
     <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
-    <div class="title" style="font-size: 2.2rem; margin-bottom: 0.2rem;">Happy YOU &amp; ME day 💜</div>
-    <div class="subtitle">Our Private Little World ✨</div>
-    <div class="moon-quote" style="margin-top: 0.5rem;">🌙 "The moon is beautiful, isn't it?" ✨</div>
+    <div class="title">Happy YOU &amp; ME day 💜</div>
+    <div class="subtitle" style="margin-top: 0.5rem;">Our Private Little World ✨</div>
+    <div class="moon-quote">🌙 "The moon is beautiful, isn't it?" ✨</div>
     </div>
     <div class="pin-section">
         <span class="lock-icon">🔐</span>
@@ -486,7 +487,7 @@ body {
     </script>
 </body>
 </html>
-""", height=740, scrolling=False)
+""", height=760, scrolling=False)
 
         password = st.text_input("hidden_pin", type="password", key="pwd_backup", label_visibility="collapsed")
         if password == "220825":
@@ -1174,7 +1175,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
     </html>
     """, height=205, scrolling=False)
 
-    st.markdown("<div style='margin-top:0.4rem'>></div >", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top:0.4rem'></div>", unsafe_allow_html=True)
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -1236,4 +1237,4 @@ elif st.session_state.active_tab == "📊 Our Stats":
 
     progress = max(0, min(1, 1 - (stats['days_to_anniversary'] / 365)))
     st.progress(progress)
-    st.markdown(f'<div style="color:#4CC9F0; font-size:0.75rem; text-align:center; margin-top:0.3rem; font-weight:600;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_update_html=True)
+    st.markdown(f'<div style="color:#4CC9F0; font-size:0.75rem; text-align:center; margin-top:0.3rem; font-weight:600;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_allow_html=True)
