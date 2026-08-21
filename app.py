@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (AURORA THEME WITH ORIGINAL TEXT) ----
+# ---- CUSTOM CSS (NORTH & SOUTH AURORA THEME + SHOOTING STARS) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -37,6 +37,24 @@ st.markdown("""
     max-width: 1250px !important;
 }
 
+/* SHOOTING STAR GLOBAL BACKGROUND ANIMATION */
+@keyframes shootingStar {
+    0% { transform: translateX(0) translateY(0); opacity: 1; }
+    100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
+}
+
+.shooting-star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #00F5D4;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 2px #00F5D4, 0 0 20px 4px #4CC9F0;
+    animation: shootingStar linear infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
 /* BREAKING NEWS TICKER BANNER (Aurora Glow) */
 .breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #00F5D4, #8B0000);
@@ -51,6 +69,8 @@ st.markdown("""
     align-items: center;
     gap: 12px;
     box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
+    position: relative;
+    z-index: 1;
 }
 .breaking-badge {
     background: #FFFFFF;
@@ -75,6 +95,8 @@ st.markdown("""
     backdrop-filter: blur(12px);
     margin-bottom: 1rem;
     box-shadow: 0 0 30px rgba(123,44,191,0.2);
+    position: relative;
+    z-index: 1;
 }
 
 .hero-title {
@@ -100,6 +122,8 @@ st.markdown("""
     padding: 1rem;
     text-align: center;
     backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 1;
 }
 
 .metric-number {
@@ -126,6 +150,8 @@ st.markdown("""
     margin-bottom: 0.6rem;
     border-bottom: 1px solid rgba(0,245,212,0.3);
     padding-bottom: 0.2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .memory-card {
@@ -134,6 +160,8 @@ st.markdown("""
     border-radius: 10px;
     padding: 0.8rem 1rem;
     margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
 }
 
 .army-badge {
@@ -144,6 +172,8 @@ st.markdown("""
     text-align: center;
     color: #E8EDE4;
     box-shadow: 0 0 15px rgba(0,245,212,0.2);
+    position: relative;
+    z-index: 1;
 }
 
 .stTextInput input, .stTextArea textarea, .stSelectbox select {
@@ -163,9 +193,25 @@ st.markdown("""
     box-shadow: 0 0 15px rgba(0,245,212,0.4);
 }
 
-.stTabs [data-baseweb="tab"] { color: #4CC9F0 !important; }
+.stTabs [data-baseweb="tab"] { color: #4CC9F0 !important; z-index: 1; }
 .stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
+
+<!-- SCRIPT FOR GLOBAL SHOOTING STARS -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const starCount = 12;
+    for (let i = 0; i < starCount; i++) {
+        let star = document.createElement('div');
+        star.className = 'shooting-star';
+        star.style.top = Math.random() * 50 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDuration = (3 + Math.random() * 4) + 's';
+        star.style.animationDelay = (Math.random() * 5) + 's';
+        document.body.appendChild(star);
+    }
+});
+</script>
 """, unsafe_allow_html=True)
 
 # ---- DATABASE & IMAGE SUPPORT ----
@@ -299,6 +345,16 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     text-align: center;
     padding: 1rem;
+    overflow: hidden;
+}
+@keyframes shootingStar {
+    0% { transform: translateX(0) translateY(0); opacity: 1; }
+    100% { transform: translateX(-500px) translateY(500px); opacity: 0; }
+}
+.login-shooting-star {
+    position: fixed; width: 2px; height: 2px; background: #00F5D4; border-radius: 50%;
+    box-shadow: 0 0 8px 2px #00F5D4, 0 0 20px 4px #4CC9F0;
+    animation: shootingStar linear infinite; z-index: 0; pointer-events: none;
 }
 @keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-15px) rotate(3deg); } 50% { transform: translateY(-8px) rotate(-2deg); } 75% { transform: translateY(-20px) rotate(4deg); } }
 @keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-20px) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(2deg); } 75% { transform: translateY(-15px) rotate(-4deg); } }
@@ -336,6 +392,8 @@ body {
     width: 100%;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 25px rgba(123, 44, 191, 0.3);
+    position: relative;
+    z-index: 1;
 }
 .pin-title { font-family: 'Pacifico', cursive; font-size: 1.2rem; color: #00F5D4; margin-bottom: 0.3rem; }
 .pin-hint { font-size: 0.75rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 1.2rem; font-style: italic; }
@@ -377,39 +435,31 @@ body {
 .error-msg { color: #FF6B6B; font-size: 0.8rem; margin-top: 0.8rem; display: none; }
 .lock-icon { font-size: 1.8rem; margin-bottom: 0.5rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
-<style>
-.floating-emoji { position: fixed; font-size: 1.5rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.7; }
-@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
-</style>
 </head>
 <body>
-    <div id="floaters"></div>
+    <script>
+    for (let i = 0; i < 10; i++) {
+        let star = document.createElement('div');
+        star.className = 'login-shooting-star';
+        star.style.top = Math.random() * 60 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDuration = (2.5 + Math.random() * 3) + 's';
+        star.style.animationDelay = (Math.random() * 4) + 's';
+        document.body.appendChild(star);
+    }
+    </script>
     <div style="position:relative; z-index:1;">
     <div class="chars">
         <span class="girl">💻</span>
         <span class="heart">💜</span>
         <span class="soldier">🪖</span>
     </div>
-    <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
+    <div class="stars">🌠 🪐 🌙 🌟 🔮</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
     <div class="title">Dawis</div>
-    <div class="subtitle">Our Private Little World 💜</div>
+    <div class="subtitle">Aurora Borealis World 🌌</div>
     </div>
-    <script>
-    const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
-    const container = document.getElementById('floaters');
-    for (let i = 0; i < 25; i++) {
-        const el = document.createElement('div');
-        el.className = 'floating-emoji';
-        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.animationDuration = (5 + Math.random() * 8) + 's';
-        el.style.animationDelay = (Math.random() * 8) + 's';
-        el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
-        container.appendChild(el);
-    }
-    </script>
     <div class="pin-section">
         <span class="lock-icon">🔐</span>
         <div class="pin-title">Enter our secret code</div>
@@ -422,7 +472,7 @@ body {
             <input class="pin-box" maxlength="1" type="password" id="p4" inputmode="numeric">
             <input class="pin-box" maxlength="1" type="password" id="p5" inputmode="numeric">
         </div>
-        <button class="enter-btn" onclick="checkPin()">Enter Our World 💜</button>
+        <button class="enter-btn" onclick="checkPin()">Enter Aurora World 🌌</button>
         <div class="error-msg" id="errMsg">Hmm, that's not right... 💔 Try again!</div>
     </div>
     <script>
@@ -479,7 +529,7 @@ body {
 if not check_password():
     st.stop()
 
-# ---- BREAKING NEWS POPUP (Original text + Aurora Theme) ----
+# ---- BREAKING NEWS POPUP ----
 components.html("""
 <!DOCTYPE html>
 <html>
