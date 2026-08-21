@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 import sqlite3
 import pandas as pd
 from datetime import datetime, date
+import pytz
 import plotly.graph_objects as go
 import base64
 
@@ -208,7 +209,13 @@ def get_milestones():
     return df
 
 def calculate_stats():
-    today = date.today()
+    # ใช้เวลาตามโซนออสเตรเลีย (AEST / AEDT หรือใช้ Brisbane)
+    try:
+        aus_tz = pytz.timezone('Australia/Brisbane')
+        today = datetime.now(aus_tz).date()
+    except:
+        today = date.today()
+
     start_date = date(2025, 7, 27)
     official_date = date(2025, 8, 22)
     army_date = date(2026, 4, 20)
@@ -224,6 +231,7 @@ def calculate_stats():
         "days_to_anniversary": (next_anniversary - today).days,
         "days_since_army": (today - army_date).days if today >= army_date else 0,
         "next_anniversary": next_anniversary,
+        "today": today
     }
 
 # ---- PASSWORD LOGIN & WELCOME SCREEN FOR DAWIS ----
@@ -252,7 +260,6 @@ body {
     padding: 1rem;
     overflow: hidden;
 }
-/* CANVAS FIREWORKS & HEARTS BACKGROUND */
 canvas {
     position: fixed;
     top: 0;
@@ -262,7 +269,6 @@ canvas {
     pointer-events: none;
     z-index: 0;
 }
-
 .chars { display: flex; justify-content: center; align-items: center; gap: 1.8rem; margin-bottom: 0.8rem; position: relative; z-index: 10; }
 .girl { font-size: 4rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
 .heart { font-size: 2.5rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
@@ -342,9 +348,7 @@ canvas {
 </style>
 </head>
 <body>
-    <!-- FIREWORKS & JAPANESE HANABI CANVAS -->
     <canvas id="fireworksCanvas"></canvas>
-
     <div style="position:relative; z-index:10;">
         <div class="chars">
             <span class="girl">💻</span>
@@ -352,11 +356,10 @@ canvas {
             <span class="soldier">🪖</span>
         </div>
         <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
-        <div class="title">Happy YOU &amp; ME day 💜</div>
+        <div class="title">Happy Anniversary Day! 🎉💜</div>
         <div class="subtitle">Our Private Little World ✨</div>
         <div class="moon-quote">🌙 "The moon is beautiful, isn't it?" ✨</div>
     </div>
-    
     <div class="pin-section">
         <span class="lock-icon">🔐</span>
         <div class="pin-title">Enter our secret code</div>
@@ -372,9 +375,7 @@ canvas {
         <button class="enter-btn" onclick="checkPin()">Enter Our World 💜</button>
         <div class="error-msg" id="errMsg">Hmm, that's not right... 💔 Try again!</div>
     </div>
-    
     <script>
-    // FIREWORKS SCRIPT
     const canvas = document.getElementById('fireworksCanvas');
     const ctx = canvas.getContext('2d');
     function resize() {
@@ -415,7 +416,7 @@ canvas {
                 this.particles.forEach(p => {
                     p.x += p.vx;
                     p.y += p.vy;
-                    p.vy += 0.05; // gravity
+                    p.vy += 0.05;
                     p.alpha -= 0.015;
                 });
                 this.particles = this.particles.filter(p => p.alpha > 0);
@@ -590,8 +591,9 @@ canvas {
 if not check_password():
     st.stop()
 
-# ---- BREAKING NEWS LOGIC ----
-today_date = date.today()
+# ---- BREAKING NEWS LOGIC (Using Australia Timezone) ----
+stats = calculate_stats()
+today_date = stats["today"]
 is_anniversary_season = (today_date.month == 8 and today_date.day in [21, 22])
 
 if "show_breaking_news" not in st.session_state:
@@ -621,7 +623,7 @@ if is_anniversary_season and st.session_state.show_breaking_news:
             <div class="news-header">🚨 BREAKING NEWS 🚨</div>
             <div class="news-title">Happy Anniversary Day! 🎉💜</div>
             <div class="news-desc">
-                Today is August 22, 2026! Our special 1-year anniversary celebration is officially live!
+                Today is August 22, 2026! Our special 1-year anniversary celebration is officially live in Australia!
             </div>
             <div class="warning-box">
                 ⚠️ ENJOY THE FIREWORKS & OUR SPECIAL WORLD! 🎆✨
@@ -656,9 +658,8 @@ if is_anniversary_season and st.session_state.show_breaking_news:
             st.session_state.show_breaking_news = False
             st.rerun()
 
-# ---- INIT & STATS ----
+# ---- INIT ----
 init_db()
-stats = calculate_stats()
 
 # ---- NAVIGATION BUTTON BOXES ----
 if "active_tab" not in st.session_state:
