@@ -25,7 +25,7 @@ st.markdown("""
 
 * { font-family: 'DM Sans', sans-serif; }
 
-/* ซ่อนช่องอินพุตที่ใช้รับค่าระบบ (hidden inputs) ไม่ให้มีแถบโผล่มากวนใจ */
+/* ซ่อนช่องอินพุตระบบ (hidden inputs) */
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_welcome"]),
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     display: none !important;
@@ -51,7 +51,6 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     100% { background-position: 0% 50%; }
 }
 
-/* AURORA GLOW EFFECT OVERLAYS */
 .stApp::before {
     content: '';
     position: fixed;
@@ -78,7 +77,6 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     z-index: 1;
 }
 
-/* GLOBAL SHOOTING STARS ANIMATION */
 @keyframes shootingStar {
     0% { transform: translateX(0) translateY(0); opacity: 1; }
     100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
@@ -96,7 +94,6 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     pointer-events: none;
 }
 
-/* BREAKING NEWS TICKER BANNER */
 .breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #00F5D4, #8B0000);
     border: 1px solid #FFD166;
@@ -140,21 +137,8 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     z-index: 2;
 }
 
-.hero-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #F0E9FA;
-    margin: 0;
-}
-
-.hero-subtitle {
-    font-size: 0.8rem;
-    color: #4CC9F0;
-    margin-top: 0.2rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-}
+.hero-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2rem; font-weight: 700; color: #F0E9FA; margin: 0; }
+.hero-subtitle { font-size: 0.8rem; color: #4CC9F0; margin-top: 0.2rem; letter-spacing: 1.5px; text-transform: uppercase; }
 
 .metric-card {
     background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(76,201,240,0.25));
@@ -168,21 +152,8 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     box-shadow: 0 0 15px rgba(123,44,191,0.2);
 }
 
-.metric-number {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #FFD166;
-    line-height: 1;
-}
-
-.metric-label {
-    font-size: 0.75rem;
-    color: #4CC9F0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 0.3rem;
-}
+.metric-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 700; color: #FFD166; line-height: 1; }
+.metric-label { font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
 
 .section-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -239,7 +210,6 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
 .stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
 
-<!-- GLOBAL SCRIPT FOR SHOOTING STARS -->
 <script>
 window.addEventListener('DOMContentLoaded', (event) => {
     for (let i = 0; i < 18; i++) {
@@ -703,7 +673,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---- TABS ----
-tab_capsule, tab_battle, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
+tab_capsule, tab_battle, tab_stats, tab_memories, tab_timeline, tab_galaxy, tab_add = st.tabs(["💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats", "💜 Memories", "📸 Timeline", "🌌 Galaxy Heart", "➕ Add Memory"])
 
 # ======== TAB 0: LOVE CAPSULE ========
 with tab_capsule:
@@ -1372,7 +1342,109 @@ with tab_timeline:
     </html>
     """, height=700, scrolling=True)
 
-# ======== TAB 5: ADD MEMORY ========
+# ======== TAB 5: GALAXY HEART 3D ========
+with tab_galaxy:
+    st.markdown('<div class="section-title">Galaxy Heart 3D 🌌💖</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.0rem;">Happy Anniversary! A 3D particle galaxy rotating into a glowing heart in space ✨</div>', unsafe_allow_html=True)
+
+    components.html("""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+    body { background: transparent; margin: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; font-family: 'Pacifico', cursive; }
+    h1 { color: #E0AAFF; font-size: 2.2rem; margin-bottom: 0px; text-shadow: 0 0 20px rgba(199,125,255,0.8); z-index: 2; letter-spacing: 2px; }
+    canvas { display: block; filter: drop-shadow(0 0 25px rgba(217,4,41,0.5)); z-index: 1; }
+    </style>
+    </head>
+    <body>
+    <h1>Happy Anniversary 💜</h1>
+    <canvas id="galaxyCanvas"></canvas>
+    <script>
+    const canvas = document.getElementById('galaxyCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+        canvas.width = window.innerWidth * 0.85;
+        canvas.height = window.innerHeight * 0.65;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let particles = [];
+    const numParticles = 4000;
+
+    for (let i = 0; i < numParticles; i++) {
+        let isHeart = i < 2200;
+        let p = {
+            isHeart: isHeart,
+            baseX: 0, baseY: 0, baseZ: 0,
+            color: Math.random() > 0.3 ? (Math.random() > 0.5 ? '#FF4D6D' : '#C77DFF') : '#00F5D4',
+            size: Math.random() * 1.6 + 0.4
+        };
+
+        if (isHeart) {
+            let t = Math.random() * Math.PI * 2;
+            let hx = 16 * Math.pow(Math.sin(t), 3);
+            let hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            p.baseX = hx * 13;
+            p.baseY = hy * 13 - 20;
+            p.baseZ = (Math.random() - 0.5) * 50;
+        } else {
+            let angle = Math.random() * Math.PI * 2;
+            let r = Math.random() * 240 + 30;
+            p.baseX = Math.cos(angle) * r;
+            p.baseY = Math.sin(angle) * r * 0.25 + 110;
+            p.baseZ = (Math.random() - 0.5) * 70;
+        }
+        particles.push(p);
+    }
+
+    let rotY = 0;
+
+    function animate() {
+        ctx.fillStyle = 'rgba(10, 4, 26, 0.3)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        let cx = canvas.width / 2;
+        let cy = canvas.height / 2;
+
+        rotY += 0.01;
+
+        particles.forEach(p => {
+            let x = p.baseX;
+            let y = p.baseY;
+            let z = p.baseZ;
+
+            let cos = Math.cos(rotY);
+            let sin = Math.sin(rotY);
+            let x1 = x * cos - z * sin;
+            let z1 = z * cos + x * sin;
+
+            let fov = 400;
+            let scale = fov / (fov + z1 + 300);
+            let screenX = cx + x1 * scale;
+            let screenY = cy + y * scale;
+
+            if (scale > 0) {
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(screenX, screenY, p.size * scale, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+    </script>
+    </body>
+    </html>
+    """, height=520, scrolling=False)
+
+# ======== TAB 6: ADD MEMORY ========
 with tab_add:
     st.markdown('<div class="section-title">Add a New Memory ➕</div>', unsafe_allow_html=True)
     col_f1, col_f2 = st.columns(2)
