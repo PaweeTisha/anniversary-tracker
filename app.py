@@ -2,8 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import sqlite3
 import pandas as pd
-from datetime import datetime, date
-import pytz
+from datetime import datetime, date, timedelta
 import plotly.graph_objects as go
 import base64
 
@@ -209,13 +208,8 @@ def get_milestones():
     return df
 
 def calculate_stats():
-    # ใช้เวลาตามโซนออสเตรเลีย (AEST / AEDT หรือใช้ Brisbane)
-    try:
-        aus_tz = pytz.timezone('Australia/Brisbane')
-        today = datetime.now(aus_tz).date()
-    except:
-        today = date.today()
-
+    # บวกเวลาชดเชยให้ตรงกับออสเตรเลีย (UTC+10)
+    today = (datetime.utcnow() + timedelta(hours=10)).date()
     start_date = date(2025, 7, 27)
     official_date = date(2025, 8, 22)
     army_date = date(2026, 4, 20)
@@ -591,7 +585,7 @@ canvas {
 if not check_password():
     st.stop()
 
-# ---- BREAKING NEWS LOGIC (Using Australia Timezone) ----
+# ---- BREAKING NEWS LOGIC ----
 stats = calculate_stats()
 today_date = stats["today"]
 is_anniversary_season = (today_date.month == 8 and today_date.day in [21, 22])
@@ -623,7 +617,7 @@ if is_anniversary_season and st.session_state.show_breaking_news:
             <div class="news-header">🚨 BREAKING NEWS 🚨</div>
             <div class="news-title">Happy Anniversary Day! 🎉💜</div>
             <div class="news-desc">
-                Today is August 22, 2026! Our special 1-year anniversary celebration is officially live in Australia!
+                Today is August 22, 2026! Our special 1-year anniversary celebration is officially live!
             </div>
             <div class="warning-box">
                 ⚠️ ENJOY THE FIREWORKS & OUR SPECIAL WORLD! 🎆✨
