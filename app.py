@@ -623,7 +623,7 @@ st.markdown("""
 # ---- TABS (เหลือเฉพาะ Love Capsule, Battle Phase, Stats) ----
 tab_capsule, tab_battle, tab_stats = st.tabs(["💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"])
 
-# ======== TAB 0: LOVE CAPSULE ========
+# ======== TAB 0: LOVE CAPSULE (แยกภาษา สเปน/อังกฤษ ชัดเจน + หลากหลาย) ========
 with tab_capsule:
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
@@ -668,21 +668,24 @@ with tab_capsule:
 
     <script>
     const messages = [
+        // Spanish Messages (ภาษาสเปนล้วน แยกชัดเจน)
+        "¡Muchísima suerte hoy! Vas a lograr cosas increíbles.",
+        "Eres el mejor de todos, mi amor.",
+        "A triunfar hoy y siempre, campeón.",
+        "Te amo con todo mi corazón.",
+        "Eres mi persona favorita en este mundo.",
+        "¡A por todas! Confío plenamente en ti.",
+        
+        // English Messages (ภาษาอังกฤษล้วน แยกชัดเจน)
         "The moon is beautiful, isn't it? I love you so much, my favorite rival!",
-        "I love you so much! Keep crushing your goals, my favorite rival!",
-        "¡Muchísima suerte hoy! You are going to do amazing things, my favorite rival.",
-        "I admire you so much. Proud of you every single day, soldier!",
-        "¡Eres el mejor! Even if you are a stubborn little trouble-maker.",
-        "Everything is going to be amazing. Sending you all my love and energy!",
-        "You and me make an unstoppable team. I am definitely the smart one here.",
-        "Have an incredible day! Sending you a giant hug and all my support.",
-        "No matter how tough it gets, I have your back forever. Let us conquer it all!",
-        "I love you a lot! Now go ace it so I can proudly brag about you.",
-        "A triunfar hoy. But always remember who is actually in charge here.",
-        "So proud of the hard worker you are. You are truly incredible, my love!",
-        "Warning: High level of cuteness and unstoppable support coming your way!",
+        "Keep crushing your goals today. I am so proud of you!",
+        "You and me make an unstoppable team. Let us conquer everything!",
+        "Sending you the biggest hug and all my energy today!",
+        "No matter how tough it gets, I have your back forever.",
+        "You are my favorite distraction and my greatest motivation.",
         "Go get them, soldier! Make me proud today and always.",
-        "You are my favorite distraction and my greatest motivation. I love you!"
+        "Everything is going to be amazing. I believe in you!",
+        "So proud of the hard worker you are. You're truly incredible!"
     ];
 
     function openLetter() {
