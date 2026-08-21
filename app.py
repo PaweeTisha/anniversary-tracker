@@ -30,6 +30,14 @@ h1, h2, h3, .hero-title, .metric-number {
     font-weight: 800 !important;
 }
 
+/* Force bold and font style for all button texts */
+.stButton button p, .stButton button span {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 1.05rem !important;
+    letter-spacing: 0.5px !important;
+}
+
 /* Hide system text inputs (hidden inputs) completely */
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_welcome"]),
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
@@ -180,7 +188,6 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     font-weight: 700 !important;
 }
 
-/* Styled Box Buttons for Navigation */
 .stButton button {
     background: linear-gradient(135deg, #7B2CBF, #00F5D4) !important;
     color: #0A041A !important;
@@ -188,8 +195,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     border-radius: 16px !important;
     font-family: 'Plus Jakarta Sans', sans-serif !important;
     font-weight: 800 !important;
-    font-size: 1.05rem !important;
-    padding: 0.8rem 1.2rem !important;
+    padding: 0.9rem 1.2rem !important;
     width: 100% !important;
     box-shadow: 0 0 20px rgba(0,245,212,0.4);
     transition: all 0.2s ease;
@@ -676,15 +682,15 @@ if st.session_state.active_tab == "💐 Get Flowers":
     # 3 Streamlined Menu Buttons (Bold typography)
     mcol1, mcol2, mcol3 = st.columns(3)
     with mcol1:
-        if st.button("🍒 Our Time Together\n\nCheck our live counter & journey 💜", use_container_width=True):
+        if st.button("🍒 Our Time Together\n\nCheck our live counter & journey 💜", use_container_width=True, key="menu_btn_1"):
             st.session_state.active_tab = "📊 Our Stats"
             st.rerun()
     with mcol2:
-        if st.button("💌 Love Capsule\n\nOpen a secret note from me ✉️", use_container_width=True):
+        if st.button("💌 Love Capsule\n\nOpen a secret note from me ✉️", use_container_width=True, key="menu_btn_2"):
             st.session_state.active_tab = "💌 Love Capsule"
             st.rerun()
     with mcol3:
-        if st.button("⚔️ Card Duel Arena\n\nTest our teamwork & stats 🌟", use_container_width=True):
+        if st.button("⚔️ Card Duel Arena\n\nTest our teamwork & stats 🌟", use_container_width=True, key="menu_btn_3"):
             st.session_state.active_tab = "⚔️ Battle Phase"
             st.rerun()
 
@@ -1153,7 +1159,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
         
         fig.add_shape(type='line',
             x0=milestones_df['date'].min() - pd.Timedelta(days=25), 
-            x1=milestones_df['date'].max() + pd.Timedertal(days=25) if False else milestones_df['date'].max() + pd.Timedelta(days=25),
+            x1=milestones_df['date'].max() + pd.Timedelta(days=25),
             y0=1.0, y1=1.0,
             line=dict(color='rgba(0,245,212,0.8)', width=3))
 
