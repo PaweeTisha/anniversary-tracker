@@ -299,9 +299,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
-    padding: 0.5rem;
+    padding: 1.2rem 0.5rem 0.5rem 0.5rem;
     overflow: hidden;
 }
 @keyframes shootingStar {
@@ -316,58 +316,58 @@ body {
 .floating-emoji { position: fixed; font-size: 1.3rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.7; }
 @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
 
-@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-12px) rotate(3deg); } 50% { transform: translateY(-6px) rotate(-2deg); } 75% { transform: translateY(-15px) rotate(4deg); } }
-@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-15px) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(2deg); } 75% { transform: translateY(-12px) rotate(-4deg); } }
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
-@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-10px) rotate(3deg); } 50% { transform: translateY(-5px) rotate(-2deg); } 75% { transform: translateY(-12px) rotate(4deg); } }
+@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-12px) rotate(-3deg); } 50% { transform: translateY(-5px) rotate(2deg); } 75% { transform: translateY(-10px) rotate(-4deg); } }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.2); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } 60% { transform: scale(1); } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
 @keyframes shimmer { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
 @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
-.chars { display: flex; justify-content: center; align-items: center; gap: 1.2rem; margin-bottom: 0.2rem; }
-.girl { font-size: 2.8rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
-.heart { font-size: 1.8rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
-.soldier { font-size: 2.8rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
+.chars { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 0.2rem; }
+.girl { font-size: 2.5rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
+.heart { font-size: 1.6rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
+.soldier { font-size: 2.5rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
 .title {
     font-family: 'Pacifico', cursive;
-    font-size: 2rem;
+    font-size: 1.8rem;
     background: linear-gradient(135deg, #00F5D4, #FFD166);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: float 3s ease-in-out infinite;
-    line-height: 1.3;
-    margin-top: 8px;
+    line-height: 1.2;
+    margin-top: 4px;
     position: relative;
     z-index: 10;
 }
 .subtitle { font-size: 0.65rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
-.moon-quote { font-size: 0.75rem; color: #FFD166; font-style: italic; margin-top: 0.2rem; font-weight: 500; position: relative; z-index: 10; }
-.stars { font-size: 0.9rem; letter-spacing: 0.3rem; margin: 0.1rem 0; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
+.moon-quote { font-size: 0.72rem; color: #FFD166; font-style: italic; margin-top: 0.2rem; font-weight: 500; position: relative; z-index: 10; }
+.stars { font-size: 0.85rem; letter-spacing: 0.3rem; margin: 0.1rem 0; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
 
 .pin-section {
-    margin-top: 1.5rem;
+    margin-top: 0.8rem;
     background: rgba(30, 15, 60, 0.75);
     border: 1px solid rgba(0, 245, 212, 0.4);
-    border-radius: 18px;
-    padding: 1rem 1.5rem;
-    max-width: 350px;
+    border-radius: 16px;
+    padding: 0.9rem 1.2rem;
+    max-width: 330px;
     width: 100%;
     backdrop-filter: blur(10px);
-    box-shadow: 0 0 25px rgba(123, 44, 191, 0.3);
+    box-shadow: 0 0 20px rgba(123, 44, 191, 0.3);
     position: relative;
     z-index: 10;
 }
-.pin-title { font-family: 'Outfit', sans-serif; font-size: 1rem; color: #00F5D4; margin-bottom: 0.2rem; font-weight: 600; }
-.pin-hint { font-size: 0.7rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 0.6rem; font-style: italic; }
-.pin-boxes { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 0.8rem; }
+.pin-title { font-family: 'Outfit', sans-serif; font-size: 0.95rem; color: #00F5D4; margin-bottom: 0.1rem; font-weight: 600; }
+.pin-hint { font-size: 0.65rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 0.6rem; font-style: italic; }
+.pin-boxes { display: flex; justify-content: center; gap: 0.4rem; margin-bottom: 0.7rem; }
 .pin-box {
-    width: 38px;
-    height: 44px;
+    width: 36px;
+    height: 42px;
     border: 2px solid rgba(0, 245, 212, 0.4);
     border-radius: 8px;
     background: rgba(10, 4, 26, 0.6);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #FFD166;
     text-align: center;
     font-weight: 600;
@@ -383,8 +383,8 @@ body {
     color: #0A041A;
     border: none;
     border-radius: 10px;
-    padding: 0.55rem 2rem;
-    font-size: 0.85rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     width: 100%;
@@ -393,8 +393,8 @@ body {
     box-shadow: 0 0 15px rgba(0,245,212,0.4);
 }
 .enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,245,212,0.6); }
-.error-msg { color: #FF6B6B; font-size: 0.75rem; margin-top: 0.5rem; display: none; }
-.lock-icon { font-size: 1.3rem; margin-bottom: 0.2rem; animation: float 2.5s ease-in-out infinite; display: block; }
+.error-msg { color: #FF6B6B; font-size: 0.7rem; margin-top: 0.4rem; display: none; }
+.lock-icon { font-size: 1.2rem; margin-bottom: 0.2rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
 </head>
 <body>
@@ -420,7 +420,7 @@ body {
         document.body.appendChild(el);
     }
     </script>
-    <div style="position:relative; z-index:10; padding-top: 5px;">
+    <div style="position:relative; z-index:10; padding-top: 15px;">
         <div class="chars">
             <span class="girl">💻</span>
             <span class="heart">💜</span>
