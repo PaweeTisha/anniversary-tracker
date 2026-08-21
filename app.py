@@ -32,10 +32,37 @@ st.markdown("""
 }
 
 .block-container {
-    padding-top: 3.5rem !important;
+    padding-top: 2rem !important;
     padding-bottom: 2rem !important;
     max-width: 1250px !important;
 }
+
+/* BREAKING NEWS TICKER BANNER */
+.breaking-news-bar {
+    background: linear-gradient(90deg, #8B0000, #C9A84C, #8B0000);
+    border: 1px solid #FFD700;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(139,0,0,0.5);
+}
+.breaking-badge {
+    background: #FFFFFF;
+    color: #8B0000;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
 .hero-section {
     background: linear-gradient(135deg, rgba(61,26,110,0.9), rgba(74,92,58,0.8));
@@ -445,9 +472,63 @@ body {
 if not check_password():
     st.stop()
 
+# ---- BREAKING NEWS POPUP (First login popup) ----
+if "show_news" not in st.session_state:
+    st.session_state.show_news = True
+
+if st.session_state.show_news:
+    components.html("""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+    .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26,10,46,0.8); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
+    .news-modal { background: linear-gradient(135deg, #8B0000, #3D1A6E); border: 3px solid #FFD700; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 25px 50px rgba(0,0,0,0.7); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .news-header { background: #FFD700; color: #8B0000; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.8rem; }
+    .news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: #FFD700; }
+    .news-desc { font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; color: #F0E9FA; }
+    .ack-btn { background: #FFD700; color: #8B0000; border: none; border-radius: 12px; padding: 0.7rem 2rem; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.4); transition: transform 0.2s; }
+    .ack-btn:hover { transform: scale(1.05); }
+    </style>
+    </head>
+    <body>
+    <div class="news-overlay" id="newsModal">
+        <div class="news-modal">
+            <div class="news-header">🚨 Breaking News / ข่าวด่วนพิเศษ 🚨</div>
+            <div class="news-title">Upcoming Anniversary Alert! 💜</div>
+            <div class="news-desc">
+                Official report from our heart bureau: Get ready for special dates, love capsules, and epic card duels! Stay tuned and keep smiling! ✨
+            </div>
+            <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
+        </div>
+    </div>
+    <script>
+    function closeNews() {
+        document.getElementById('newsModal').style.display = 'none';
+        const parentDoc = window.parent.document;
+        const btn = parentDoc.querySelector('iframe');
+        // Trigger python state if needed
+    }
+    </script>
+    </body>
+    </html>
+    """, height=300, scrolling=False)
+
 # ---- INIT & STATS ----
 init_db()
 stats = calculate_stats()
+
+# ---- BREAKING NEWS TICKER BANNER (Top of App) ----
+st.markdown("""
+<div class="breaking-news-bar">
+    <div class="breaking-badge">🔴 BREAKING NEWS</div>
+    <div style="overflow: white-space: nowrap;">
+        ✨ Urgent Update: Our private world is live! Get ready for card duels, daily love capsules, and wonderful memories together! 💜🪖
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 # ---- TABS ----
 tab_capsule, tab_battle, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
