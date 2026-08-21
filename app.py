@@ -37,27 +37,27 @@ st.markdown("""
     max-width: 1250px !important;
 }
 
-/* BREAKING NEWS TICKER BANNER (Fixed width & font size) */
+/* BREAKING NEWS TICKER BANNER (Clean & perfectly fitted) */
 .breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #C9A84C, #8B0000);
     border: 1px solid #FFD700;
     border-radius: 8px;
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem;
     color: #FFFFFF;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     box-shadow: 0 4px 15px rgba(139,0,0,0.5);
 }
 .breaking-badge {
     background: #FFFFFF;
     color: #8B0000;
-    padding: 0.3rem 0.7rem;
+    padding: 0.25rem 0.6rem;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -474,7 +474,7 @@ body {
 if not check_password():
     st.stop()
 
-# ---- BREAKING NEWS POPUP (First login popup - English Only & Warning!) ----
+# ---- BREAKING NEWS POPUP (Cleaned up, concise & warning) ----
 components.html("""
 <!DOCTYPE html>
 <html>
@@ -482,13 +482,13 @@ components.html("""
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
 .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26,10,46,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
-.news-modal { background: linear-gradient(135deg, #8B0000, #3D1A6E); border: 3px solid #FFD700; border-radius: 20px; padding: 2.2rem; max-width: 440px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 25px 50px rgba(0,0,0,0.8); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.news-modal { background: linear-gradient(135deg, #8B0000, #3D1A6E); border: 3px solid #FFD700; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 25px 50px rgba(0,0,0,0.8); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-.news-header { background: #FFD700; color: #8B0000; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.9rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.8rem; white-space: nowrap; }
-.news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; color: #FFD700; }
-.news-desc { font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; color: #F0E9FA; font-weight: 500; }
-.warning-box { background: rgba(255, 215, 0, 0.15); border: 2px dashed #FFD700; border-radius: 10px; padding: 0.8rem; margin-bottom: 1.5rem; color: #FFD700; font-weight: 700; font-size: 0.9rem; }
-.ack-btn { background: #FFD700; color: #8B0000; border: none; border-radius: 12px; padding: 0.7rem 2rem; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.4); transition: transform 0.2s; }
+.news-header { background: #FFD700; color: #8B0000; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.6rem; white-space: nowrap; }
+.news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #FFD700; }
+.news-desc { font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.2rem; color: #F0E9FA; font-weight: 500; }
+.warning-box { background: rgba(255, 215, 0, 0.15); border: 2px dashed #FFD700; border-radius: 10px; padding: 0.7rem; margin-bottom: 1.2rem; color: #FFD700; font-weight: 700; font-size: 0.85rem; }
+.ack-btn { background: #FFD700; color: #8B0000; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.4); transition: transform 0.2s; }
 .ack-btn:hover { transform: scale(1.05); }
 </style>
 </head>
@@ -498,10 +498,10 @@ components.html("""
         <div class="news-header">🚨 BREAKING NEWS 🚨</div>
         <div class="news-title">Upcoming Anniversary Alert! 💜</div>
         <div class="news-desc">
-            Official report from our heart bureau: Get ready for special dates, love capsules, and epic card duels!
+            Get ready for special dates, love capsules, and epic card duels!
         </div>
         <div class="warning-box">
-            ⚠️ WARNING! DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT UNDER ANY CIRCUMSTANCES! 🚨🔥
+            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🚨🔥
         </div>
         <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
     </div>
@@ -513,18 +513,18 @@ function closeNews() {
 </script>
 </body>
 </html>
-""", height=350, scrolling=False)
+""", height=330, scrolling=False)
 
 # ---- INIT & STATS ----
 init_db()
 stats = calculate_stats()
 
-# ---- BREAKING NEWS TICKER BANNER (Top of App - English Warning) ----
+# ---- BREAKING NEWS TICKER BANNER (Top of App - Concise Warning) ----
 st.markdown("""
 <div class="breaking-news-bar">
     <div class="breaking-badge">🔴 BREAKING NEWS</div>
     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels, daily love capsules, and wonderful memories! 💜🪖
+        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
     </div>
 </div>
 """, unsafe_allow_html=True)
