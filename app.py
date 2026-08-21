@@ -25,7 +25,7 @@ st.markdown("""
 
 * { font-family: 'DM Sans', sans-serif; }
 
-/* ซ่อนช่องอินพุตระบบ (hidden inputs) แบบถาวรไม่ให้มีแถบโผล่มากวนใจ */
+/* Hide system text inputs (hidden inputs) completely */
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_welcome"]),
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     display: none !important;
@@ -621,24 +621,42 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---- TABS (เพิ่มแท็บ "💐 สองเรา" สำหรับช่อดอกไม้และเมนูสไตล์ TikTok) ----
-tab_flower, tab_capsule, tab_battle, tab_stats = st.tabs(["💐 สองเรา", "💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"])
+# ---- TABS (Using Streamlit radio/buttons for interactive menu switching or tabs) ----
+# Initializing session state for navigation
+if "selected_tab" not in st.session_state:
+    st.session_state.selected_tab = "💐 Get Flowers"
 
-# ======== TAB 0: ช่อดอกไม้และเมนู 4 กล่องสไตล์ TikTok ========
-with tab_flower:
+# Navigation bar using Streamlit columns as clickable style buttons
+nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
+with nav_col1:
+    if st.button("💐 Get Flowers", use_container_width=True):
+        st.session_state.selected_tab = "💐 Get Flowers"
+with nav_col2:
+    if st.button("💌 Love Capsule", use_container_width=True):
+        st.session_state.selected_tab = "💌 Love Capsule"
+with nav_col3:
+    if st.button("⚔️ Battle Phase", use_container_width=True):
+        st.session_state.selected_tab = "⚔️ Battle Phase"
+with nav_col4:
+    if st.button("📊 Our Stats", use_container_width=True):
+        st.session_state.selected_tab = "📊 Our Stats"
+
+st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 1rem 0;'>", unsafe_allow_html=True)
+
+# ---- TAB 0: GET FLOWERS & 4 INTERACTIVE MENUS ----
+if st.session_state.selected_tab == "💐 Get Flowers":
     st.markdown("""
-    <div style="text-align: center; padding: 1.5rem 0;">
-        <h1 style="font-family: 'Pacifico', cursive; color: #FFD166; font-size: 2.8rem; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5);">รับดอกไม้ ! 🌷</h1>
-        <p style="color: #4CC9F0; font-size: 1rem; font-weight: 600; letter-spacing: 1px;">เก่งมาก ! ดอกไม้สำหรับคนน่ารัก ✨</p>
+    <div style="text-align: center; padding: 1rem 0;">
+        <h1 style="font-family: 'Pacifico', cursive; color: #FFD166; font-size: 2.8rem; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5);">Get Flowers! 🌷</h1>
+        <p style="color: #4CC9F0; font-size: 1rem; font-weight: 600; letter-spacing: 1px;">Well done! Flowers for a cute person ✨</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # รูปช่อดอกไม้ทิวลิป
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
         st.markdown("""
         <div style="background: linear-gradient(135deg, rgba(123,44,191,0.4), rgba(255,182,193,0.2)); border: 2px solid rgba(255,192,203,0.6); border-radius: 28px; padding: 2rem; text-align: center; box-shadow: 0 0 35px rgba(255,182,193,0.3); backdrop-filter: blur(10px);">
-            <div style="font-size: 6rem; margin-bottom: 1rem; animation: float 3s ease-in-out infinite;">💐🌷</div>
+            <div style="font-size: 6rem; margin-bottom: 1rem;">💐🌷</div>
             <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; color: #FFD166; font-weight: 700; margin-bottom: 0.5rem;">For My Favorite Rival 💜</div>
             <div style="font-size: 0.9rem; color: #F0E9FA; margin-bottom: 1.5rem; line-height: 1.6;">
                 Thank you for being my greatest motivation, my favorite distraction, and my partner in crime every single day! ✨
@@ -647,47 +665,31 @@ with tab_flower:
         """, unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
-    st.markdown('<div class="section-title" style="text-align: center;">💖 เลือกเมนูความทรงจำของเรา 💖</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title" style="text-align: center;">💖 Select Our Memory Menu 💖</div>', unsafe_allow_html=True)
     st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
 
-    # 4 กล่องเมนูน่ารักๆ สไตล์ TikTok
+    # 4 Interactive Menu Boxes linking directly to pages
     mcol1, mcol2 = st.columns(2)
     with mcol1:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(255,105,180,0.3)); border: 2px solid #FFD166; border-radius: 20px; padding: 1.8rem; text-align: center; margin-bottom: 1rem; box-shadow: 0 0 20px rgba(123,44,191,0.4);">
-            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🍒</div>
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FFD166; margin-bottom: 0.3rem;">เราคบกันมานานเท่าไหร่แล้วนะ</div>
-            <div style="font-size: 0.85rem; color: #F0E9FA;">เช็คเวลาและความผูกพันที่เราเดินทางร่วมกันมา 💜</div>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button("🍒 How long have we been together?\n\nCheck our time and journey together 💜", use_container_width=True):
+            st.session_state.selected_tab = "📊 Our Stats"
+            st.rerun()
 
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(255,105,180,0.3)); border: 2px solid #FFD166; border-radius: 20px; padding: 1.8rem; text-align: center; margin-bottom: 1rem; box-shadow: 0 0 20px rgba(123,44,191,0.4);">
-            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🧁</div>
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FFD166; margin-bottom: 0.3rem;">เรารู้ใจกันมากแค่ไหน</div>
-            <div style="font-size: 0.85rem; color: #F0E9FA;">ทดสอบพลังแท็กทีมและประลองการ์ดบัดดี้สุดมันส์ ⚔️</div>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button("🧁 How well do we know each other?\n\nTest our teamwork with an epic card duel ⚔️", use_container_width=True):
+            st.session_state.selected_tab = "⚔️ Battle Phase"
+            st.rerun()
 
     with mcol2:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(255,105,180,0.3)); border: 2px solid #FFD166; border-radius: 20px; padding: 1.8rem; text-align: center; margin-bottom: 1rem; box-shadow: 0 0 20px rgba(123,44,191,0.4);">
-            <div style="font-size: 3rem; margin-bottom: 0.5rem;">💌</div>
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FFD166; margin-bottom: 0.3rem;">จดหมายถึงคนน่ารัก</div>
-            <div style="font-size: 0.85rem; color: #F0E9FA;">เปิด Love Capsule ลุ้นข้อความลับสุดพิเศษจากใจ ✉️</div>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button("💌 Letter for my cute person\n\nOpen Love Capsule for a secret note ✉️", use_container_width=True):
+            st.session_state.selected_tab = "💌 Love Capsule"
+            st.rerun()
 
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(255,105,180,0.3)); border: 2px solid #FFD166; border-radius: 20px; padding: 1.8rem; text-align: center; margin-bottom: 1rem; box-shadow: 0 0 20px rgba(123,44,191,0.4);">
-            <div style="font-size: 3rem; margin-bottom: 0.5rem;">📸</div>
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FFD166; margin-bottom: 0.3rem;">ความทรงจำ</div>
-            <div style="font-size: 0.85rem; color: #F0E9FA;">บันทึกเส้นทางความสุขและไมล์สโตนต์ของเรา 🗺️</div>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button("📸 Memories & Milestones\n\nExplore our journey timeline 🗺️", use_container_width=True):
+            st.session_state.selected_tab = "📊 Our Stats"
+            st.rerun()
 
-# ======== TAB 1: LOVE CAPSULE ========
-with tab_capsule:
+# ---- TAB 1: LOVE CAPSULE ----
+elif st.session_state.selected_tab == "💌 Love Capsule":
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
     
@@ -763,8 +765,8 @@ with tab_capsule:
     </html>
     """, height=380, scrolling=False)
 
-# ======== TAB 2: BATTLE PHASE ========
-with tab_battle:
+# ---- TAB 2: BATTLE PHASE ----
+elif st.session_state.selected_tab == "⚔️ Battle Phase":
     st.markdown('<div class="section-title">Battle Phase: 5 Cards Choice & Tap/Untap ⚔️🃏</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.0rem;">Pick one of 5 cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
     
@@ -1018,8 +1020,8 @@ with tab_battle:
     </html>
     """, height=440, scrolling=False)
 
-# ======== TAB 3: STATS ========
-with tab_stats:
+# ---- TAB 3: STATS ----
+elif st.session_state.selected_tab == "📊 Our Stats":
     st.markdown(f"""
     <div class="hero-section">
         <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
