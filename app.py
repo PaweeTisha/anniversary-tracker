@@ -449,7 +449,7 @@ if not check_password():
 init_db()
 stats = calculate_stats()
 
-# ---- TABS ----
+# ---- TABS (Fixed and Clean) ----
 tab_quest, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["🧩 Memory Quest", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
 # ======== TAB 0: MEMORY QUEST (Mini-game) ========
@@ -518,7 +518,7 @@ with tab_quest:
     </html>
     """, height=420, scrolling=False)
 
-# ======== TAB 1: STATS (Original Hero + Real-Time Counter Integration) ========
+# ======== TAB 1: STATS (Hero + Real-Time Live Counter) ========
 with tab_stats:
     st.markdown(f"""
     <div class="hero-section">
@@ -531,7 +531,7 @@ with tab_stats:
     </div>
     """, unsafe_allow_html=True)
 
-    # Real-Time Live Counter Card (Matched original theme perfectly)
+    # Real-Time Live Counter Card
     components.html("""
     <!DOCTYPE html>
     <html>
@@ -567,21 +567,21 @@ with tab_stats:
     </head>
     <body>
         <div class="live-card">
-            <div class="main-title">ตั้งแต่วันแรกที่คบกัน (Official Couple) 💜</div>
+            <div class="main-title">Since Day One (Official Couple) 💜</div>
             <div class="main-number" id="daysNum">0</div>
-            <div class="main-unit">วัน</div>
+            <div class="main-unit">Days</div>
             <div class="sub-grid">
                 <div class="sub-box">
                     <div class="sub-num" id="hoursNum">0</div>
-                    <div class="sub-lbl">ชั่วโมง</div>
+                    <div class="sub-lbl">Hours</div>
                 </div>
                 <div class="sub-box">
                     <div class="sub-num" id="minsNum">0</div>
-                    <div class="sub-lbl">นาที</div>
+                    <div class="sub-lbl">Minutes</div>
                 </div>
                 <div class="sub-box">
                     <div class="sub-num" id="secsNum" style="color: #C9A84C;">0</div>
-                    <div class="sub-lbl">วินาที</div>
+                    <div class="sub-lbl">Seconds</div>
                 </div>
             </div>
         </div>
