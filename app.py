@@ -449,7 +449,7 @@ if not check_password():
 init_db()
 stats = calculate_stats()
 
-# ---- TABS (เพิ่มแท็บ Battle Phase MTG) ----
+# ---- TABS ----
 tab_capsule, tab_battle, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
 # ======== TAB 0: LOVE CAPSULE ========
@@ -528,10 +528,10 @@ with tab_capsule:
     </html>
     """, height=380, scrolling=False)
 
-# ======== TAB 1: BATTLE PHASE (MTG Tap/Untap Game) ========
+# ======== TAB 1: BATTLE PHASE (MTG Tap/Untap Smooth Card Animation) ========
 with tab_battle:
     st.markdown('<div class="section-title">Battle Phase: Tap or Untap ⚔️🃏</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1rem;">Test your Magic resources! Tap to attack or Untap to prepare your turn. ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Test your Magic resources! Click the card to Tap (Attack) or Untap (Prepare). ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -540,22 +540,36 @@ with tab_battle:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
     body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
-    .card-table { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 380px; width: 100%; }
-    .mtg-card { width: 160px; height: 230px; background: linear-gradient(135deg, #3D1A6E, #6B3FA0); border: 3px solid #C9A84C; border-radius: 12px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,0,0,0.5); user-select: none; margin-bottom: 1rem; }
-    .mtg-card:hover { transform: scale(1.05); border-color: #F0E9FA; }
-    .mtg-card.tapped { transform: rotate(90deg) scale(1.02); border-color: #7A8C6A; }
-    .card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.5rem; }
-    .card-art { font-size: 3.5rem; margin-bottom: 0.5rem; }
-    .card-status { font-size: 0.85rem; color: #F0E9FA; font-weight: 600; margin-top: 0.5rem; }
+    .card-table { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 400px; width: 100%; }
+    
+    .card-container { perspective: 1000px; display: inline-block; margin-bottom: 1rem; cursor: pointer; }
+    .mtg-card { 
+        width: 170px; height: 240px; 
+        background: linear-gradient(135deg, #3D1A6E, #6B3FA0); 
+        border: 3px solid #C9A84C; 
+        border-radius: 14px; 
+        display: flex; flex-direction: column; align-items: center; justify-content: center; 
+        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; 
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+        user-select: none; 
+    }
+    .mtg-card:hover { border-color: #F0E9FA; box-shadow: 0 15px 30px rgba(201,168,76,0.4); }
+    .mtg-card.tapped { transform: rotate(90deg) scale(1.05); border-color: #7A8C6A; box-shadow: -15px 10px 25px rgba(0,0,0,0.6); }
+    
+    .card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.5rem; text-align: center; }
+    .card-art { font-size: 3.8rem; margin-bottom: 0.5rem; transition: transform 0.3s; }
+    .card-status { font-size: 0.9rem; color: #F0E9FA; font-weight: 600; margin-top: 0.5rem; }
     .action-hint { font-size: 0.75rem; color: #B08FD4; font-style: italic; margin-top: 0.5rem; }
     </style>
     </head>
     <body>
     <div class="card-table">
-        <div class="mtg-card" id="card" onclick="toggleCard()">
-            <div class="card-title">Tisha & Dawis 💜</div>
-            <div class="card-art">🪖</div>
-            <div style="font-size: 0.7rem; color: #F0E9FA;">Legendary Couple</div>
+        <div class="card-container" onclick="toggleCard()">
+            <div class="mtg-card" id="card">
+                <div class="card-title">Tisha & Dawis 💜</div>
+                <div class="card-art" id="artEmoji">🪖</div>
+                <div style="font-size: 0.7rem; color: #F0E9FA;">Legendary Couple</div>
+            </div>
         </div>
         <div class="card-status" id="statusText">Status: UNTAPPED (Ready for combat!)</div>
         <div class="action-hint">Click the card to Tap / Untap</div>
@@ -567,18 +581,21 @@ with tab_battle:
         isTapped = !isTapped;
         const card = document.getElementById('card');
         const status = document.getElementById('statusText');
+        const art = document.getElementById('artEmoji');
         if (isTapped) {
             card.classList.add('tapped');
-            status.innerText = "Status: TAPPED (Attacking with full love power! 💥)";
+            art.innerText = "💥";
+            status.innerText = "Status: TAPPED (Attacking with full love power!)";
         } else {
             card.classList.remove('tapped');
+            art.innerText = "🪖";
             status.innerText = "Status: UNTAPPED (Ready for combat!)";
         }
     }
     </script>
     </body>
     </html>
-    """, height=420, scrolling=False)
+    """, height=440, scrolling=False)
 
 # ======== TAB 2: STATS ========
 with tab_stats:
