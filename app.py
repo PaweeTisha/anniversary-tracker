@@ -449,13 +449,13 @@ if not check_password():
 init_db()
 stats = calculate_stats()
 
-# ---- TABS (Cute Gachapon First!) ----
-tab_gacha, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["🎁 Love Gachapon", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
+# ---- TABS (Love Capsule First) ----
+tab_capsule, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["💌 Love Capsule", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
-# ======== TAB 0: LOVE GACHAPON (Kawaii Gacha Machine with Spanish/English Support & Banter) ========
-with tab_gacha:
-    st.markdown('<div class="section-title">Love Gachapon — Draw a Sweet & Spicy Note 🎁</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Pull the capsule to get a sweet supportive note or a playful teaser from your favorite rival! ✨</div>', unsafe_allow_html=True)
+# ======== TAB 0: LOVE CAPSULE (Letter & Coupon Drawer) ========
+with tab_capsule:
+    st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -464,11 +464,11 @@ with tab_gacha:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
     body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
-    .gacha-container { text-align: center; max-width: 360px; width: 100%; background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5)); border: 1px solid rgba(176,143,212,0.3); border-radius: 24px; padding: 2rem; backdrop-filter: blur(12px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-    .machine-icon { font-size: 4.5rem; animation: bounceGacha 2s ease-in-out infinite; margin-bottom: 0.8rem; filter: drop-shadow(0 5px 15px rgba(201,168,76,0.3)); }
-    @keyframes bounceGacha { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    .draw-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(107,63,160,0.5); transition: all 0.2s; }
-    .draw-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #7B4FB0, #D9B85C); }
+    .capsule-container { text-align: center; max-width: 360px; width: 100%; background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5)); border: 1px solid rgba(176,143,212,0.3); border-radius: 24px; padding: 2rem; backdrop-filter: blur(12px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    .letter-icon { font-size: 4.5rem; animation: floatLetter 2.5s ease-in-out infinite; margin-bottom: 0.8rem; filter: drop-shadow(0 5px 15px rgba(201,168,76,0.3)); }
+    @keyframes floatLetter { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .open-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(107,63,160,0.5); transition: all 0.2s; }
+    .open-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #7B4FB0, #D9B85C); }
     
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); justify-content: center; align-items: center; z-index: 999; }
     .modal-content { background: #FAFAFA; color: #1A1A2E; padding: 2.2rem 1.8rem; border-radius: 20px; text-align: center; max-width: 310px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.6); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
@@ -479,11 +479,11 @@ with tab_gacha:
     </style>
     </head>
     <body>
-    <div class="gacha-container">
-        <div class="machine-icon">🎁</div>
-        <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#F0E9FA; font-size:1.3rem; font-weight:700; margin-bottom:0.3rem;">Kawaii Love Capsule</div>
-        <div style="color:#B08FD4; font-size:0.75rem; margin-bottom:1.5rem; letter-spacing:0.5px;">¡Buena suerte! Let's see what you get ✨</div>
-        <button class="draw-btn" onclick="drawCapsule()">Pull Capsule 💖</button>
+    <div class="capsule-container">
+        <div class="letter-icon">✉️</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#F0E9FA; font-size:1.3rem; font-weight:700; margin-bottom:0.3rem;">Love Capsule Letter</div>
+        <div style="color:#B08FD4; font-size:0.75rem; margin-bottom:1.5rem; letter-spacing:0.5px;">¡Buena suerte! Open a note from me ✨</div>
+        <button class="open-btn" onclick="openLetter()">Open Letter 💌</button>
     </div>
 
     <div class="modal" id="modal">
@@ -507,7 +507,7 @@ with tab_gacha:
         "No matter how tough it gets, I've got your back forever. ¡A por todas! 🚀"
     ];
 
-    function drawCapsule() {
+    function openLetter() {
         const randomMsg = messages[Math.floor(Math.random() * messages.length)];
         document.getElementById('secretMsg').innerText = randomMsg;
         document.getElementById('modal').style.display = 'flex';
