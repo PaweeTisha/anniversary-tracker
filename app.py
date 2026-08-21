@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 import base64
 
 # ---- PAGE CONFIG ----
-st.set_page_config(page_title="Tisha & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
 # ---- CUSTOM CSS ----
 st.markdown("""
@@ -528,10 +528,10 @@ with tab_capsule:
     </html>
     """, height=380, scrolling=False)
 
-# ======== TAB 1: BATTLE PHASE (2-Player Local Tap/Untap Duel) ========
+# ======== TAB 1: BATTLE PHASE (Select Card First, Then Tap/Untap 2-Player Duel) ========
 with tab_battle:
-    st.markdown('<div class="section-title">Battle Phase: 2-Player Tap / Untap Duel ⚔️🃏</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Take turns! Click your card to Tap (Attack) or Untap (Prepare) and defeat your opponent. ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Battle Phase: Select Card & Tap/Untap Duel ⚔️🃏</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Choose your card character first, then take turns to Tap (Attack) or Untap (Prepare)! ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -540,79 +540,139 @@ with tab_battle:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
     body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
-    .duel-arena { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 1.5rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 480px; width: 100%; }
+    .duel-arena { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 1.2rem 1.5rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 520px; width: 100%; }
     
-    .players-container { display: flex; justify-content: space-around; align-items: center; gap: 15px; margin-bottom: 1rem; }
-    .player-box { background: rgba(26,10,46,0.6); border: 2px solid rgba(176,143,212,0.3); border-radius: 14px; padding: 1rem; width: 48%; text-align: center; transition: all 0.3s; }
+    /* Setup Phase */
+    #setupPhase { display: block; }
+    .card-options { display: flex; justify-content: center; gap: 10px; margin: 1rem 0; }
+    .option-card {
+        width: 110px; height: 145px;
+        background: linear-gradient(135deg, #3D1A6E, #6B3FA0);
+        border: 2px solid #C9A84C; border-radius: 10px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        cursor: pointer; transition: transform 0.2s; padding: 8px; color: #F0E9FA;
+    }
+    .option-card:hover { transform: translateY(-5px) scale(1.05); border-color: #F0E9FA; }
+    
+    /* Battle Phase */
+    #battlePhase { display: none; }
+    .players-container { display: flex; justify-content: space-around; align-items: center; gap: 15px; margin-bottom: 0.8rem; }
+    .player-box { background: rgba(26,10,46,0.6); border: 2px solid rgba(176,143,212,0.3); border-radius: 14px; padding: 0.8rem; width: 48%; text-align: center; transition: all 0.3s; }
     .player-box.active-turn { border-color: #C9A84C; box-shadow: 0 0 20px rgba(201,168,76,0.6); background: rgba(107,63,160,0.5); }
     
-    .player-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.3rem; }
-    .hp-text { font-size: 0.85rem; color: #F0E9FA; font-weight: 600; margin-bottom: 0.8rem; }
+    .player-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.3rem; }
+    .hp-text { font-size: 0.8rem; color: #F0E9FA; font-weight: 600; margin-bottom: 0.6rem; }
     
     .card-container { perspective: 1000px; display: inline-block; cursor: pointer; }
     .mtg-card { 
-        width: 120px; height: 160px; 
+        width: 110px; height: 150px; 
         background: linear-gradient(135deg, #3D1A6E, #6B3FA0); 
-        border: 2px solid #C9A84C; 
-        border-radius: 12px; 
+        border: 2px solid #C9A84C; border-radius: 10px; 
         display: flex; flex-direction: column; align-items: center; justify-content: center; 
         transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; 
-        box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
-        user-select: none; margin: 0 auto;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.5); user-select: none; margin: 0 auto;
     }
-    .mtg-card:hover { border-color: #F0E9FA; }
-    .mtg-card.tapped { transform: rotate(90deg) scale(1.05); border-color: #7A8C6A; box-shadow: -12px 8px 20px rgba(0,0,0,0.6); }
+    .mtg-card.tapped { transform: rotate(90deg) scale(1.03); border-color: #7A8C6A; box-shadow: -12px 8px 20px rgba(0,0,0,0.6); }
     
-    .turn-indicator { font-size: 1rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.6rem; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .action-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 12px; padding: 0.6rem 1.8rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(107,63,160,0.4); transition: transform 0.2s; margin-top: 0.5rem; }
+    .turn-indicator { font-size: 0.95rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .action-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(107,63,160,0.4); transition: transform 0.2s; margin-top: 0.4rem; }
     .action-btn:hover { transform: scale(1.05); }
-    .game-log { font-size: 0.8rem; color: #B08FD4; margin-top: 0.8rem; font-style: italic; min-height: 35px; }
+    .game-log { font-size: 0.75rem; color: #B08FD4; margin-top: 0.6rem; font-style: italic; min-height: 30px; }
     </style>
     </head>
     <body>
     <div class="duel-arena">
-        <div class="turn-indicator" id="turnText">Turn: Player 1 (Tisha 💻)</div>
-        
-        <div class="players-container">
-            <!-- Player 1 -->
-            <div class="player-box active-turn" id="p1Box">
-                <div class="player-name">Player 1 (Tisha) 💻</div>
-                <div class="hp-text">HP: <span id="p1Hp">20</span> ❤️</div>
-                <div class="card-container" onclick="playerTap(1)">
-                    <div class="mtg-card" id="p1Card">
-                        <div style="font-size: 0.7rem; color: #C9A84C; font-weight: 700;">Tisha Card</div>
-                        <div style="font-size: 2.5rem;" id="p1Art">💻</div>
-                        <div style="font-size: 0.6rem; color: #F0E9FA;" id="p1Status">Untapped</div>
+        <!-- SETUP: SELECT CARD -->
+        <div id="setupPhase">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#F0E9FA; font-size:1.1rem; font-weight:700; margin-bottom:0.3rem;" id="setupTitle">Player 1 (Paweetida): Choose your Card! 🎴</div>
+            <div style="font-size:0.75rem; color:#B08FD4; margin-bottom:0.8rem;">Select the avatar card you want to bring into the battlefield.</div>
+            <div class="card-options" id="cardOptions">
+                <div class="option-card" onclick="selectCard('💻', 'Coder Paweetida')">
+                    <div style="font-size:2.2rem;">💻</div>
+                    <div style="font-size:0.75rem; font-weight:700; margin-top:5px;">Coder Tech</div>
+                    <div style="font-size:0.55rem; color:#B08FD4;">Data Specialist</div>
+                </div>
+                <div class="option-card" onclick="selectCard('🪖', 'Soldier Dawis')">
+                    <div style="font-size:2.2rem;">🪖</div>
+                    <div style="font-size:0.75rem; font-weight:700; margin-top:5px;">Army Scout</div>
+                    <div style="font-size:0.55rem; color:#B08FD4;">Defense Force</div>
+                </div>
+                <div class="option-card" onclick="selectCard('💖', 'Rival Queen')">
+                    <div style="font-size:2.2rem;">💖</div>
+                    <div style="font-size:0.75rem; font-weight:700; margin-top:5px;">Rival Queen</div>
+                    <div style="font-size:0.55rem; color:#B08FD4;">Favorite Tease</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BATTLE: TAP / UNTAP DUEL -->
+        <div id="battlePhase">
+            <div class="turn-indicator" id="turnText">Turn: Player 1 (Paweetida)</div>
+            
+            <div class="players-container">
+                <!-- Player 1 -->
+                <div class="player-box active-turn" id="p1Box">
+                    <div class="player-name" id="p1Label">Player 1 (Paweetida)</div>
+                    <div class="hp-text">HP: <span id="p1Hp">20</span> ❤️</div>
+                    <div class="card-container" onclick="playerTap(1)">
+                        <div class="mtg-card" id="p1Card">
+                            <div style="font-size: 0.65rem; color: #C9A84C; font-weight: 700;" id="p1CardName">Card</div>
+                            <div style="font-size: 2.2rem;" id="p1Art">💻</div>
+                            <div style="font-size: 0.55rem; color: #F0E9FA;" id="p1Status">Untapped</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Player 2 -->
+                <div class="player-box" id="p2Box">
+                    <div class="player-name" id="p2Label">Player 2 (Dawis)</div>
+                    <div class="hp-text">HP: <span id="p2Hp">20</span> ❤️</div>
+                    <div class="card-container" onclick="playerTap(2)">
+                        <div class="mtg-card" id="p2Card">
+                            <div style="font-size: 0.65rem; color: #C9A84C; font-weight: 700;" id="p2CardName">Card</div>
+                            <div style="font-size: 2.2rem;" id="p2Art">🪖</div>
+                            <div style="font-size: 0.55rem; color: #F0E9FA;" id="p2Status">Untapped</div>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Player 2 -->
-            <div class="player-box" id="p2Box">
-                <div class="player-name">Player 2 (Dawis) 🪖</div>
-                <div class="hp-text">HP: <span id="p2Hp">20</span> ❤️</div>
-                <div class="card-container" onclick="playerTap(2)">
-                    <div class="mtg-card" id="p2Card">
-                        <div style="font-size: 0.7rem; color: #C9A84C; font-weight: 700;">Dawis Card</div>
-                        <div style="font-size: 2.5rem;" id="p2Art">🪖</div>
-                        <div style="font-size: 0.6rem; color: #F0E9FA;" id="p2Status">Untapped</div>
-                    </div>
-                </div>
+            <div>
+                <button class="action-btn" onclick="endTurn()">End Turn / Pass ⏭️</button>
             </div>
+            <div class="game-log" id="gameLog">Click your card to Tap (Attack) or Untap, then End Turn! ✨</div>
         </div>
-        
-        <div>
-            <button class="action-btn" onclick="endTurn()">End Turn / Pass ⏭️</button>
-        </div>
-        <div class="game-log" id="gameLog">Click your card to Tap (Attack) or Untap, then End Turn! ✨</div>
     </div>
 
     <script>
+    let setupStep = 1; // 1 = P1 picks card, 2 = P2 picks card
+    let p1CardInfo = { emoji: '💻', name: 'Paweetida Card' };
+    let p2CardInfo = { emoji: '🪖', name: 'Dawis Card' };
+
     let p1Hp = 20;
     let p2Hp = 20;
-    let currentTurn = 1; // 1 = Tisha, 2 = Dawis
+    let currentTurn = 1;
     let p1Tapped = false;
     let p2Tapped = false;
+
+    function selectCard(emoji, name) {
+        if (setupStep === 1) {
+            p1CardInfo = { emoji, name };
+            setupStep = 2;
+            document.getElementById('setupTitle').innerText = "Player 2 (Dawis): Choose your Card! 🎴";
+        } else {
+            p2CardInfo = { emoji, name };
+            // Start battle!
+            document.getElementById('setupPhase').style.display = 'none';
+            document.getElementById('battlePhase').style.display = 'block';
+
+            // Apply card info to UI
+            document.getElementById('p1Art').innerText = p1CardInfo.emoji;
+            document.getElementById('p1CardName').innerText = p1CardInfo.name;
+            document.getElementById('p2Art').innerText = p2CardInfo.emoji;
+            document.getElementById('p2CardName').innerText = p2CardInfo.name;
+        }
+    }
 
     function playerTap(playerNum) {
         if (playerNum !== currentTurn) {
@@ -624,49 +684,43 @@ with tab_battle:
             p1Tapped = !p1Tapped;
             const card = document.getElementById('p1Card');
             const status = document.getElementById('p1Status');
-            const art = document.getElementById('p1Art');
             if (p1Tapped) {
                 card.classList.add('tapped');
                 status.innerText = "TAPPED";
-                art.innerText = "💥";
                 p2Hp = Math.max(0, p2Hp - 5);
                 document.getElementById('p2Hp').innerText = p2Hp;
                 document.getElementById('gameLog').innerText = "Player 1 Tapped & attacked Player 2 for 5 damage! 💥";
             } else {
                 card.classList.remove('tapped');
                 status.innerText = "Untapped";
-                art.innerText = "💻";
                 document.getElementById('gameLog').innerText = "Player 1 Untapped (Prepared).";
             }
         } else {
             p2Tapped = !p2Tapped;
             const card = document.getElementById('p2Card');
             const status = document.getElementById('p2Status');
-            const art = document.getElementById('p2Art');
             if (p2Tapped) {
                 card.classList.add('tapped');
                 status.innerText = "TAPPED";
-                art.innerText = "💥";
                 p1Hp = Math.max(0, p1Hp - 5);
                 document.getElementById('p1Hp').innerText = p1Hp;
                 document.getElementById('gameLog').innerText = "Player 2 Tapped & attacked Player 1 for 5 damage! 💥";
             } else {
                 card.classList.remove('tapped');
                 status.innerText = "Untapped";
-                art.innerText = "🪖";
                 document.getElementById('gameLog').innerText = "Player 2 Untapped (Prepared).";
             }
         }
 
         if (p1Hp <= 0 || p2Hp <= 0) {
-            const winner = p1Hp <= 0 ? "Player 2 (Dawis 🪖)" : "Player 1 (Tisha 💻)";
+            const winner = p1Hp <= 0 ? "Player 2 (" + p2CardInfo.name + ")" : "Player 1 (" + p1CardInfo.name + ")";
             document.getElementById('gameLog').innerText = `🏆 Game Over! ${winner} wins the duel! 🎉`;
         }
     }
 
     function endTurn() {
         currentTurn = currentTurn === 1 ? 2 : 1;
-        document.getElementById('turnText').innerText = `Turn: Player ${currentTurn} (${currentTurn === 1 ? 'Tisha 💻' : 'Dawis 🪖'})`;
+        document.getElementById('turnText').innerText = `Turn: Player ${currentTurn} (${currentTurn === 1 ? p1CardInfo.name : p2CardInfo.name})`;
         
         if (currentTurn === 1) {
             document.getElementById('p1Box').classList.add('active-turn');
