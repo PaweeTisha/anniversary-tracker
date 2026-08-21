@@ -9,25 +9,25 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS ----
+# ---- CUSTOM CSS (NORTH & SOUTH AURORA THEME) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
 
 :root {
-    --purple-deep: #3D1A6E;
-    --purple-mid: #6B3FA0;
-    --purple-light: #B08FD4;
-    --purple-pale: #F0E9FA;
-    --army-green: #4A5C3A;
-    --army-light: #7A8C6A;
-    --gold: #C9A84C;
+    --aurora-purple: #4A154B;
+    --aurora-violet: #7B2CBF;
+    --aurora-green: #00F5D4;
+    --aurora-cyan: #4CC9F0;
+    --aurora-dark: #0A041A;
+    --aurora-card: rgba(30, 15, 60, 0.7);
+    --gold: #FFD166;
 }
 
 * { font-family: 'DM Sans', sans-serif; }
 
 .stApp {
-    background: linear-gradient(135deg, #1A0A2E 0%, #2D1854 40%, #1E3A2A 100%);
+    background: linear-gradient(135deg, #0A041A 0%, #1E0B36 40%, #051923 100%);
     min-height: 100vh;
 }
 
@@ -37,24 +37,24 @@ st.markdown("""
     max-width: 1250px !important;
 }
 
-/* BREAKING NEWS TICKER BANNER (Clean & perfectly fitted) */
+/* BREAKING NEWS TICKER BANNER (Aurora Glow) */
 .breaking-news-bar {
-    background: linear-gradient(90deg, #8B0000, #C9A84C, #8B0000);
-    border: 1px solid #FFD700;
+    background: linear-gradient(90deg, #7B2CBF, #00F5D4, #4CC9F0);
+    border: 1px solid #FFD166;
     border-radius: 8px;
     padding: 0.5rem 1rem;
-    color: #FFFFFF;
+    color: #0A041A;
     font-weight: 700;
     font-size: 0.9rem;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
     gap: 12px;
-    box-shadow: 0 4px 15px rgba(139,0,0,0.5);
+    box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
 }
 .breaking-badge {
-    background: #FFFFFF;
-    color: #8B0000;
+    background: #0A041A;
+    color: #00F5D4;
     padding: 0.25rem 0.6rem;
     border-radius: 4px;
     font-size: 0.7rem;
@@ -67,13 +67,14 @@ st.markdown("""
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
 .hero-section {
-    background: linear-gradient(135deg, rgba(61,26,110,0.9), rgba(74,92,58,0.8));
+    background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(0,245,212,0.2));
     border-radius: 16px;
     padding: 1.2rem 1.5rem;
     text-align: center;
-    border: 1px solid rgba(176,143,212,0.3);
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(76,201,240,0.3);
+    backdrop-filter: blur(12px);
     margin-bottom: 1rem;
+    box-shadow: 0 0 30px rgba(123,44,191,0.2);
 }
 
 .hero-title {
@@ -86,15 +87,15 @@ st.markdown("""
 
 .hero-subtitle {
     font-size: 0.8rem;
-    color: #B08FD4;
+    color: #4CC9F0;
     margin-top: 0.2rem;
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
 
 .metric-card {
-    background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5));
-    border: 1px solid rgba(176,143,212,0.25);
+    background: linear-gradient(135deg, rgba(123,44,191,0.4), rgba(76,201,240,0.2));
+    border: 1px solid rgba(0,245,212,0.3);
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
@@ -105,13 +106,13 @@ st.markdown("""
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 2.4rem;
     font-weight: 700;
-    color: #C9A84C;
+    color: #FFD166;
     line-height: 1;
 }
 
 .metric-label {
     font-size: 0.75rem;
-    color: #B08FD4;
+    color: #4CC9F0;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-top: 0.3rem;
@@ -123,45 +124,47 @@ st.markdown("""
     font-weight: 600;
     color: #F0E9FA;
     margin-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(176,143,212,0.3);
+    border-bottom: 1px solid rgba(0,245,212,0.3);
     padding-bottom: 0.2rem;
 }
 
 .memory-card {
-    background: rgba(61,26,110,0.5);
-    border: 1px solid rgba(176,143,212,0.2);
+    background: rgba(30, 15, 60, 0.7);
+    border: 1px solid rgba(76,201,240,0.3);
     border-radius: 10px;
     padding: 0.8rem 1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5nsrem;
 }
 
 .army-badge {
-    background: linear-gradient(135deg, rgba(74,92,58,0.8), rgba(122,140,106,0.4));
-    border: 1px solid rgba(122,140,106,0.5);
+    background: linear-gradient(135deg, rgba(0,245,212,0.3), rgba(76,201,240,0.2));
+    border: 1px solid rgba(0,245,212,0.5);
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
     color: #E8EDE4;
+    box-shadow: 0 0 15px rgba(0,245,212,0.2);
 }
 
 .stTextInput input, .stTextArea textarea, .stSelectbox select {
-    background: rgba(61,26,110,0.5) !important;
-    border: 1px solid rgba(176,143,212,0.3) !important;
+    background: rgba(30, 15, 60, 0.8) !important;
+    border: 1px solid rgba(76,201,240,0.4) !important;
     color: #F0E9FA !important;
     border-radius: 8px !important;
 }
 
 .stButton button {
-    background: linear-gradient(135deg, #6B3FA0, #4A5C3A) !important;
-    color: white !important;
+    background: linear-gradient(135deg, #7B2CBF, #00F5D4) !important;
+    color: #0A041A !important;
     border: none !important;
     border-radius: 8px !important;
-    font-weight: 500 !important;
+    font-weight: 700 !important;
     padding: 0.4rem 1.2rem !important;
+    box-shadow: 0 0 15px rgba(0,245,212,0.4);
 }
 
-.stTabs [data-baseweb="tab"] { color: #B08FD4 !important; }
-.stTabs [aria-selected="true"] { color: #F0E9FA !important; border-bottom: 2px solid #C9A84C !important; }
+.stTabs [data-baseweb="tab"] { color: #4CC9F0 !important; }
+.stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -312,38 +315,39 @@ body {
 .title {
     font-family: 'Pacifico', cursive;
     font-size: 3.2rem;
-    background: linear-gradient(135deg, #B08FD4, #C9A84C);
+    background: linear-gradient(135deg, #00F5D4, #FFD166);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: float 3s ease-in-out infinite;
     line-height: 1.1;
 }
-.and { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: #C9A84C; margin: 0.1rem 0; }
-.subtitle { font-size: 0.75rem; color: #B08FD4; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; }
+.and { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: #4CC9F0; margin: 0.1rem 0; }
+.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; }
 .stars { font-size: 1.2rem; letter-spacing: 0.4rem; margin: 0.5rem 0; animation: shimmer 2s ease-in-out infinite; }
 
 .pin-section {
     margin-top: 1.5rem;
-    background: rgba(61,26,110,0.6);
-    border: 1px solid rgba(176,143,212,0.3);
+    background: rgba(30, 15, 60, 0.75);
+    border: 1px solid rgba(0, 245, 212, 0.4);
     border-radius: 20px;
     padding: 1.5rem 2rem;
     max-width: 400px;
     width: 100%;
     backdrop-filter: blur(10px);
+    box-shadow: 0 0 25px rgba(123, 44, 191, 0.3);
 }
-.pin-title { font-family: 'Pacifico', cursive; font-size: 1.2rem; color: #C9A84C; margin-bottom: 0.3rem; }
-.pin-hint { font-size: 0.75rem; color: rgba(176,143,212,0.6); margin-bottom: 1.2rem; font-style: italic; }
+.pin-title { font-family: 'Pacifico', cursive; font-size: 1.2rem; color: #00F5D4; margin-bottom: 0.3rem; }
+.pin-hint { font-size: 0.75rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 1.2rem; font-style: italic; }
 .pin-boxes { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 1.2rem; }
 .pin-box {
     width: 46px;
     height: 56px;
-    border: 2px solid rgba(176,143,212,0.4);
+    border: 2px solid rgba(0, 245, 212, 0.4);
     border-radius: 10px;
-    background: rgba(61,26,110,0.5);
+    background: rgba(10, 4, 26, 0.6);
     font-size: 1.6rem;
-    color: #C9A84C;
+    color: #FFD166;
     text-align: center;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
@@ -351,25 +355,26 @@ body {
     transition: all 0.2s;
     caret-color: transparent;
 }
-.pin-box:focus { border-color: #B08FD4; background: rgba(107,63,160,0.4); box-shadow: 0 0 10px rgba(176,143,212,0.3); transform: scale(1.05); }
-.pin-box.filled { border-color: #C9A84C; animation: pop 0.2s ease; }
-.pin-box.error { border-color: #E24B4A; animation: shake 0.4s ease; }
+.pin-box:focus { border-color: #00F5D4; background: rgba(123, 44, 191, 0.4); box-shadow: 0 0 15px rgba(0, 245, 212, 0.5); transform: scale(1.05); }
+.pin-box.filled { border-color: #FFD166; animation: pop 0.2s ease; }
+.pin-box.error { border-color: #FF6B6B; animation: shake 0.4s ease; }
 .enter-btn {
-    background: linear-gradient(135deg, #6B3FA0, #4A5C3A);
-    color: white;
+    background: linear-gradient(135deg, #7B2CBF, #00F5D4);
+    color: #0A041A;
     border: none;
     border-radius: 10px;
     padding: 0.75rem 2.5rem;
     font-size: 0.9rem;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     width: 100%;
     transition: all 0.2s;
     letter-spacing: 0.5px;
+    box-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
 }
-.enter-btn:hover { background: linear-gradient(135deg, #8B5CC0, #5A7048); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(107,63,160,0.4); }
-.error-msg { color: #E24B4A; font-size: 0.8rem; margin-top: 0.8rem; display: none; }
+.enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0, 245, 212, 0.6); }
+.error-msg { color: #FF6B6B; font-size: 0.8rem; margin-top: 0.8rem; display: none; }
 .lock-icon { font-size: 1.8rem; margin-bottom: 0.5rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
 <style>
@@ -381,18 +386,18 @@ body {
     <div id="floaters"></div>
     <div style="position:relative; z-index:1;">
     <div class="chars">
-        <span class="girl">💻</span>
-        <span class="heart">💜</span>
-        <span class="soldier">🪖</span>
+        <span class="girl">🌌</span>
+        <span class="heart">💚</span>
+        <span class="soldier">✨</span>
     </div>
-    <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
+    <div class="stars">🌠 🪐 🌙 🌟 🔮</div>
     <div class="title">Paweetida</div>
     <div class="and">&amp;</div>
     <div class="title">Dawis</div>
-    <div class="subtitle">Our Private Little World 💜</div>
+    <div class="subtitle">Aurora Borealis World 🌌</div>
     </div>
     <script>
-    const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
+    const emojis = ['🌌','💚','✨','🌠','🪐','🌜','🔮','🌟','💙','❄️','⭐','🤍','💛','🌐','💻','📡','🛜','🍀','💜'];
     const container = document.getElementById('floaters');
     for (let i = 0; i < 25; i++) {
         const el = document.createElement('div');
@@ -417,7 +422,7 @@ body {
             <input class="pin-box" maxlength="1" type="password" id="p4" inputmode="numeric">
             <input class="pin-box" maxlength="1" type="password" id="p5" inputmode="numeric">
         </div>
-        <button class="enter-btn" onclick="checkPin()">Enter Our World 💜</button>
+        <button class="enter-btn" onclick="checkPin()">Enter Aurora World 🌌</button>
         <div class="error-msg" id="errMsg">Hmm, that's not right... 💔 Try again!</div>
     </div>
     <script>
@@ -474,34 +479,34 @@ body {
 if not check_password():
     st.stop()
 
-# ---- BREAKING NEWS POPUP (Cleaned up, concise & warning) ----
+# ---- BREAKING NEWS POPUP ----
 components.html("""
 <!DOCTYPE html>
 <html>
 <head>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-.news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26,10,46,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
-.news-modal { background: linear-gradient(135deg, #8B0000, #3D1A6E); border: 3px solid #FFD700; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 25px 50px rgba(0,0,0,0.8); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
+.news-modal { background: linear-gradient(135deg, #7B2CBF, #0A041A); border: 3px solid #00F5D4; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 0 40px rgba(0,245,212,0.4); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-.news-header { background: #FFD700; color: #8B0000; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.6rem; white-space: nowrap; }
-.news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #FFD700; }
+.news-header { background: #00F5D4; color: #0A041A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.6rem; white-space: nowrap; }
+.news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #FFD166; }
 .news-desc { font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.2rem; color: #F0E9FA; font-weight: 500; }
-.warning-box { background: rgba(255, 215, 0, 0.15); border: 2px dashed #FFD700; border-radius: 10px; padding: 0.7rem; margin-bottom: 1.2rem; color: #FFD700; font-weight: 700; font-size: 0.85rem; }
-.ack-btn { background: #FFD700; color: #8B0000; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.4); transition: transform 0.2s; }
+.warning-box { background: rgba(0, 245, 212, 0.15); border: 2px dashed #00F5D4; border-radius: 10px; padding: 0.7rem; margin-bottom: 1.2rem; color: #00F5D4; font-weight: 700; font-size: 0.85rem; }
+.ack-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; }
 .ack-btn:hover { transform: scale(1.05); }
 </style>
 </head>
 <body>
 <div class="news-overlay" id="newsModal">
     <div class="news-modal">
-        <div class="news-header">🚨 BREAKING NEWS 🚨</div>
-        <div class="news-title">Upcoming Anniversary Alert! 💜</div>
+        <div class="news-header">🌌 AURORA BREAKING NEWS 🌌</div>
+        <div class="news-title">Upcoming Anniversary Alert! 💚</div>
         <div class="news-desc">
-            Get ready for special dates, love capsules, and epic card duels!
+            Get ready under the aurora lights for special dates, love capsules, and epic card duels!
         </div>
         <div class="warning-box">
-            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🚨🔥
+            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🌠✨
         </div>
         <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
     </div>
@@ -519,12 +524,12 @@ function closeNews() {
 init_db()
 stats = calculate_stats()
 
-# ---- BREAKING NEWS TICKER BANNER (Top of App - Concise Warning) ----
+# ---- BREAKING NEWS TICKER BANNER (Aurora Glow) ----
 st.markdown("""
 <div class="breaking-news-bar">
-    <div class="breaking-badge">🔴 BREAKING NEWS</div>
-    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
+    <div class="breaking-badge">🌌 AURORA NEWS</div>
+    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #0A041A; font-weight: 800;">
+        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned under the aurora lights for card duels and memories! 💚🌌
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -535,7 +540,7 @@ tab_capsule, tab_battle, tab_stats, tab_memories, tab_timeline, tab_add = st.tab
 # ======== TAB 0: LOVE CAPSULE ========
 with tab_capsule:
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter under the aurora sky to reveal a supportive message or a playful tease! ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -544,32 +549,32 @@ with tab_capsule:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
     body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
-    .capsule-container { text-align: center; max-width: 360px; width: 100%; background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5)); border: 1px solid rgba(176,143,212,0.3); border-radius: 24px; padding: 2rem; backdrop-filter: blur(12px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-    .letter-icon { font-size: 4.5rem; animation: floatLetter 2.5s ease-in-out infinite; margin-bottom: 0.8rem; filter: drop-shadow(0 5px 15px rgba(201,168,76,0.3)); }
+    .capsule-container { text-align: center; max-width: 360px; width: 100%; background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(0,245,212,0.2)); border: 1px solid rgba(0,245,212,0.4); border-radius: 24px; padding: 2rem; backdrop-filter: blur(12px); box-shadow: 0 0 30px rgba(123,44,191,0.3); }
+    .letter-icon { font-size: 4.5rem; animation: floatLetter 2.5s ease-in-out infinite; margin-bottom: 0.8rem; filter: drop-shadow(0 0 15px rgba(0,245,212,0.5)); }
     @keyframes floatLetter { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    .open-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(107,63,160,0.5); transition: all 0.2s; }
-    .open-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #7B4FB0, #D9B85C); }
+    .open-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: all 0.2s; }
+    .open-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #9D4EDD, #4CC9F0); }
     
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 10, 46, 0.25); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999; }
-    .modal-content { background: #FFFFFF; color: #3D1A6E; padding: 2.4rem 2rem; border-radius: 24px; text-align: center; max-width: 330px; width: 90%; box-shadow: 0 25px 50px rgba(61, 26, 110, 0.3); border: 1px solid rgba(176, 143, 212, 0.3); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999; }
+    .modal-content { background: #1E0B36; color: #00F5D4; padding: 2.4rem 2rem; border-radius: 24px; text-align: center; max-width: 330px; width: 90%; box-shadow: 0 0 40px rgba(0,245,212,0.4); border: 2px solid #00F5D4; animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
     @keyframes popUp { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    .msg-box { font-size: 1.05rem; font-weight: 700; color: #3D1A6E; margin: 1.2rem 0; line-height: 1.5; }
-    .close-btn { background: #6B3FA0; color: white; border: none; border-radius: 12px; padding: 0.65rem 2rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(107,63,160,0.3); }
-    .close-btn:hover { transform: scale(1.05); background: #5A3088; }
+    .msg-box { font-size: 1.05rem; font-weight: 700; color: #F0E9FA; margin: 1.2rem 0; line-height: 1.5; }
+    .close-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 12px; padding: 0.65rem 2rem; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 0 15px rgba(0,245,212,0.4); }
+    .close-btn:hover { transform: scale(1.05); }
     </style>
     </head>
     <body>
     <div class="capsule-container">
         <div class="letter-icon">✉️</div>
-        <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#F0E9FA; font-size:1.3rem; font-weight:700; margin-bottom:0.3rem;">Love Capsule Letter</div>
-        <div style="color:#B08FD4; font-size:0.75rem; margin-bottom:1.5rem; letter-spacing:0.5px;">Open a note from me ✨</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#FFD166; font-size:1.3rem; font-weight:700; margin-bottom:0.3rem;">Aurora Love Letter</div>
+        <div style="color:#4CC9F0; font-size:0.75rem; margin-bottom:1.5rem; letter-spacing:0.5px;">Open a note under the lights ✨</div>
         <button class="open-btn" onclick="openLetter()">Open Letter 💌</button>
     </div>
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <div style="font-size: 2.2rem;">💌</div>
-            <div style="font-size:0.7rem; color:#6B3FA0; text-transform:uppercase; font-weight:700; letter-spacing:1.5px; margin-top:0.4rem;" id="modalSub">Secret Note Unlocked</div>
+            <div style="font-size: 2.2rem;">🌌</div>
+            <div style="font-size:0.7rem; color:#4CC9F0; text-transform:uppercase; font-weight:700; letter-spacing:1.5px; margin-top:0.4rem;" id="modalSub">Aurora Note Unlocked</div>
             <div class="msg-box" id="secretMsg">...</div>
             <button class="close-btn" onclick="closeModal()">Got it</button>
         </div>
@@ -577,26 +582,26 @@ with tab_capsule:
 
     <script>
     const messages = [
-        "I love you so much! Keep crushing your goals, my favorite rival!",
+        "I love you so much! Keep crushing your goals under the aurora lights!",
         "¡Muchísima suerte hoy! You are going to do amazing things, my favorite rival.",
-        "I admire you so much. Proud of you every single day, soldier!",
+        "I admire you so much. Proud of you every single day, star of my sky!",
         "¡Eres el mejor! Even if you are a stubborn little trouble-maker.",
-        "Everything is going to be amazing. Sending you all my love and energy!",
-        "You and me make an unstoppable team. I am definitely the smart one here.",
+        "Everything is going to be amazing. Sending you all my love and aurora energy!",
+        "You and me make an unstoppable team under the northern lights.",
         "Have an incredible day! Sending you a giant hug and all my support.",
         "No matter how tough it gets, I have your back forever. Let us conquer it all!",
         "I love you a lot! Now go ace it so I can proudly brag about you.",
         "A triunfar hoy. But always remember who is actually in charge here.",
         "So proud of the hard worker you are. You are truly incredible, my love!",
-        "Warning: High level of cuteness and unstoppable support coming your way!",
-        "Go get them, soldier! Make me proud today and always.",
+        "Warning: High level of cuteness and aurora energy coming your way!",
+        "Go get them, star! Make me proud today and always.",
         "You are my favorite distraction and my greatest motivation. I love you!"
     ];
 
     function openLetter() {
         const randomMsg = messages[Math.floor(Math.random() * messages.length)];
         document.getElementById('secretMsg').innerText = randomMsg;
-        document.getElementById('modalSub').innerText = "Secret Note Unlocked";
+        document.getElementById('modalSub').innerText = "Aurora Note Unlocked";
         document.getElementById('modal').style.display = 'flex';
     }
 
@@ -608,10 +613,10 @@ with tab_capsule:
     </html>
     """, height=380, scrolling=False)
 
-# ======== TAB 1: BATTLE PHASE (5 Cards with Matcha Boost + Tap/Untap + Win Modal) ========
+# ======== TAB 1: BATTLE PHASE (Aurora Theme) ========
 with tab_battle:
-    st.markdown('<div class="section-title">Battle Phase: 5 Cards Choice & Tap/Untap ⚔️🃏</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.0rem;">Pick one of 5 cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Battle Phase: Aurora Card Arena ⚔️🃏</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.0rem;">Pick one of 5 aurora cards every turn, then Tap to attack/heal! First to 0 HP loses. ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -620,86 +625,86 @@ with tab_battle:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
     body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
-    .duel-arena { text-align: center; background: rgba(61,26,110,0.6); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 1.2rem 1.5rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 560px; width: 100%; position: relative; }
+    .duel-arena { text-align: center; background: rgba(30,15,60,0.75); border: 1px solid rgba(0,245,212,0.4); border-radius: 20px; padding: 1.2rem 1.5rem; backdrop-filter: blur(12px); box-shadow: 0 0 30px rgba(123,44,191,0.4); max-width: 560px; width: 100%; position: relative; }
     
     /* Picker Phase */
     #pickerPhase { display: block; }
     .card-options { display: flex; justify-content: center; gap: 8px; margin: 0.6rem 0; flex-wrap: wrap; }
     .option-card {
         width: 95px; height: 130px;
-        background: linear-gradient(135deg, #3D1A6E, #6B3FA0);
-        border: 2px solid #C9A84C; border-radius: 8px;
+        background: linear-gradient(135deg, #7B2CBF, #1E0B36);
+        border: 2px solid #00F5D4; border-radius: 8px;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
         cursor: pointer; transition: transform 0.2s; padding: 6px; color: #F0E9FA;
+        box-shadow: 0 0 10px rgba(0,245,212,0.2);
     }
-    .option-card:hover { transform: translateY(-5px) scale(1.05); border-color: #F0E9FA; }
+    .option-card:hover { transform: translateY(-5px) scale(1.05); border-color: #FFD166; box-shadow: 0 0 15px rgba(255,209,102,0.4); }
     
     /* Battle Phase */
     #battlePhase { display: none; }
     .players-container { display: flex; justify-content: space-around; align-items: center; gap: 15px; margin-bottom: 0.8rem; }
-    .player-box { background: rgba(26,10,46,0.6); border: 2px solid rgba(176,143,212,0.3); border-radius: 14px; padding: 0.8rem; width: 48%; text-align: center; transition: all 0.3s; }
-    .player-box.active-turn { border-color: #C9A84C; box-shadow: 0 0 20px rgba(201,168,76,0.6); background: rgba(107,63,160,0.5); }
+    .player-box { background: rgba(10,4,26,0.7); border: 2px solid rgba(0,245,212,0.3); border-radius: 14px; padding: 0.8rem; width: 48%; text-align: center; transition: all 0.3s; }
+    .player-box.active-turn { border-color: #FFD166; box-shadow: 0 0 20px rgba(255,209,102,0.6); background: rgba(123,44,191,0.4); }
     
-    .player-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.3rem; }
+    .player-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: #FFD166; font-weight: 700; margin-bottom: 0.3rem; }
     .hp-text { font-size: 0.8rem; color: #F0E9FA; font-weight: 600; margin-bottom: 0.6rem; }
     
     .card-container { perspective: 1000px; display: inline-block; cursor: pointer; }
     .mtg-card { 
         width: 110px; height: 150px; 
-        background: linear-gradient(135deg, #3D1A6E, #6B3FA0); 
-        border: 2px solid #C9A84C; border-radius: 10px; 
+        background: linear-gradient(135deg, #7B2CBF, #1E0B36); 
+        border: 2px solid #00F5D4; border-radius: 10px; 
         display: flex; flex-direction: column; align-items: center; justify-content: center; 
         transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; 
-        box-shadow: 0 6px 15px rgba(0,0,0,0.5); user-select: none; margin: 0 auto;
+        box-shadow: 0 0 15px rgba(0,245,212,0.3); user-select: none; margin: 0 auto;
     }
-    .mtg-card.tapped { transform: rotate(90deg) scale(1.03); border-color: #7A8C6A; box-shadow: -12px 8px 20px rgba(0,0,0,0.6); }
+    .mtg-card.tapped { transform: rotate(90deg) scale(1.03); border-color: #FF6B6B; box-shadow: -12px 8px 20px rgba(0,0,0,0.6); }
     
-    .turn-indicator { font-size: 0.95rem; color: #C9A84C; font-weight: 700; margin-bottom: 0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .action-btn { background: linear-gradient(135deg, #6B3FA0, #4A5C3A); color: white; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(107,63,160,0.4); transition: transform 0.2s; margin-top: 0.4rem; }
+    .turn-indicator { font-size: 0.95rem; color: #FFD166; font-weight: 700; margin-bottom: 0.5rem; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .action-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; margin-top: 0.4rem; }
     .action-btn:hover { transform: scale(1.05); }
-    .game-log { font-size: 0.75rem; color: #B08FD4; margin-top: 0.6rem; font-style: italic; min-height: 30px; }
+    .game-log { font-size: 0.75rem; color: #4CC9F0; margin-top: 0.6rem; font-style: italic; min-height: 30px; }
     
     /* CONGRATULATIONS WIN MODAL */
-    .win-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 10, 46, 0.75); backdrop-filter: blur(6px); justify-content: center; align-items: center; z-index: 9999; }
-    .win-content { background: linear-gradient(135deg, #3D1A6E, #6B3FA0); color: #F0E9FA; padding: 2.5rem 2rem; border-radius: 24px; text-align: center; max-width: 380px; width: 90%; box-shadow: 0 25px 60px rgba(0,0,0,0.6); border: 3px solid #C9A84C; animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    .win-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 700; color: #C9A84C; margin-bottom: 0.5rem; text-shadow: 0 2px 10px rgba(201,168,76,0.5); }
+    .win-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.85); backdrop-filter: blur(6px); justify-content: center; align-items: center; z-index: 9999; }
+    .win-content { background: linear-gradient(135deg, #7B2CBF, #1E0B36); color: #F0E9FA; padding: 2.5rem 2rem; border-radius: 24px; text-align: center; max-width: 380px; width: 90%; box-shadow: 0 0 50px rgba(0,245,212,0.6); border: 3px solid #00F5D4; animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .win-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 700; color: #FFD166; margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
     .win-msg { font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; color: #F0E9FA; line-height: 1.4; }
-    .restart-btn { background: linear-gradient(135deg, #C9A84C, #E2B85C); color: #1A0A2E; border: none; border-radius: 12px; padding: 0.7rem 2rem; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 5px 15px rgba(201,168,76,0.4); transition: transform 0.2s; }
+    .restart-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 12px; padding: 0.7rem 2rem; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; }
     .restart-btn:hover { transform: scale(1.06); }
     </style>
     </head>
     <body>
     <div class="duel-arena">
-        <!-- PICKER PHASE (5 Cards including Matcha Boost) -->
+        <!-- PICKER PHASE -->
         <div id="pickerPhase">
-            <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#F0E9FA; font-size:1.1rem; font-weight:700; margin-bottom:0.3rem;" id="pickerTitle">Player 1 (Paweetida): Choose your Card! 🎴</div>
-            <div style="font-size:0.75rem; color:#B08FD4; margin-bottom:0.8rem;">Select 1 of 5 cards to summon for this turn.</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#FFD166; font-size:1.1rem; font-weight:700; margin-bottom:0.3rem;" id="pickerTitle">Player 1 (Paweetida): Choose your Aurora Card! 🎴</div>
+            <div style="font-size:0.75rem; color:#4CC9F0; margin-bottom:0.8rem;">Select 1 of 5 cards under the aurora lights for this turn.</div>
             <div class="card-options">
-                <div class="option-card" onclick="pickCard('💻', 'Coder Tech', 5)">
-                    <div style="font-size:1.8rem;">💻</div>
-                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Coder Tech</div>
-                    <div style="font-size:0.5rem; color:#C9A84C;">Attack: 5</div>
+                <div class="option-card" onclick="pickCard('🌌', 'Aurora Coder', 5)">
+                    <div style="font-size:1.8rem;">🌌</div>
+                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Aurora Coder</div>
+                    <div style="font-size:0.5rem; color:#FFD166;">Attack: 5</div>
                 </div>
-                <div class="option-card" onclick="pickCard('🪖', 'Army Scout', 6)">
-                    <div style="font-size:1.8rem;">🪖</div>
-                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Army Scout</div>
-                    <div style="font-size:0.5rem; color:#C9A84C;">Attack: 6</div>
+                <div class="option-card" onclick="pickCard('✨', 'Starlight Scout', 6)">
+                    <div style="font-size:1.8rem;">✨</div>
+                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Starlight Scout</div>
+                    <div style="font-size:0.5rem; color:#FFD166;">Attack: 6</div>
                 </div>
-                <div class="option-card" onclick="pickCard('👑', 'Rival Queen', 8)">
-                    <div style="font-size:1.8rem;">👑</div>
-                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Rival Queen</div>
-                    <div style="font-size:0.5rem; color:#C9A84C;">Attack: 8</div>
+                <div class="option-card" onclick="pickCard('🔮', 'Aurora Queen', 8)">
+                    <div style="font-size:1.8rem;">🔮</div>
+                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Aurora Queen</div>
+                    <div style="font-size:0.5rem; color:#FFD166;">Attack: 8</div>
                 </div>
-                <div class="option-card" style="border-color: #7A8C6A;" onclick="pickCard('🍵', 'Matcha Boost', 3)">
+                <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('🍵', 'Matcha Boost', 3)">
                     <div style="font-size:1.8rem;">🍵</div>
                     <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Matcha Boost</div>
-                    <div style="font-size:0.5rem; color:#7A8C6A;">Atk 3 & Heal 2</div>
+                    <div style="font-size:0.5rem; color:#00F5D4;">Atk 3 & Heal 2</div>
                 </div>
-                <div class="option-card" style="border-color: #7A8C6A;" onclick="pickCard('💖', 'Love Buff', -5)">
-                    <div style="font-size:1.8rem;">💖</div>
-                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Love Buff</div>
-                    <div style="font-size:0.5rem; color:#7A8C6A;">Heal: +5 HP</div>
+                <div class="option-card" style="border-color: #00F5D4;" onclick="pickCard('💚', 'Aurora Buff', -5)">
+                    <div style="font-size:1.8rem;">💚</div>
+                    <div style="font-size:0.65rem; font-weight:700; margin-top:3px;">Aurora Buff</div>
+                    <div style="font-size:0.5rem; color:#00F5D4;">Heal: +5 HP</div>
                 </div>
             </div>
         </div>
@@ -715,8 +720,8 @@ with tab_battle:
                     <div class="hp-text">HP: <span id="p1Hp">20</span> ❤️</div>
                     <div class="card-container" onclick="playerTap(1)">
                         <div class="mtg-card" id="p1Card">
-                            <div style="font-size: 0.6rem; color: #C9A84C; font-weight: 700;" id="p1CardName">Ready</div>
-                            <div style="font-size: 2.2rem;" id="p1Art">💻</div>
+                            <div style="font-size: 0.6rem; color: #FFD166; font-weight: 700;" id="p1CardName">Ready</div>
+                            <div style="font-size: 2.2rem;" id="p1Art">🌌</div>
                             <div style="font-size: 0.55rem; color: #F0E9FA;" id="p1Status">Untapped</div>
                         </div>
                     </div>
@@ -728,8 +733,8 @@ with tab_battle:
                     <div class="hp-text">HP: <span id="p2Hp">20</span> ❤️</div>
                     <div class="card-container" onclick="playerTap(2)">
                         <div class="mtg-card" id="p2Card">
-                            <div style="font-size: 0.6rem; color: #C9A84C; font-weight: 700;" id="p2CardName">Ready</div>
-                            <div style="font-size: 2.2rem;" id="p2Art">🪖</div>
+                            <div style="font-size: 0.6rem; color: #FFD166; font-weight: 700;" id="p2CardName">Ready</div>
+                            <div style="font-size: 2.2rem;" id="p2Art">✨</div>
                             <div style="font-size: 0.55rem; color: #F0E9FA;" id="p2Status">Untapped</div>
                         </div>
                     </div>
@@ -748,17 +753,17 @@ with tab_battle:
         <div class="win-content">
             <div style="font-size: 3rem;">🎉🏆✨</div>
             <div class="win-title">CONGRATULATIONS U WIN!</div>
-            <div class="win-msg" id="winMsg">Winner is Player 1! Pure love and strategy triumph! 💜</div>
+            <div class="win-msg" id="winMsg">Winner is Player 1! Aurora lights shine upon your victory! 💚</div>
             <button class="restart-btn" onclick="location.reload()">Play Again 🔄</button>
         </div>
     </div>
 
     <script>
-    let currentTurn = 1; // 1 = P1, 2 = P2
+    let currentTurn = 1;
     let p1Hp = 20;
     let p2Hp = 20;
-    let p1Card = { emoji: '💻', name: 'Coder', power: 5 };
-    let p2Card = { emoji: '🪖', name: 'Soldier', power: 6 };
+    let p1Card = { emoji: '🌌', name: 'Coder', power: 5 };
+    let p2Card = { emoji: '✨', name: 'Scout', power: 6 };
     let hasActed = false;
 
     function pickCard(emoji, name, power) {
@@ -808,7 +813,7 @@ with tab_battle:
             } else {
                 p1Hp = Math.min(20, p1Hp + Math.abs(p1Card.power));
                 document.getElementById('p1Hp').innerText = p1Hp;
-                document.getElementById('gameLog').innerText = `Player 1 healed +${Math.abs(p1Card.power)} HP! 💖`;
+                document.getElementById('gameLog').innerText = `Player 1 healed +${Math.abs(p1Card.power)} HP! 💚`;
             }
         } else {
             if (p2Card.name === 'Matcha Boost') {
@@ -824,13 +829,13 @@ with tab_battle:
             } else {
                 p2Hp = Math.min(20, p2Hp + Math.abs(p2Card.power));
                 document.getElementById('p2Hp').innerText = p2Hp;
-                document.getElementById('gameLog').innerText = `Player 2 healed +${Math.abs(p2Card.power)} HP! 💖`;
+                document.getElementById('gameLog').innerText = `Player 2 healed +${Math.abs(p2Card.power)} HP! 💚`;
             }
         }
 
         if (p1Hp <= 0 || p2Hp <= 0) {
-            const winner = p1Hp <= 0 ? "Player 2 (Dawis 🪖)" : "Player 1 (Paweetida 💻)";
-            document.getElementById('winMsg').innerText = `${winner} wins the ultimate duel with unmatched love and strategy! 🎉`;
+            const winner = p1Hp <= 0 ? "Player 2 (Dawis ✨)" : "Player 1 (Paweetida 🌌)";
+            document.getElementById('winMsg').innerText = `${winner} wins the ultimate aurora duel with unmatched strategy! 🎉`;
             document.getElementById('winModal').style.display = 'flex';
         }
     }
@@ -856,7 +861,7 @@ with tab_battle:
 
         document.getElementById('battlePhase').style.display = 'none';
         document.getElementById('pickerPhase').style.display = 'block';
-        document.getElementById('pickerTitle').innerText = `Player ${currentTurn} (${currentTurn === 1 ? 'Paweetida' : 'Dawis'}): Pick your Card for this turn! 🎴`;
+        document.getElementById('pickerTitle').innerText = `Player ${currentTurn} (${currentTurn === 1 ? 'Paweetida' : 'Dawis'}): Pick your Aurora Card for this turn! 🎴`;
     }
     </script>
     </body>
@@ -867,11 +872,11 @@ with tab_battle:
 with tab_stats:
     st.markdown(f"""
     <div class="hero-section">
-        <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
+        <div style="font-size:2.2rem; margin-bottom:0.2rem">🌌 💚</div>
         <div class="hero-title">Paweetida & Dawis</div>
         <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
-        <div style="margin-top:0.5rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-style:italic;">
-            "{stats['days_together']} days of loving you — and counting."
+        <div style="margin-top:0.5rem; color:#FFD166; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-style:italic;">
+            "{stats['days_together']} days of loving you under the aurora lights — and counting."
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -884,8 +889,8 @@ with tab_stats:
     <style>
     body { background: transparent; margin: 0; font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; padding: 5px; }
     .live-card {
-        background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5));
-        border: 1px solid rgba(176,143,212,0.25);
+        background: linear-gradient(135deg, rgba(123,44,191,0.4), rgba(0,245,212,0.2));
+        border: 1px solid rgba(0,245,212,0.3);
         border-radius: 12px;
         padding: 1.2rem 1.5rem;
         text-align: center;
@@ -893,20 +898,20 @@ with tab_stats:
         width: 100%;
         max-width: 1000px;
     }
-    .main-title { font-size: 0.75rem; color: #B08FD4; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 500; }
-    .main-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.8rem; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 0.2rem; }
+    .main-title { font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 500; }
+    .main-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.8rem; font-weight: 700; color: #FFD166; line-height: 1; margin-bottom: 0.2rem; }
     .main-unit { font-size: 0.9rem; color: #F0E9FA; margin-bottom: 1rem; font-weight: 500; }
     .sub-grid { display: flex; justify-content: center; gap: 10px; }
     .sub-box {
-        background: rgba(61,26,110,0.5);
-        border: 1px solid rgba(176,143,212,0.3);
+        background: rgba(10,4,26,0.6);
+        border: 1px solid rgba(0,245,212,0.3);
         border-radius: 8px;
         padding: 0.5rem 0.8rem;
         min-width: 80px;
         text-align: center;
     }
     .sub-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; color: #F0E9FA; line-height: 1.1; }
-    .sub-lbl { font-size: 0.7rem; color: #B08FD4; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }
+    .sub-lbl { font-size: 0.7rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }
     </style>
     </head>
     <body>
@@ -924,7 +929,7 @@ with tab_stats:
                     <div class="sub-lbl">Minutes</div>
                 </div>
                 <div class="sub-box">
-                    <div class="sub-num" id="secsNum" style="color: #C9A84C;">0</div>
+                    <div class="sub-num" id="secsNum" style="color: #FFD166;">0</div>
                     <div class="sub-lbl">Seconds</div>
                 </div>
             </div>
@@ -971,10 +976,10 @@ with tab_stats:
     with col_a:
         st.markdown(f"""
         <div class="army-badge">
-            <div style="font-size:1.8rem">🪖</div>
-            <div style="font-size:1.4rem; font-family:'Playfair Display',serif; color:#C9A84C; font-weight:700;">{stats['days_since_army']}</div>
-            <div style="font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; color:#7A8C6A;">Days in Service</div>
-            <div style="font-size:0.8rem; margin-top:0.2rem; color:#E8EDE4;">Dawis in Australian Army (20 Apr 2026)</div>
+            <div style="font-size:1.8rem">🌌</div>
+            <div style="font-size:1.4rem; font-family:'Playfair Display',serif; color:#FFD166; font-weight:700;">{stats['days_since_army']}</div>
+            <div style="font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; color:#00F5D4;">Days in Service</div>
+            <div style="font-size:0.8rem; margin-top:0.2rem; color:#F0E9FA;">Dawis in Australian Army (20 Apr 2026)</div>
         </div>""", unsafe_allow_html=True)
 
     with col_b:
@@ -982,7 +987,7 @@ with tab_stats:
         if not milestones_df.empty:
             milestones_df['date'] = pd.to_datetime(milestones_df['date'])
             fig = go.Figure()
-            colors = ['#C9A84C', '#B08FD4', '#7A8C6A']
+            colors = ['#FFD166', '#00F5D4', '#4CC9F0']
             positions = ['top center', 'bottom center', 'top center']
             
             for i, row in milestones_df.iterrows():
@@ -999,26 +1004,26 @@ with tab_stats:
             fig.add_shape(type='line',
                 x0=milestones_df['date'].min(), x1=date.today(),
                 y0=1.0, y1=1.0,
-                line=dict(color='rgba(176,143,212,0.5)', width=2))
+                line=dict(color='rgba(0,245,212,0.5)', width=2))
 
             fig.update_layout(
                 title=dict(text='Our Journey Together', font=dict(color='#F0E9FA', size=11)),
                 paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-                yaxis=dict(visible=False, range=[0.3, 1.7]), xaxis=dict(showgrid=False, color='#B08FD4'),
+                yaxis=dict(visible=False, range=[0.3, 1.7]), xaxis=dict(showgrid=False, color='#4CC9F0'),
                 height=150, margin=dict(l=10, r=10, t=30, b=10)
             )
             st.plotly_chart(fig, use_container_width=True)
 
     progress = max(0, min(1, 1 - (stats['days_to_anniversary'] / 365)))
     st.progress(progress)
-    st.markdown(f'<div style="color:#B08FD4; font-size:0.75rem; text-align:center; margin-top:0.3rem;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="color:#4CC9F0; font-size:0.75rem; text-align:center; margin-top:0.3rem;">{stats["days_to_anniversary"]} days until 22 August {stats["next_anniversary"].year}</div>', unsafe_allow_html=True)
 
 # ======== TAB 3: MEMORIES ========
 with tab_memories:
     st.markdown('<div class="section-title">Our Memories 💜</div>', unsafe_allow_html=True)
     memories_df = get_memories()
     if memories_df.empty:
-        st.markdown('<div style="text-align:center; color:#B08FD4; padding:1.5rem;">No memories yet — add your first one!</div>', unsafe_allow_html=True)
+        st.markdown('<div style="text-align:center; color:#4CC9F0; padding:1.5rem;">No memories yet — add your first one!</div>', unsafe_allow_html=True)
     else:
         categories = ['All'] + list(memories_df['category'].unique())
         selected_cat = st.selectbox("Filter by category", categories, label_visibility="collapsed")
@@ -1026,7 +1031,7 @@ with tab_memories:
         for _, row in filtered_df.iterrows():
             col_mem, col_del = st.columns([11, 1])
             with col_mem:
-                st.markdown(f'<div class="memory-card"><span style="color:#C9A84C; font-size:0.7rem;">{row["date"]}</span> <b style="font-size:0.95rem;">{row["emoji"]} {row["title"]}</b> — <span style="color:#B08FD4">{row["description"] or ""}</span></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="memory-card"><span style="color:#FFD166; font-size:0.7rem;">{row["date"]}</span> <b style="font-size:0.95rem;">{row["emoji"]} {row["title"]}</b> — <span style="color:#4CC9F0">{row["description"] or ""}</span></div>', unsafe_allow_html=True)
             with col_del:
                 if st.button("🗑️", key=f"del_{row['id']}"):
                     delete_memory(row['id'])
@@ -1087,7 +1092,7 @@ with tab_timeline:
         content: '';
         position: absolute;
         width: 3px;
-        background: linear-gradient(to bottom, #C9A84C, #B08FD4, #7A8C6A);
+        background: linear-gradient(to bottom, #00F5D4, #7B2CBF, #4CC9F0);
         top: 20px;
         bottom: 20px;
         left: 50%;
@@ -1106,8 +1111,8 @@ with tab_timeline:
         width: 14px;
         height: 14px;
         right: -7px;
-        background-color: #C9A84C;
-        border: 3px solid #3D1A6E;
+        background-color: #FFD166;
+        border: 3px solid #1E0B36;
         top: 15px;
         border-radius: 50%;
         z-index: 1;
@@ -1118,8 +1123,8 @@ with tab_timeline:
     
     .timeline-content {{
         padding: 12px 18px;
-        background: rgba(61, 26, 110, 0.85);
-        border: 1px solid rgba(176, 143, 212, 0.3);
+        background: rgba(30, 15, 60, 0.9);
+        border: 1px solid rgba(0, 245, 212, 0.4);
         border-radius: 12px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         display: inline-block;
@@ -1129,12 +1134,12 @@ with tab_timeline:
     }}
     .timeline-content:hover {{
         transform: scale(1.05);
-        border-color: #C9A84C;
+        border-color: #FFD166;
     }}
     
     .timeline-date {{
         font-size: 0.65rem;
-        color: #C9A84C;
+        color: #FFD166;
         text-transform: uppercase;
         letter-spacing: 1px;
         font-weight: 700;
@@ -1170,7 +1175,7 @@ with tab_timeline:
     }}
 
     .polaroid-img {{
-        background: #2D1854;
+        background: #0A041A;
         height: 110px;
         border-radius: 2px;
         display: flex;
@@ -1183,7 +1188,7 @@ with tab_timeline:
     .polaroid-caption {{
         font-size: 0.75rem;
         font-weight: 700;
-        color: #1A1A2E;
+        color: #0A041A;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
