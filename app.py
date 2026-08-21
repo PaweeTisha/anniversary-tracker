@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (AURORA THEME + FLOATING EMOJIS + GLOBAL SHOOTING STARS) ----
+# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS ONLY, NO FLOATING EMOJIS ON MAIN PAGES) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -20,37 +20,52 @@ st.markdown("""
     --aurora-green: #00F5D4;
     --aurora-cyan: #4CC9F0;
     --aurora-dark: #0A041A;
-    --aurora-card: rgba(30, 15, 60, 0.7);
     --gold: #FFD166;
 }
 
 * { font-family: 'DM Sans', sans-serif; }
 
+/* AURORA LIGHTS DYNAMIC BACKGROUND ANIMATION */
 .stApp {
-    background: linear-gradient(135deg, #0A041A 0%, #1E0B36 40%, #051923 100%);
+    background: linear-gradient(135deg, #050210 0%, #10072B 30%, #031B26 70%, #020C1B 100%);
+    background-size: 400% 400%;
+    animation: auroraFlow 15s ease infinite;
     min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+@keyframes auroraFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* AURORA GLOW EFFECT OVERLAYS */
+.stApp::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0,245,212,0.12) 0%, rgba(76,201,240,0.08) 30%, transparent 70%);
+    animation: auroraShimmer 10s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes auroraShimmer {
+    0% { transform: translateY(-20px) scale(1); opacity: 0.6; }
+    100% { transform: translateY(20px) scale(1.1); opacity: 1; }
 }
 
 .block-container {
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
     max-width: 1250px !important;
-}
-
-/* FLOATING EMOJIS (Aurora Style) */
-.floating-emoji { 
-    position: fixed; 
-    font-size: 1.5rem; 
-    animation: floatUp linear infinite; 
-    pointer-events: none; 
-    z-index: 0; 
-    opacity: 0.7; 
-}
-@keyframes floatUp { 
-    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 
-    10% { opacity: 0.7; } 
-    90% { opacity: 0.7; } 
-    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } 
+    position: relative;
+    z-index: 1;
 }
 
 /* GLOBAL SHOOTING STARS ANIMATION */
@@ -65,9 +80,9 @@ st.markdown("""
     height: 2px;
     background: #00F5D4;
     border-radius: 50%;
-    box-shadow: 0 0 8px 2px #00F5D4, 0 0 20px 4px #4CC9F0;
+    box-shadow: 0 0 10px 2px #00F5D4, 0 0 25px 6px #4CC9F0;
     animation: shootingStar linear infinite;
-    z-index: 0;
+    z-index: 1;
     pointer-events: none;
 }
 
@@ -84,9 +99,9 @@ st.markdown("""
     display: flex;
     align-items: center;
     gap: 12px;
-    box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
+    box-shadow: 0 0 25px rgba(0, 245, 212, 0.4);
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 .breaking-badge {
     background: #FFFFFF;
@@ -103,16 +118,16 @@ st.markdown("""
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
 .hero-section {
-    background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(0,245,212,0.2));
+    background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(0,245,212,0.25));
     border-radius: 16px;
     padding: 1.2rem 1.5rem;
     text-align: center;
-    border: 1px solid rgba(76,201,240,0.3);
+    border: 1px solid rgba(76,201,240,0.4);
     backdrop-filter: blur(12px);
     margin-bottom: 1rem;
-    box-shadow: 0 0 30px rgba(123,44,191,0.2);
+    box-shadow: 0 0 35px rgba(0,245,212,0.25);
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .hero-title {
@@ -132,14 +147,15 @@ st.markdown("""
 }
 
 .metric-card {
-    background: linear-gradient(135deg, rgba(123,44,191,0.4), rgba(76,201,240,0.2));
+    background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(76,201,240,0.25));
     border: 1px solid rgba(0,245,212,0.3);
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
     backdrop-filter: blur(8px);
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(123,44,191,0.2);
 }
 
 .metric-number {
@@ -164,37 +180,37 @@ st.markdown("""
     font-weight: 600;
     color: #F0E9FA;
     margin-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(0,245,212,0.3);
+    border-bottom: 1px solid rgba(0,245,212,0.4);
     padding-bottom: 0.2rem;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .memory-card {
-    background: rgba(30, 15, 60, 0.7);
-    border: 1px solid rgba(76,201,240,0.3);
+    background: rgba(30, 15, 60, 0.8);
+    border: 1px solid rgba(76,201,240,0.4);
     border-radius: 10px;
     padding: 0.8rem 1rem;
     margin-bottom: 0.5rem;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .army-badge {
-    background: linear-gradient(135deg, rgba(0,245,212,0.3), rgba(76,201,240,0.2));
-    border: 1px solid rgba(0,245,212,0.5);
+    background: linear-gradient(135deg, rgba(0,245,212,0.35), rgba(76,201,240,0.25));
+    border: 1px solid rgba(0,245,212,0.6);
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
     color: #E8EDE4;
-    box-shadow: 0 0 15px rgba(0,245,212,0.2);
+    box-shadow: 0 0 20px rgba(0,245,212,0.3);
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .stTextInput input, .stTextArea textarea, .stSelectbox select {
-    background: rgba(30, 15, 60, 0.8) !important;
-    border: 1px solid rgba(76,201,240,0.4) !important;
+    background: rgba(30, 15, 60, 0.85) !important;
+    border: 1px solid rgba(76,201,240,0.5) !important;
     color: #F0E9FA !important;
     border-radius: 8px !important;
 }
@@ -206,38 +222,24 @@ st.markdown("""
     border-radius: 8px !important;
     font-weight: 700 !important;
     padding: 0.4rem 1.2rem !important;
-    box-shadow: 0 0 15px rgba(0,245,212,0.4);
+    box-shadow: 0 0 20px rgba(0,245,212,0.5);
 }
 
-.stTabs [data-baseweb="tab"] { color: #4CC9F0 !important; z-index: 1; }
+.stTabs [data-baseweb="tab"] { color: #4CC9F0 !important; z-index: 2; }
 .stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
 
-<!-- GLOBAL FLOATING EMOJIS & SHOOTING STARS SCRIPT -->
+<!-- GLOBAL SCRIPT FOR SHOOTING STARS ONLY (NO FLOATING EMOJIS ON MAIN PAGES) -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Shooting Stars
-    for (let i = 0; i < 15; i++) {
+window.addEventListener('DOMContentLoaded', (event) => {
+    for (let i = 0; i < 18; i++) {
         let star = document.createElement('div');
         star.className = 'shooting-star';
-        star.style.top = Math.random() * 60 + 'vh';
+        star.style.top = Math.random() * 70 + 'vh';
         star.style.left = Math.random() * 100 + 'vw';
-        star.style.animationDuration = (2.5 + Math.random() * 4) + 's';
+        star.style.animationDuration = (2 + Math.random() * 4) + 's';
         star.style.animationDelay = (Math.random() * 5) + 's';
         document.body.appendChild(star);
-    }
-    
-    // Floating Emojis
-    const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
-    for (let i = 0; i < 20; i++) {
-        let el = document.createElement('div');
-        el.className = 'floating-emoji';
-        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.animationDuration = (5 + Math.random() * 8) + 's';
-        el.style.animationDelay = (Math.random() * 8) + 's';
-        el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
-        document.body.appendChild(el);
     }
 });
 </script>
@@ -332,7 +334,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN (With Floating Emojis, Shooting Stars & Moon Quote) ----
+# ---- PASSWORD LOGIN (WITH FLOATING EMOJIS, SHOOTING STARS & MOON QUOTE) ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -471,7 +473,6 @@ body {
 </head>
 <body>
     <script>
-    // Login Shooting Stars
     for (let i = 0; i < 12; i++) {
         let star = document.createElement('div');
         star.className = 'login-shooting-star';
@@ -481,7 +482,6 @@ body {
         star.style.animationDelay = (Math.random() * 4) + 's';
         document.body.appendChild(star);
     }
-    // Login Floating Emojis
     const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
     for (let i = 0; i < 20; i++) {
         let el = document.createElement('div');
