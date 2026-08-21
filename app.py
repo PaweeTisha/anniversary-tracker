@@ -578,60 +578,63 @@ body {
 if not check_password():
     st.stop()
 
-# ---- BREAKING NEWS POPUP ----
-components.html("""
-<!DOCTYPE html>
-<html>
-<head>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600&display=swap" rel="stylesheet">
-<style>
-.news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
-.news-modal { background: linear-gradient(135deg, #8B0000, #1E0B36); border: 3px solid #00F5D4; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 0 40px rgba(0,245,212,0.4); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-family: 'Outfit', sans-serif; }
-@keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-.news-header { background: #00F5D4; color: #0A041A; font-size: 0.7rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.6rem; white-space: nowrap; }
-.news-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; color: #FFD166; }
-.news-desc { font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.2rem; color: #F0E9FA; font-weight: 500; }
-.warning-box { background: rgba(0, 245, 212, 0.15); border: 2px dashed #00F5D4; border-radius: 10px; padding: 0.7rem; margin-bottom: 1.2rem; color: #00F5D4; font-weight: 600; font-size: 0.85rem; }
-.ack-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 600; font-size: 0.9rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; }
-.ack-btn:hover { transform: scale(1.05); }
-</style>
-</head>
-<body>
-<div class="news-overlay" id="newsModal">
-    <div class="news-modal">
-        <div class="news-header">🚨 BREAKING NEWS 🚨</div>
-        <div class="news-title">Upcoming Anniversary Alert! 💜</div>
-        <div class="news-desc">
-            Get ready for special dates, love capsules, and epic card duels!
+# ---- BREAKING NEWS LOGIC (Shows only on Anniversary Aug 22 or 1 day before Aug 21) ----
+today_date = date.today()
+is_anniversary_season = (today_date.month == 8 and today_date.day in [21, 22])
+
+if is_anniversary_season:
+    components.html("""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+    .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
+    .news-modal { background: linear-gradient(135deg, #8B0000, #1E0B36); border: 3px solid #00F5D4; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 0 40px rgba(0,245,212,0.4); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .news-header { background: #00F5D4; color: #0A041A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.6rem; white-space: nowrap; }
+    .news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #FFD166; }
+    .news-desc { font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.2rem; color: #F0E9FA; font-weight: 500; }
+    .warning-box { background: rgba(0, 245, 212, 0.15); border: 2px dashed #00F5D4; border-radius: 10px; padding: 0.7rem; margin-bottom: 1.2rem; color: #00F5D4; font-weight: 700; font-size: 0.85rem; }
+    .ack-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; }
+    .ack-btn:hover { transform: scale(1.05); }
+    </style>
+    </head>
+    <body>
+    <div class="news-overlay" id="newsModal">
+        <div class="news-modal">
+            <div class="news-header">🚨 BREAKING NEWS 🚨</div>
+            <div class="news-title">Upcoming Anniversary Alert! 💜</div>
+            <div class="news-desc">
+                Get ready for special dates, love capsules, and epic card duels!
+            </div>
+            <div class="warning-box">
+                ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🚨🔥
+            </div>
+            <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
         </div>
-        <div class="warning-box">
-            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🚨🔥
-        </div>
-        <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
     </div>
-</div>
-<script>
-function closeNews() {
-    document.getElementById('newsModal').style.display = 'none';
-}
-</script>
-</body>
-</html>
-""", height=330, scrolling=False)
+    <script>
+    function closeNews() {
+        document.getElementById('newsModal').style.display = 'none';
+    }
+    </script>
+    </body>
+    </html>
+    """, height=330, scrolling=False)
+
+    st.markdown("""
+    <div class="breaking-news-bar">
+        <div class="breaking-badge">🔴 BREAKING NEWS</div>
+        <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 600;">
+            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ---- INIT & STATS ----
 init_db()
 stats = calculate_stats()
-
-# ---- BREAKING NEWS TICKER BANNER ----
-st.markdown("""
-<div class="breaking-news-bar">
-    <div class="breaking-badge">🔴 BREAKING NEWS</div>
-    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 600;">
-        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
-    </div>
-</div>
-""", unsafe_allow_html=True)
 
 # ---- NAVIGATION BUTTON BOXES ----
 if "active_tab" not in st.session_state:
@@ -659,7 +662,7 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
 
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
-        # Sunflower bouquet with colorful multi floating icons & surprise messages
+        # Sunflower bouquet with multi-colored floating icons
         components.html("""
         <!DOCTYPE html>
         <html>
