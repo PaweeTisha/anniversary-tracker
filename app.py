@@ -126,8 +126,8 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
 
 .hero-section {
     background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(0,245,212,0.25));
-    border-radius: 16px;
-    padding: 1.2rem 1.5rem;
+    border-radius: 20px;
+    padding: 1.5rem;
     text-align: center;
     border: 1px solid rgba(76,201,240,0.4);
     backdrop-filter: blur(12px);
@@ -969,9 +969,7 @@ with tab_stats:
     </div>
     """, unsafe_allow_html=True)
 
-    # -------------------------------------------------------------
-    # ใช้คลาส .hero-section ร่วมกันเพื่อให้ขอบโค้งมนสวยเนียนเป๊ะทุกมุม 100%
-    # -------------------------------------------------------------
+    # กล่องนาฬิกานับเวลาสดๆ (ใช้โครงสร้างเดียวกับกล่อง Hero ให้ขอบโค้งมนสวยเนียนเป๊ะ 100%)
     components.html(f"""
     <!DOCTYPE html>
     <html>
@@ -982,7 +980,7 @@ with tab_stats:
     .live-card {{
         background: linear-gradient(135deg, rgba(123,44,191,0.6), rgba(0,245,212,0.25));
         border: 1px solid rgba(76,201,240,0.4);
-        border-radius: 16px;
+        border-radius: 20px;
         padding: 1.5rem 1rem;
         text-align: center;
         backdrop-filter: blur(12px);
@@ -1066,22 +1064,23 @@ with tab_stats:
 
     st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
-    # กราฟ Timeline แสดงผลครบถ้วน
+    # กราฟ Timeline กระจายความสูงถึง 6 ระดับ (สลับบน-ล่างอย่างละ 3 ระดับ) แก้ปัญหาตัวหนังสือซ้อนทับกันแบบเด็ดขาด!
     milestones_df = get_milestones()
     if not milestones_df.empty:
         milestones_df['date'] = pd.to_datetime(milestones_df['date'])
         fig = go.Figure()
         
+        # กระจายความสูง 6 ระดับไม่ให้ซ้อนทับกันแน่นอน
         positions = []
         y_values = []
-        pos_options = ['top center', 'bottom center', 'top center', 'bottom center']
-        y_options = [1.35, 0.65, 1.5, 0.5]
+        pos_options = ['top center', 'bottom center', 'top center', 'bottom center', 'top center', 'bottom center']
+        y_options = [1.4, 0.6, 1.7, 0.3, 2.0, 0.0]
         
         for i in range(len(milestones_df)):
             positions.append(pos_options[i % len(pos_options)])
             y_values.append(y_options[i % len(y_options)])
             
-        colors = ['#FFD166', '#00F5D4', '#4CC9F0', '#FF6B6B', '#C77DFF', '#FFE188', '#2EE8CC']
+        colors = ['#FFD166', '#00F5D4', '#4CC9F0', '#FF6B6B', '#C77DFF', '#FFE188', '#2EE8CC', '#FF9F1C']
         
         for i, row in milestones_df.iterrows():
             fig.add_trace(go.Scatter(
@@ -1107,9 +1106,9 @@ with tab_stats:
         fig.update_layout(
             title=dict(text='Our Journey Together Timeline 🗺️', font=dict(color='#FFD166', size=13, family='Plus Jakarta Sans')),
             paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-            yaxis=dict(visible=False, range=[0.0, 2.1]), 
+            yaxis=dict(visible=False, range=[-0.5, 2.5]), 
             xaxis=dict(showgrid=False, color='#4CC9F0', tickfont=dict(size=10)),
-            height=280, margin=dict(l=20, r=20, t=40, b=15)
+            height=320, margin=dict(l=20, r=20, t=40, b=15)
         )
         st.plotly_chart(fig, use_container_width=True)
 
