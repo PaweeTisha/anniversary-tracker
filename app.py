@@ -227,7 +227,7 @@ def init_db():
     default_milestones = [
         ("First Liked Story ✨", "2025-07-27", "The day you first liked my IG story", "start"),
         ("First Date 🍿", "2025-08-15", "Our first movie and food date", "date"),
-        ("Official Couple 💜", "2025-08-22", "The day we became official", "anniversary"),
+        ("Official Anniversary 🎉", "2025-08-22", "The day we became official couple", "anniversary"),
         ("NZ 1st Trip 🏔️", "2026-03-29", "1st trip together in NZ", "trip"),
         ("Dawis Enlists Army 🪖", "2026-04-20", "Dawis joined the Australian Army", "milestone"),
         ("Dawis HBD 🎂", "2026-06-29", "Happy Birthday Dawis", "hbd"),
@@ -1047,7 +1047,7 @@ with tab_stats:
 
     st.markdown("<div style='margin-top:0.4rem'></div>", unsafe_allow_html=True)
 
-    # 4 การ์ดสถิติด้านล่างครบถ้วน (Weeks, Anniversary, Days Since First, Army Service)
+    # 4 การ์ดสถิติครบถ้วน (Weeks, Anniversary, Days Since First, Army Service)
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["weeks_together"]}</div><div class="metric-label">Weeks Together</div><div class="metric-desc">{stats["months_together"]} months of us 🌙</div></div>', unsafe_allow_html=True)
@@ -1060,17 +1060,16 @@ with tab_stats:
 
     st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
-    # กราฟ Timeline ปรับแก้ระยะห่าง (สลับ 4 ระดับความสูง) ไม่ให้ตัวหนังสือทับกันเด็ดขาด
+    # กราฟ Timeline เพิ่มวัน Anniversary เรียบร้อย
     milestones_df = get_milestones()
     if not milestones_df.empty:
         milestones_df['date'] = pd.to_datetime(milestones_df['date'])
         fig = go.Figure()
         
-        # กระจายความสูง 4 ระดับ เพื่อไม่ให้ชื่อที่ติดกันซ้อนทับกัน
         positions = []
         y_values = []
         pos_options = ['top center', 'bottom center', 'top center', 'bottom center']
-        y_options = [1.3, 0.7, 1.5, 0.5]
+        y_options = [1.35, 0.65, 1.5, 0.5]
         
         for i in range(len(milestones_df)):
             positions.append(pos_options[i % len(pos_options)])
@@ -1085,10 +1084,9 @@ with tab_stats:
                 marker=dict(size=14, color=colors[i % len(colors)], symbol='diamond'),
                 text=[f"<b>{row['title']}</b><br>({row['date'].strftime('%d %b %Y')})"], 
                 textposition=positions[i],
-                textfont=dict(color='#F0E9FA', size=9.5, family='DM Sans'),
+                textfont=dict(color='#F0E9FA', size=9, family='DM Sans'),
                 showlegend=False
             ))
-            # เส้นโยงจากจุดหลักมาที่ตัวหนังสือ
             fig.add_shape(type='line',
                 x0=row['date'], x1=row['date'],
                 y0=1.0, y1=y_values[i],
@@ -1103,7 +1101,7 @@ with tab_stats:
         fig.update_layout(
             title=dict(text='Our Journey Together Timeline 🗺️', font=dict(color='#FFD166', size=13, family='Plus Jakarta Sans')),
             paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-            yaxis=dict(visible=False, range=[0.0, 2.0]), 
+            yaxis=dict(visible=False, range=[0.0, 2.1]), 
             xaxis=dict(showgrid=False, color='#4CC9F0', tickfont=dict(size=10)),
             height=280, margin=dict(l=20, r=20, t=40, b=15)
         )
