@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS) ----
+# ---- CUSTOM CSS (AURORA THEME + SHOOTING STARS + HIDE HIDDEN INPUTS) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -24,6 +24,16 @@ st.markdown("""
 }
 
 * { font-family: 'DM Sans', sans-serif; }
+
+/* ซ่อนช่องอินพุตที่ใช้รับค่าระบบ (hidden inputs) ไม่ให้มีแถบโผล่มากวนใจ */
+div[data-testid="stTextInput"]:has(input[aria-label="hidden_welcome"]),
+div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
+    display: none !important;
+    height: 0px !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
 
 /* AURORA LIGHTS DYNAMIC BACKGROUND ANIMATION */
 .stApp {
@@ -334,7 +344,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN & SCAMMER WARNING WELCOME SCREEN FOR DAWIS ----
+# ---- PASSWORD LOGIN & WELCOME SCREEN FOR DAWIS ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -342,25 +352,6 @@ def check_password():
         st.session_state.welcomed = False
 
     if not st.session_state.authenticated:
-        st.markdown("""
-        <style>
-        .block-container {
-            padding-top: 1rem !important;
-            padding-bottom: 1rem !important;
-            max-width: 100% !important;
-        }
-        div[data-testid="stTextInput"] {
-            position: absolute !important;
-            width: 0px !important;
-            height: 0px !important;
-            overflow: hidden !important;
-            opacity: 0 !important;
-            z-index: -9999 !important;
-            pointer-events: none !important;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-
         components.html("""
 <!DOCTYPE html>
 <html>
