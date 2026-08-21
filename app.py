@@ -449,13 +449,13 @@ if not check_password():
 init_db()
 stats = calculate_stats()
 
-# ---- TABS (Gachapon First!) ----
+# ---- TABS (Cute Gachapon First!) ----
 tab_gacha, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["🎁 Love Gachapon", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
-# ======== TAB 0: LOVE GACHAPON (Gacha Capsule Game) ========
+# ======== TAB 0: LOVE GACHAPON (Kawaii Gacha Machine with Spanish/English Support & Banter) ========
 with tab_gacha:
-    st.markdown('<div class="section-title">Love Gachapon — Open a Secret Message 🎁</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Click the machine to draw a random sweet message or love coupon! ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Love Gachapon — Draw a Sweet & Spicy Note 🎁</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Pull the capsule to get a sweet supportive note or a playful teaser from your favorite rival! ✨</div>', unsafe_allow_html=True)
     
     components.html("""
     <!DOCTYPE html>
@@ -464,44 +464,47 @@ with tab_gacha:
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
     body { background: transparent; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'DM Sans', sans-serif; }
-    .gacha-container { text-align: center; max-width: 350px; width: 100%; background: rgba(61,26,110,0.5); border: 1px solid rgba(176,143,212,0.3); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-    .machine-icon { font-size: 4.5rem; animation: float 3s ease-in-out infinite; margin-bottom: 1rem; }
-    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-    .draw-btn { background: linear-gradient(135deg, #6B3FA0, #4A5C3A); color: white; border: none; border-radius: 12px; padding: 0.8rem 1.8rem; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(107,63,160,0.4); transition: transform 0.2s; }
-    .draw-btn:hover { transform: scale(1.05); }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 999; }
-    .modal-content { background: #FAFAFA; color: #1A1A2E; padding: 2rem; border-radius: 16px; text-align: center; max-width: 280px; width: 90%; box-shadow: 0 15px 35px rgba(0,0,0,0.5); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    @keyframes popUp { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    .msg-box { font-size: 1.1rem; font-weight: 700; color: #3D1A6E; margin: 1.2rem 0; line-height: 1.4; }
-    .close-btn { background: #E24B4A; color: white; border: none; border-radius: 8px; padding: 0.5rem 1.5rem; font-weight: 600; cursor: pointer; }
+    .gacha-container { text-align: center; max-width: 360px; width: 100%; background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5)); border: 1px solid rgba(176,143,212,0.3); border-radius: 24px; padding: 2rem; backdrop-filter: blur(12px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    .machine-icon { font-size: 4.5rem; animation: bounceGacha 2s ease-in-out infinite; margin-bottom: 0.8rem; filter: drop-shadow(0 5px 15px rgba(201,168,76,0.3)); }
+    @keyframes bounceGacha { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .draw-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(107,63,160,0.5); transition: all 0.2s; }
+    .draw-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #7B4FB0, #D9B85C); }
+    
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); justify-content: center; align-items: center; z-index: 999; }
+    .modal-content { background: #FAFAFA; color: #1A1A2E; padding: 2.2rem 1.8rem; border-radius: 20px; text-align: center; max-width: 310px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.6); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
+    @keyframes popUp { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .msg-box { font-size: 1.05rem; font-weight: 700; color: #3D1A6E; margin: 1.2rem 0; line-height: 1.5; }
+    .close-btn { background: #6B3FA0; color: white; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .close-btn:hover { background: #4A5C3A; }
     </style>
     </head>
     <body>
     <div class="gacha-container">
-        <div class="machine-icon">🎰</div>
-        <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#F0E9FA; font-size:1.2rem; font-weight:700; margin-bottom:0.5rem;">Love Capsule Machine</div>
-        <div style="color:#B08FD4; font-size:0.8rem; margin-bottom:1.5rem;">Pull the lever to reveal today's surprise! 💜</div>
-        <button class="draw-btn" onclick="drawCapsule()">Draw Capsule 🎁</button>
+        <div class="machine-icon">🎁</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#F0E9FA; font-size:1.3rem; font-weight:700; margin-bottom:0.3rem;">Kawaii Love Capsule</div>
+        <div style="color:#B08FD4; font-size:0.75rem; margin-bottom:1.5rem; letter-spacing:0.5px;">¡Buena suerte! Let's see what you get ✨</div>
+        <button class="draw-btn" onclick="drawCapsule()">Pull Capsule 💖</button>
     </div>
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <div style="font-size: 2rem;">💌</div>
-            <div style="font-size:0.75rem; color:#6B3FA0; text-transform:uppercase; font-weight:700; letter-spacing:1px; margin-top:0.5rem;">You Got A Secret Message</div>
+            <div style="font-size: 2.2rem;">💌</div>
+            <div style="font-size:0.7rem; color:#6B3FA0; text-transform:uppercase; font-weight:700; letter-spacing:1.5px; margin-top:0.4rem;">Secret Note Unlocked</div>
             <div class="msg-box" id="secretMsg">...</div>
-            <button class="close-btn" onclick="closeModal()">Close</button>
+            <button class="close-btn" onclick="closeModal()">¡Listo! / Got it</button>
         </div>
     </div>
 
     <script>
     const messages = [
-        "คูปองนวดตัวฟรี 1 ชั่วโมงจากแฟนคนสวย 💆‍♀️💜",
-        "ไม่ว่าจะเกิดอะไรขึ้น จำไว้ว่าเค้าภูมิใจในตัวเธอเสมอนะคะ 🫶",
-        "คูปองพาไปกินของอร่อยร้านโปรดตามใจชอบ 1 มื้อ! 🍜😋",
-        "ขอบคุณที่เข้ามาเป็นรอยยิ้มในทุกๆ วันของเค้าเลยนะ 🥰",
-        "ส่งกำลังใจก้อนโตให้ทหารกล้าคนเก่ง สู้ๆ นะคะ 🪖💜",
-        "คูปองให้อ้อน 1 วันเต็มๆ ไม่มีบ่น! 🤗",
-        "ไม่ว่าจะอยู่ที่ไหน เค้าก็คิดถึงเธอตลอดเวลานะคะ 🪐✨"
+        "¡Te amo mucho! 💜 Keep crushing your goals, my favorite rival!",
+        "You've got this! Pero igual, ¡mucha suerte! You'll need it against me 😜✨",
+        "Te admiro muchísimo. Proud of you every single day, soldier! 🪖💜",
+        "¡Eres el mejor! (Even if you're a stubborn little trouble-maker 🤭)",
+        "Todo saldrá bien. ¡Mucho éxito hoy y siempre, mi amor! 🌟",
+        "You + Me = Unstoppable team. (And yes, I'm the brain, you're the brawn 🤭💜)",
+        "¡Muchísima suerte! Te mando un abrazo gigante y un codazo de cariñito 🤗🥊",
+        "No matter how tough it gets, I've got your back forever. ¡A por todas! 🚀"
     ];
 
     function drawCapsule() {
