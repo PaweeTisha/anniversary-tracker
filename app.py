@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS ONLY, NO FLOATING EMOJIS ON MAIN PAGES) ----
+# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS ONLY) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -86,7 +86,7 @@ st.markdown("""
     pointer-events: none;
 }
 
-/* BREAKING NEWS TICKER BANNER */
+/* BREAKING NEWS TICKER BANNER (Clean & Concise) */
 .breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #00F5D4, #8B0000);
     border: 1px solid #FFD166;
@@ -229,7 +229,7 @@ st.markdown("""
 .stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
 
-<!-- GLOBAL SCRIPT FOR SHOOTING STARS ONLY (NO FLOATING EMOJIS ON MAIN PAGES) -->
+<!-- GLOBAL SCRIPT FOR SHOOTING STARS -->
 <script>
 window.addEventListener('DOMContentLoaded', (event) => {
     for (let i = 0; i < 18; i++) {
@@ -334,7 +334,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN (WITH FLOATING EMOJIS, SHOOTING STARS & MOON QUOTE) ----
+# ---- PASSWORD LOGIN ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -621,12 +621,12 @@ function closeNews() {
 init_db()
 stats = calculate_stats()
 
-# ---- BREAKING NEWS TICKER BANNER ----
+# ---- BREAKING NEWS TICKER BANNER (Cleaned up) ----
 st.markdown("""
 <div class="breaking-news-bar">
     <div class="breaking-badge">🔴 BREAKING NEWS</div>
     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 700;">
-        🌙 "The moon is beautiful, isn't it?" ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
+        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
     </div>
 </div>
 """, unsafe_allow_html=True)
