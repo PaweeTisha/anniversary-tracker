@@ -472,60 +472,57 @@ body {
 if not check_password():
     st.stop()
 
-# ---- BREAKING NEWS POPUP (First login popup) ----
-if "show_news" not in st.session_state:
-    st.session_state.show_news = True
-
-if st.session_state.show_news:
-    components.html("""
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-    .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26,10,46,0.8); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
-    .news-modal { background: linear-gradient(135deg, #8B0000, #3D1A6E); border: 3px solid #FFD700; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 25px 50px rgba(0,0,0,0.7); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    .news-header { background: #FFD700; color: #8B0000; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.8rem; }
-    .news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: #FFD700; }
-    .news-desc { font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; color: #F0E9FA; }
-    .ack-btn { background: #FFD700; color: #8B0000; border: none; border-radius: 12px; padding: 0.7rem 2rem; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.4); transition: transform 0.2s; }
-    .ack-btn:hover { transform: scale(1.05); }
-    </style>
-    </head>
-    <body>
-    <div class="news-overlay" id="newsModal">
-        <div class="news-modal">
-            <div class="news-header">🚨 Breaking News / ข่าวด่วนพิเศษ 🚨</div>
-            <div class="news-title">Upcoming Anniversary Alert! 💜</div>
-            <div class="news-desc">
-                Official report from our heart bureau: Get ready for special dates, love capsules, and epic card duels! Stay tuned and keep smiling! ✨
-            </div>
-            <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
+# ---- BREAKING NEWS POPUP (First login popup - English Only & Warning!) ----
+components.html("""
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+.news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26,10,46,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
+.news-modal { background: linear-gradient(135deg, #8B0000, #3D1A6E); border: 3px solid #FFD700; border-radius: 20px; padding: 2.2rem; max-width: 440px; width: 90%; text-align: center; color: #FFFFFF; box-shadow: 0 25px 50px rgba(0,0,0,0.8); animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.news-header { background: #FFD700; color: #8B0000; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.9rem; border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.8rem; }
+.news-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; color: #FFD700; }
+.news-desc { font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; color: #F0E9FA; font-weight: 500; }
+.warning-box { background: rgba(255, 215, 0, 0.15); border: 2px dashed #FFD700; border-radius: 10px; padding: 0.8rem; margin-bottom: 1.5rem; color: #FFD700; font-weight: 700; font-size: 0.9rem; }
+.ack-btn { background: #FFD700; color: #8B0000; border: none; border-radius: 12px; padding: 0.7rem 2rem; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.4); transition: transform 0.2s; }
+.ack-btn:hover { transform: scale(1.05); }
+</style>
+</head>
+<body>
+<div class="news-overlay" id="newsModal">
+    <div class="news-modal">
+        <div class="news-header">🚨 BREAKING NEWS 🚨</div>
+        <div class="news-title">Upcoming Anniversary Alert! 💜</div>
+        <div class="news-desc">
+            Official report from our heart bureau: Get ready for special dates, love capsules, and epic card duels!
         </div>
+        <div class="warning-box">
+            ⚠️ WARNING! DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT UNDER ANY CIRCUMSTANCES! 🚨🔥
+        </div>
+        <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
     </div>
-    <script>
-    function closeNews() {
-        document.getElementById('newsModal').style.display = 'none';
-        const parentDoc = window.parent.document;
-        const btn = parentDoc.querySelector('iframe');
-        // Trigger python state if needed
-    }
-    </script>
-    </body>
-    </html>
-    """, height=300, scrolling=False)
+</div>
+<script>
+function closeNews() {
+    document.getElementById('newsModal').style.display = 'none';
+}
+</script>
+</body>
+</html>
+""", height=350, scrolling=False)
 
 # ---- INIT & STATS ----
 init_db()
 stats = calculate_stats()
 
-# ---- BREAKING NEWS TICKER BANNER (Top of App) ----
+# ---- BREAKING NEWS TICKER BANNER (Top of App - English Warning) ----
 st.markdown("""
 <div class="breaking-news-bar">
     <div class="breaking-badge">🔴 BREAKING NEWS</div>
     <div style="overflow: white-space: nowrap;">
-        ✨ Urgent Update: Our private world is live! Get ready for card duels, daily love capsules, and wonderful memories together! 💜🪖
+        ⚠️ WARNING: DO NOT FORGET OUR SPECIAL ANNIVERSARY! Stay tuned for card duels, daily love capsules, and wonderful memories! 💜🪖
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -579,7 +576,7 @@ with tab_capsule:
     <script>
     const messages = [
         "I love you so much! Keep crushing your goals, my favorite rival!",
-        "¡Muchísima suerte hoy! You are going to do amazing things, my favorite rival.",
+        "¡Muchísima suerte сегодня! You are going to do amazing things, my favorite rival.",
         "I admire you so much. Proud of you every single day, soldier!",
         "¡Eres el mejor! Even if you are a stubborn little trouble-maker.",
         "Everything is going to be amazing. Sending you all my love and energy!",
