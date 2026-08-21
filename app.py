@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (MODERN MINIMALIST TYPOGRAPHY) ----
+# ---- CUSTOM CSS (MODERN MINIMALIST TYPOGRAPHY & SAFE PADDING) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
@@ -98,7 +98,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
 }
 
 .block-container {
-    padding-top: 2rem !important;
+    padding-top: 3.5rem !important;
     padding-bottom: 2rem !important;
     max-width: 1250px !important;
     position: relative;
@@ -324,28 +324,27 @@ body {
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
 @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
-.chars { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 0.8rem; }
-.girl { font-size: 3.8rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
-.heart { font-size: 2.5rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
-.soldier { font-size: 3.8rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
+.chars { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 0.5rem; }
+.girl { font-size: 3.5rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
+.heart { font-size: 2.3rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
+.soldier { font-size: 3.5rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
 .title {
     font-family: 'Pacifico', cursive;
-    font-size: 2.6rem;
+    font-size: 2.3rem;
     background: linear-gradient(135deg, #00F5D4, #FFD166);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: float 3s ease-in-out infinite;
-    line-height: 1.3;
-    margin-top: 15px;
-    padding-top: 10px;
+    line-height: 1.4;
+    margin-top: 25px;
 }
-.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; }
+.subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.6rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; }
 .moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-weight: 500; }
-.stars { font-size: 1.2rem; letter-spacing: 0.4rem; margin: 0.3rem 0; animation: shimmer 2s ease-in-out infinite; }
+.stars { font-size: 1.1rem; letter-spacing: 0.4rem; margin: 0.2rem 0; animation: shimmer 2s ease-in-out infinite; }
 
 .pin-section {
-    margin-top: 1.5rem;
+    margin-top: 1.2rem;
     background: rgba(30, 15, 60, 0.75);
     border: 1px solid rgba(0, 245, 212, 0.4);
     border-radius: 20px;
@@ -419,7 +418,7 @@ body {
         document.body.appendChild(el);
     }
     </script>
-    <div style="position:relative; z-index:1; padding-top: 20px;">
+    <div style="position:relative; z-index:1; padding-top: 35px;">
     <div class="chars">
         <span class="girl">💻</span>
         <span class="heart">💜</span>
@@ -427,7 +426,7 @@ body {
     </div>
     <div class="stars">☃️🪐 🌙 🌟 ❄️</div>
     <div class="title">Happy YOU &amp; ME day 💜</div>
-    <div class="subtitle" style="margin-top: 0.5rem;">Our Private Little World ✨</div>
+    <div class="subtitle">Our Private Little World ✨</div>
     <div class="moon-quote">🌙 "The moon is beautiful, isn't it?" ✨</div>
     </div>
     <div class="pin-section">
@@ -487,7 +486,7 @@ body {
     </script>
 </body>
 </html>
-""", height=760, scrolling=False)
+""", height=780, scrolling=False)
 
         password = st.text_input("hidden_pin", type="password", key="pwd_backup", label_visibility="collapsed")
         if password == "220825":
