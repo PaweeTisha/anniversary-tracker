@@ -76,24 +76,6 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     100% { background-position: 0% 50%; }
 }
 
-.stApp::before {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0,245,212,0.12) 0%, rgba(76,201,240,0.08) 30%, transparent 70%);
-    animation: auroraShimmer 10s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-}
-
-@keyframes auroraShimmer {
-    0% { transform: translateY(-20px) scale(1); opacity: 0.6; }
-    100% { transform: translateY(20px) scale(1.1); opacity: 1; }
-}
-
 .block-container {
     padding-top: 3.5rem !important;
     padding-bottom: 2rem !important;
@@ -296,129 +278,129 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     text-align: center;
-    padding: 0.5rem;
+    padding: 1rem;
     overflow: hidden;
 }
 @keyframes shootingStar {
     0% { transform: translateX(0) translateY(0); opacity: 1; }
-    100% { transform: translateX(-500px) translateY(500px); opacity: 0; }
+    100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
 }
 .login-shooting-star {
     position: fixed; width: 2px; height: 2px; background: #00F5D4; border-radius: 50%;
-    box-shadow: 0 0 8px 2px #00F5D4, 0 0 20px 4px #4CC9F0;
+    box-shadow: 0 0 10px 2px #00F5D4, 0 0 25px 6px #4CC9F0;
     animation: shootingStar linear infinite; z-index: 0; pointer-events: none;
 }
-.floating-emoji { position: fixed; font-size: 1.3rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.7; }
-@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+.floating-emoji { position: fixed; font-size: 1.8rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.75; }
+@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.75; } 90% { opacity: 0.75; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
 
-@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-10px) rotate(3deg); } 50% { transform: translateY(-5px) rotate(-2deg); } 75% { transform: translateY(-12px) rotate(4deg); } }
-@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-12px) rotate(-3deg); } 50% { transform: translateY(-5px) rotate(2deg); } 75% { transform: translateY(-10px) rotate(-4deg); } }
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.2); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } 60% { transform: scale(1); } }
-@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
+@keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-12px) rotate(3deg); } 50% { transform: translateY(-6px) rotate(-2deg); } 75% { transform: translateY(-15px) rotate(4deg); } }
+@keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-15px) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(2deg); } 75% { transform: translateY(-12px) rotate(-4deg); } }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.2); } 60% { transform: scale(1); } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
 @keyframes shimmer { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
-@keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-10px); } 40% { transform: translateX(10px); } 60% { transform: translateX(-8px); } 80% { transform: translateX(8px); } }
 @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
-.chars { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 0.2rem; }
-.girl { font-size: 2.5rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
-.heart { font-size: 1.6rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
-.soldier { font-size: 2.5rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
+.chars { display: flex; justify-content: center; align-items: center; gap: 1.8rem; margin-bottom: 0.8rem; }
+.girl { font-size: 4rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
+.heart { font-size: 2.5rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
+.soldier { font-size: 4rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
+
 .title {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.8rem;
+    font-size: 2.8rem;
     font-weight: 700;
     background: linear-gradient(135deg, #00F5D4, #FFD166);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    line-height: 1.4;
-    margin-top: 15px;
-    margin-bottom: 8px;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
     position: relative;
     z-index: 10;
 }
-.subtitle { font-size: 0.65rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.4rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
-.moon-quote { font-size: 0.72rem; color: #FFD166; font-style: italic; margin-top: 0.3rem; font-weight: 500; position: relative; z-index: 10; }
-.stars { font-size: 0.85rem; letter-spacing: 0.3rem; margin: 0.1rem 0; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
+.subtitle { font-size: 0.95rem; color: #00F5D4; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 0.4rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
+.moon-quote { font-size: 1.05rem; color: #FFD166; font-style: italic; margin-bottom: 2rem; font-weight: 500; position: relative; z-index: 10; }
+.stars { font-size: 1.3rem; letter-spacing: 0.5rem; margin-bottom: 0.5rem; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
 
 .pin-section {
-    margin-top: 2.2rem;
-    background: rgba(30, 15, 60, 0.75);
-    border: 1px solid rgba(0, 245, 212, 0.4);
-    border-radius: 16px;
-    padding: 0.9rem 1.2rem;
-    max-width: 330px;
+    background: rgba(30, 15, 60, 0.8);
+    border: 2px solid rgba(0, 245, 212, 0.5);
+    border-radius: 24px;
+    padding: 2rem 2.5rem;
+    max-width: 460px;
     width: 100%;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(123, 44, 191, 0.3);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 35px rgba(123, 44, 191, 0.4);
     position: relative;
     z-index: 10;
+    margin: 0 auto;
 }
-.pin-title { font-family: 'Outfit', sans-serif; font-size: 0.95rem; color: #00F5D4; margin-bottom: 0.1rem; font-weight: 600; }
-.pin-hint { font-size: 0.65rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 0.6rem; font-style: italic; }
-.pin-boxes { display: flex; justify-content: center; gap: 0.4rem; margin-bottom: 0.7rem; }
+.pin-title { font-size: 1.3rem; color: #00F5D4; margin-bottom: 0.3rem; font-weight: 700; }
+.pin-hint { font-size: 0.85rem; color: rgba(76, 201, 240, 0.8); margin-bottom: 1.5rem; font-style: italic; }
+.pin-boxes { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 1.5rem; }
 .pin-box {
-    width: 36px;
-    height: 42px;
-    border: 2px solid rgba(0, 245, 212, 0.4);
-    border-radius: 8px;
-    background: rgba(10, 4, 26, 0.6);
-    font-size: 1.2rem;
+    width: 52px;
+    height: 64px;
+    border: 2px solid rgba(0, 245, 212, 0.5);
+    border-radius: 12px;
+    background: rgba(10, 4, 26, 0.7);
+    font-size: 2rem;
     color: #FFD166;
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
     outline: none;
     transition: all 0.2s;
     caret-color: transparent;
 }
-.pin-box:focus { border-color: #00F5D4; background: rgba(123, 44, 191, 0.4); box-shadow: 0 0 15px rgba(0, 245, 212, 0.5); transform: scale(1.05); }
+.pin-box:focus { border-color: #00F5D4; background: rgba(123, 44, 191, 0.5); box-shadow: 0 0 20px rgba(0, 245, 212, 0.6); transform: scale(1.08); }
 .pin-box.filled { border-color: #FFD166; animation: pop 0.2s ease; }
 .pin-box.error { border-color: #FF6B6B; animation: shake 0.4s ease; }
 .enter-btn {
     background: linear-gradient(135deg, #7B2CBF, #00F5D4);
     color: #0A041A;
     border: none;
-    border-radius: 10px;
-    padding: 0.5rem 1.5rem;
-    font-size: 0.8rem;
-    font-weight: 600;
+    border-radius: 14px;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
     width: 100%;
     transition: all 0.2s;
     letter-spacing: 0.5px;
-    box-shadow: 0 0 15px rgba(0,245,212,0.4);
+    box-shadow: 0 0 20px rgba(0,245,212,0.5);
 }
-.enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,245,212,0.6); }
-.error-msg { color: #FF6B6B; font-size: 0.7rem; margin-top: 0.4rem; display: none; }
-.lock-icon { font-size: 1.2rem; margin-bottom: 0.2rem; animation: float 2.5s ease-in-out infinite; display: block; }
+.enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(0,245,212,0.7); }
+.error-msg { color: #FF6B6B; font-size: 0.85rem; margin-top: 0.8rem; display: none; font-weight: 600; }
+.lock-icon { font-size: 2.2rem; margin-bottom: 0.5rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
 </head>
 <body>
     <script>
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 15; i++) {
         let star = document.createElement('div');
         star.className = 'login-shooting-star';
-        star.style.top = Math.random() * 60 + 'vh';
+        star.style.top = Math.random() * 70 + 'vh';
         star.style.left = Math.random() * 100 + 'vw';
         star.style.animationDuration = (2 + Math.random() * 3) + 's';
         star.style.animationDelay = (Math.random() * 4) + 's';
         document.body.appendChild(star);
     }
     const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 25; i++) {
         let el = document.createElement('div');
         el.className = 'floating-emoji';
         el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
         el.style.left = Math.random() * 100 + 'vw';
-        el.style.animationDuration = (5 + Math.random() * 8) + 's';
+        el.style.animationDuration = (6 + Math.random() * 8) + 's';
         el.style.animationDelay = (Math.random() * 8) + 's';
-        el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+        el.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
         document.body.appendChild(el);
     }
     </script>
-    <div style="position:relative; z-index:10; padding-top: 15px;">
+    
+    <div>
         <div class="chars">
             <span class="girl">💻</span>
             <span class="heart">💜</span>
@@ -429,6 +411,7 @@ body {
         <div class="subtitle">Our Private Little World ✨</div>
         <div class="moon-quote">🌙 "The moon is beautiful, isn't it?" ✨</div>
     </div>
+    
     <div class="pin-section">
         <span class="lock-icon">🔐</span>
         <div class="pin-title">Enter our secret code</div>
@@ -444,6 +427,7 @@ body {
         <button class="enter-btn" onclick="checkPin()">Enter Our World 💜</button>
         <div class="error-msg" id="errMsg">Hmm, that's not right... 💔 Try again!</div>
     </div>
+    
     <script>
     const boxes = document.querySelectorAll('.pin-box');
     boxes[0].focus();
@@ -486,7 +470,7 @@ body {
     </script>
 </body>
 </html>
-""", height=560, scrolling=False)
+""", height=650, scrolling=False)
 
         password = st.text_input("hidden_pin", type="password", key="pwd_backup", label_visibility="collapsed")
         if password == "220825":
@@ -506,26 +490,26 @@ body {
             background: linear-gradient(135deg, rgba(123,44,191,0.85), rgba(0,245,212,0.6));
             border: 2px solid #FFD166;
             border-radius: 28px;
-            padding: 2.5rem 2rem;
+            padding: 2.8rem 2.2rem;
             text-align: center;
-            max-width: 440px;
+            max-width: 480px;
             width: 90%;
             box-shadow: 0 0 50px rgba(0,245,212,0.5);
             animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             color: #FFFFFF;
         }
         @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        .welcome-title { font-family: 'Pacifico', cursive; font-size: 2.4rem; color: #FFD166; margin-bottom: 0.3rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
-        .welcome-sub { font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; color: #FF6B6B; letter-spacing: 0.5px; }
-        .welcome-desc { font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.8rem; color: #F0E9FA; font-weight: 500; }
+        .welcome-title { font-family: 'Pacifico', cursive; font-size: 2.6rem; color: #FFD166; margin-bottom: 0.4rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
+        .welcome-sub { font-size: 0.95rem; font-weight: 600; margin-bottom: 1.2rem; color: #FF6B6B; letter-spacing: 0.5px; }
+        .welcome-desc { font-size: 0.92rem; line-height: 1.7; margin-bottom: 2rem; color: #F0E9FA; font-weight: 500; }
         .highlight-text { color: #FFD166; font-weight: 600; }
         .explore-btn {
             background: linear-gradient(135deg, #FFD166, #00F5D4);
             color: #0A041A;
             border: none;
             border-radius: 14px;
-            padding: 0.8rem 2rem;
-            font-size: 1rem;
+            padding: 0.85rem 2.2rem;
+            font-size: 1.02rem;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 0 20px rgba(0,245,212,0.6);
@@ -536,7 +520,7 @@ body {
         </head>
         <body>
             <div class="welcome-card">
-                <div style="font-size: 2.8rem; margin-bottom: 0.3rem;">🚨💻😏</div>
+                <div style="font-size: 3.2rem; margin-bottom: 0.4rem;">🚨💻😏</div>
                 <div class="welcome-title">¡Buenos, Dawis!</div>
                 <div class="welcome-sub">⚠️ Watch out for potential scammers if you click randomly! 💸</div>
                 <div class="welcome-desc">
@@ -564,7 +548,7 @@ body {
             </script>
         </body>
         </html>
-        """, height=620, scrolling=False)
+        """, height=650, scrolling=False)
 
         welcome_trigger = st.text_input("hidden_welcome", key="welcome_backup", label_visibility="collapsed")
         if welcome_trigger == "done":
@@ -1107,7 +1091,7 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
     </script>
     </body>
     </html>
-    """, height=440, scrolling=False)
+    """, height=650, scrolling=False)
 
 # ======== TAB 3: STATS ========
 elif st.session_state.active_tab == "📊 Our Stats":
