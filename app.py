@@ -227,11 +227,12 @@ def init_db():
     default_milestones = [
         ("First Liked Story ✨", "2025-07-27", "The day you first liked my IG story", "start"),
         ("First Date 🍿", "2025-08-15", "Our first movie and food date", "date"),
-        ("Official Anniversary 🎉", "2025-08-22", "The day we became official couple", "anniversary"),
+        ("Official Anniversary 2025 🎉", "2025-08-22", "The day we became official couple", "anniversary"),
         ("NZ 1st Trip 🏔️", "2026-03-29", "1st trip together in NZ", "trip"),
         ("Dawis Enlists Army 🪖", "2026-04-20", "Dawis joined the Australian Army", "milestone"),
         ("Dawis HBD 🎂", "2026-06-29", "Happy Birthday Dawis", "hbd"),
         ("Paweetida HBD 🎂", "2026-07-16", "Happy Birthday Paweetida", "hbd"),
+        ("1st Anniversary 2026 🎉", "2026-08-22", "Celebrating 1 year together", "anniversary"),
     ]
     c.executemany("INSERT INTO milestones (title, date, description, type) VALUES (?,?,?,?)", default_milestones)
     conn.commit()
@@ -1047,7 +1048,7 @@ with tab_stats:
 
     st.markdown("<div style='margin-top:0.4rem'></div>", unsafe_allow_html=True)
 
-    # 4 การ์ดสถิติครบถ้วน (Weeks, Anniversary, Days Since First, Army Service)
+    # 4 การ์ดสถิติครบถ้วน
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["weeks_together"]}</div><div class="metric-label">Weeks Together</div><div class="metric-desc">{stats["months_together"]} months of us 🌙</div></div>', unsafe_allow_html=True)
@@ -1060,7 +1061,7 @@ with tab_stats:
 
     st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
-    # กราฟ Timeline เพิ่มวัน Anniversary เรียบร้อย
+    # กราฟ Timeline แสดงผลครบถ้วนรวมทั้ง Anniversary 2026
     milestones_df = get_milestones()
     if not milestones_df.empty:
         milestones_df['date'] = pd.to_datetime(milestones_df['date'])
