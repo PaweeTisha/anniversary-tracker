@@ -324,10 +324,10 @@ body {
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
 @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
-.chars { display: flex; justify-content: center; align-items: center; gap: 1.2rem; margin-bottom: 0.3rem; }
-.girl { font-size: 3rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
-.heart { font-size: 2rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
-.soldier { font-size: 3rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
+.chars { display: flex; justify-content: center; align-items: center; gap: 1.2rem; margin-bottom: 0.2rem; }
+.girl { font-size: 2.8rem; animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
+.heart { font-size: 1.8rem; animation: heartbeat 1.2s ease-in-out infinite; display: inline-block; }
+.soldier { font-size: 2.8rem; animation: bounce2 1.6s ease-in-out infinite; display: inline-block; }
 .title {
     font-family: 'Pacifico', cursive;
     font-size: 2rem;
@@ -336,22 +336,22 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: float 3s ease-in-out infinite;
-    line-height: 1.2;
-    margin-top: 5px;
+    line-height: 1.3;
+    margin-top: 8px;
     position: relative;
     z-index: 10;
 }
-.subtitle { font-size: 0.7rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.4rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
-.moon-quote { font-size: 0.78rem; color: #FFD166; font-style: italic; margin-top: 0.3rem; font-weight: 500; position: relative; z-index: 10; }
-.stars { font-size: 1rem; letter-spacing: 0.3rem; margin: 0.1rem 0; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
+.subtitle { font-size: 0.65rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem; animation: shimmer 2s ease-in-out infinite; font-weight: 600; position: relative; z-index: 10; }
+.moon-quote { font-size: 0.75rem; color: #FFD166; font-style: italic; margin-top: 0.2rem; font-weight: 500; position: relative; z-index: 10; }
+.stars { font-size: 0.9rem; letter-spacing: 0.3rem; margin: 0.1rem 0; animation: shimmer 2s ease-in-out infinite; position: relative; z-index: 10; }
 
 .pin-section {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     background: rgba(30, 15, 60, 0.75);
     border: 1px solid rgba(0, 245, 212, 0.4);
     border-radius: 18px;
-    padding: 1.2rem 1.5rem;
-    max-width: 360px;
+    padding: 1rem 1.5rem;
+    max-width: 350px;
     width: 100%;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 25px rgba(123, 44, 191, 0.3);
@@ -359,15 +359,15 @@ body {
     z-index: 10;
 }
 .pin-title { font-family: 'Outfit', sans-serif; font-size: 1rem; color: #00F5D4; margin-bottom: 0.2rem; font-weight: 600; }
-.pin-hint { font-size: 0.7rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 0.8rem; font-style: italic; }
-.pin-boxes { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; }
+.pin-hint { font-size: 0.7rem; color: rgba(76, 201, 240, 0.7); margin-bottom: 0.6rem; font-style: italic; }
+.pin-boxes { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 0.8rem; }
 .pin-box {
-    width: 40px;
-    height: 48px;
+    width: 38px;
+    height: 44px;
     border: 2px solid rgba(0, 245, 212, 0.4);
     border-radius: 8px;
     background: rgba(10, 4, 26, 0.6);
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: #FFD166;
     text-align: center;
     font-weight: 600;
@@ -383,7 +383,7 @@ body {
     color: #0A041A;
     border: none;
     border-radius: 10px;
-    padding: 0.65rem 2rem;
+    padding: 0.55rem 2rem;
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
@@ -393,8 +393,8 @@ body {
     box-shadow: 0 0 15px rgba(0,245,212,0.4);
 }
 .enter-btn:hover { background: linear-gradient(135deg, #9D4EDD, #4CC9F0); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,245,212,0.6); }
-.error-msg { color: #FF6B6B; font-size: 0.75rem; margin-top: 0.6rem; display: none; }
-.lock-icon { font-size: 1.5rem; margin-bottom: 0.3rem; animation: float 2.5s ease-in-out infinite; display: block; }
+.error-msg { color: #FF6B6B; font-size: 0.75rem; margin-top: 0.5rem; display: none; }
+.lock-icon { font-size: 1.3rem; margin-bottom: 0.2rem; animation: float 2.5s ease-in-out infinite; display: block; }
 </style>
 </head>
 <body>
@@ -420,7 +420,7 @@ body {
         document.body.appendChild(el);
     }
     </script>
-    <div style="position:relative; z-index:10; padding-top: 10px;">
+    <div style="position:relative; z-index:10; padding-top: 5px;">
         <div class="chars">
             <span class="girl">💻</span>
             <span class="heart">💜</span>
@@ -488,7 +488,7 @@ body {
     </script>
 </body>
 </html>
-""", height=580, scrolling=False)
+""", height=520, scrolling=False)
 
         password = st.text_input("hidden_pin", type="password", key="pwd_backup", label_visibility="collapsed")
         if password == "220825":
@@ -586,7 +586,6 @@ if "show_breaking_news" not in st.session_state:
     st.session_state.show_breaking_news = True
 
 if is_anniversary_season and st.session_state.show_breaking_news:
-    # Modal popup ใหญ่ตรงกลางจอแบบอลังการ
     components.html("""
     <!DOCTYPE html>
     <html>
