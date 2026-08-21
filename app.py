@@ -518,49 +518,51 @@ with tab_quest:
     </html>
     """, height=420, scrolling=False)
 
-# ======== TAB 1: STATS (Real-Time Live Counter) ========
+# ======== TAB 1: STATS (Original Hero + Real-Time Counter Integration) ========
 with tab_stats:
     st.markdown(f"""
     <div class="hero-section">
         <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
         <div class="hero-title">Paweetida & Dawis</div>
         <div class="hero-subtitle">OUR STORY · SINCE 27 JULY 2025 (the day you liked my story 🚌)</div>
+        <div style="margin-top:0.5rem; color:#C9A84C; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-style:italic;">
+            "{stats['days_together']} days of loving you — and counting."
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Real-Time Live Counter Component
+    # Real-Time Live Counter Card (Matched original theme perfectly)
     components.html("""
     <!DOCTYPE html>
     <html>
     <head>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
-    body { background: transparent; margin: 0; font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; padding: 10px; }
+    body { background: transparent; margin: 0; font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; padding: 5px; }
     .live-card {
-        background: linear-gradient(135deg, rgba(61,26,110,0.85), rgba(74,92,58,0.7));
-        border: 1px solid rgba(176,143,212,0.35);
-        border-radius: 16px;
-        padding: 1.5rem 2rem;
-        text-align: center;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        max-width: 600px;
-        width: 100%;
-    }
-    .main-title { font-size: 0.85rem; color: #B08FD4; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; font-weight: 500; }
-    .main-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3.5rem; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 0.2rem; }
-    .main-unit { font-size: 1rem; color: #F0E9FA; margin-bottom: 1.2rem; font-weight: 500; }
-    .sub-grid { display: flex; justify-content: center; gap: 12px; }
-    .sub-box {
-        background: rgba(45,24,84,0.6);
+        background: linear-gradient(135deg, rgba(61,26,110,0.7), rgba(74,92,58,0.5));
         border: 1px solid rgba(176,143,212,0.25);
         border-radius: 12px;
-        padding: 0.6rem 1rem;
-        min-width: 90px;
+        padding: 1.2rem 1.5rem;
+        text-align: center;
+        backdrop-filter: blur(8px);
+        width: 100%;
+        max-width: 1000px;
+    }
+    .main-title { font-size: 0.75rem; color: #B08FD4; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 500; }
+    .main-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.8rem; font-weight: 700; color: #C9A84C; line-height: 1; margin-bottom: 0.2rem; }
+    .main-unit { font-size: 0.9rem; color: #F0E9FA; margin-bottom: 1rem; font-weight: 500; }
+    .sub-grid { display: flex; justify-content: center; gap: 10px; }
+    .sub-box {
+        background: rgba(61,26,110,0.5);
+        border: 1px solid rgba(176,143,212,0.3);
+        border-radius: 8px;
+        padding: 0.5rem 0.8rem;
+        min-width: 80px;
         text-align: center;
     }
-    .sub-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 700; color: #F0E9FA; line-height: 1.1; }
-    .sub-lbl { font-size: 0.65rem; color: #B08FD4; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }
+    .sub-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; color: #F0E9FA; line-height: 1.1; }
+    .sub-lbl { font-size: 0.7rem; color: #B08FD4; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }
     </style>
     </head>
     <body>
@@ -605,9 +607,21 @@ with tab_stats:
         </script>
     </body>
     </html>
-    """, height=220, scrolling=False)
+    """, height=190, scrolling=False)
 
-    st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top:0.4rem'></div>", unsafe_allow_html=True)
+
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["weeks_together"]}</div><div class="metric-label">Weeks Together</div><div class="metric-desc">{stats["months_together"]} months of us 🌙</div></div>', unsafe_allow_html=True)
+    with col2:
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_to_anniversary"]}</div><div class="metric-label">Days to Anniversary</div><div class="metric-desc">22 Aug {stats["next_anniversary"].year} 🎉</div></div>', unsafe_allow_html=True)
+    with col3:
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div class="metric-desc">27 Jul 2025 on the bus 🚌</div></div>', unsafe_allow_html=True)
+    with col4:
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_together"]}</div><div class="metric-label">Total Days</div><div class="metric-desc">Counting every single day 💜</div></div>', unsafe_allow_html=True)
+
+    st.markdown("<div style='margin-top:0.6rem'></div>", unsafe_allow_html=True)
 
     col_a, col_b = st.columns([1, 2])
     with col_a:
