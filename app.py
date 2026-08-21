@@ -589,7 +589,7 @@ if is_anniversary_season and st.session_state.show_breaking_news:
     col_bn1, col_bn2 = st.columns([10, 1])
     with col_bn1:
         st.markdown("""
-        <div class="breaking-news-bar" style="margin-bottom: 0.5rem;">
+        <div class="breaking-news-bar" style="margin-bottom: 0px;">
             <div class="breaking-badge">🔴 BREAKING NEWS</div>
             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 600;">
                 ⚠️ WARNING: TODAY IS OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
@@ -597,7 +597,7 @@ if is_anniversary_season and st.session_state.show_breaking_news:
         </div>
         """, unsafe_allow_html=True)
     with col_bn2:
-        if st.button("✕ Close", key="close_news_btn", use_container_width=True):
+        if st.button("✕", key="close_news_btn", use_container_width=True):
             st.session_state.show_breaking_news = False
             st.rerun()
 
@@ -1065,7 +1065,6 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
         document.getElementById('p2Status').innerText = "Untapped";
 
         currentTurn = currentTurn === 1 ? 2 : 1;
-        document.getElementById('turnText').innerText = `Turn: Player ${currentTrust === 1 ? 'Paweetida' : 'Dawis'}`; // handled safely
         document.getElementById('turnText').innerText = `Turn: Player ${currentTurn} (${currentTurn === 1 ? 'Paweetida' : 'Dawis'})`;
         
         if (currentTurn === 1) {
