@@ -452,7 +452,7 @@ stats = calculate_stats()
 # ---- TABS ----
 tab_capsule, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["💌 Love Capsule", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
-# ======== TAB 0: LOVE CAPSULE (Glassmorphism Styled Popup) ========
+# ======== TAB 0: LOVE CAPSULE (Soft Pastels & Strictly Monolingual) ========
 with tab_capsule:
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
@@ -470,12 +470,12 @@ with tab_capsule:
     .open-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(107,63,160,0.5); transition: all 0.2s; }
     .open-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #7B4FB0, #D9B85C); }
     
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 10, 46, 0.65); backdrop-filter: blur(6px); justify-content: center; align-items: center; z-index: 999; }
-    .modal-content { background: rgba(240, 233, 250, 0.95); color: #3D1A6E; padding: 2.2rem 1.8rem; border-radius: 20px; text-align: center; max-width: 320px; width: 90%; box-shadow: 0 20px 40px rgba(61, 26, 110, 0.4); border: 1px solid rgba(176, 143, 212, 0.5); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 10, 46, 0.45); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 999; }
+    .modal-content { background: #FFFFFF; color: #3D1A6E; padding: 2.4rem 2rem; border-radius: 24px; text-align: center; max-width: 330px; width: 90%; box-shadow: 0 20px 45px rgba(61, 26, 110, 0.25); border: 1px solid rgba(176, 143, 212, 0.3); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
     @keyframes popUp { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     .msg-box { font-size: 1.05rem; font-weight: 700; color: #3D1A6E; margin: 1.2rem 0; line-height: 1.5; }
-    .close-btn { background: linear-gradient(135deg, #6B3FA0, #4A5C3A); color: white; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(107,63,160,0.3); }
-    .close-btn:hover { transform: scale(1.05); }
+    .close-btn { background: linear-gradient(135deg, #6B3FA0, #8B5CC0); color: white; border: none; border-radius: 12px; padding: 0.65rem 2rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(107,63,160,0.3); }
+    .close-btn:hover { transform: scale(1.05); background: linear-gradient(135deg, #7B4FB0, #9B6CC0); }
     </style>
     </head>
     <body>
@@ -498,19 +498,19 @@ with tab_capsule:
     <script>
     const messages = [
         { lang: "en", text: "I love you so much! Keep crushing your goals, my favorite rival!", btn: "Got it" },
-        { lang: "es", text: "¡Muchísima suerte hoy! You'll definitely need it when competing against me 😜✨", btn: "¡Listo!" },
-        { lang: "en", text: "I admire you so much. Proud of you every single day, soldier! 🪖💜", btn: "Got it" },
-        { lang: "es", text: "¡Eres el mejor! Even if you are a stubborn little trouble-maker 🤭", btn: "¡Listo!" },
-        { lang: "en", text: "Everything is going to be amazing. Sending you all my love and energy! 🌟", btn: "Got it" },
-        { lang: "es", text: "You + Me = Unstoppable team. (And yes, I am definitely the brain 🤭💜)", btn: "¡Listo!" },
-        { lang: "en", text: "¡Qué tengas un día increíble! Sending you a giant hug and a playful punch 🤗🥊", btn: "Got it" },
-        { lang: "es", text: "No matter how tough it gets, I've got your back forever. Let's conquer it all! 🚀", btn: "¡Listo!" },
-        { lang: "en", text: "¡Te quiero un montón! Now go ace it so I can proudly brag about you 😎🏆", btn: "Got it" },
-        { lang: "es", text: "A triunfar hoy. But remember who is actually in charge here 👑😏", btn: "¡Listo!" },
-        { lang: "en", text: "So proud of the hard worker you are. You are truly incredible, my love! 💫", btn: "Got it" },
-        { lang: "es", text: "Warning: High level of cuteness and unstoppable support ahead! ⚠️💜", btn: "¡Listo!" },
-        { lang: "en", text: "¡A por todas, soldado! Make me proud, or prepare to face the consequences 🪖👀", btn: "Got it" },
-        { lang: "es", text: "You are my favorite distraction and my greatest motivation. I love you! 🪐", btn: "¡Listo!" }
+        { lang: "es", text: "¡Muchísima suerte hoy! You are going to do amazing things, my favorite rival.", btn: "¡Listo!" },
+        { lang: "en", text: "I admire you so much. Proud of you every single day, soldier!", btn: "Got it" },
+        { lang: "es", text: "¡Eres el mejor! Even if you are a stubborn little trouble-maker.", btn: "¡Listo!" },
+        { lang: "en", text: "Everything is going to be amazing. Sending you all my love and energy!", btn: "Got it" },
+        { lang: "es", text: "You and me make an unstoppable team. I am definitely the smart one here.", btn: "¡Listo!" },
+        { lang: "en", text: "Have an incredible day! Sending you a giant hug and all my support.", btn: "Got it" },
+        { lang: "es", text: "No matter how tough it gets, I have your back forever. Let us conquer it all!", btn: "¡Listo!" },
+        { lang: "en", text: "I love you a lot! Now go ace it so I can proudly brag about you.", btn: "Got it" },
+        { lang: "es", text: "A triunfar hoy. But always remember who is actually in charge here.", btn: "¡Listo!" },
+        { lang: "en", text: "So proud of the hard worker you are. You are truly incredible, my love!", btn: "Got it" },
+        { lang: "es", text: "Warning: High level of cuteness and unstoppable support coming your way!", btn: "¡Listo!" },
+        { lang: "en", text: "Go get them, soldier! Make me proud today and always.", btn: "Got it" },
+        { lang: "es", text: "You are my favorite distraction and my greatest motivation. I love you!", btn: "¡Listo!" }
     ];
 
     function openLetter() {
