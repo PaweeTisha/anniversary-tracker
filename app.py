@@ -25,7 +25,7 @@ st.markdown("""
 
 * { font-family: 'DM Sans', sans-serif; }
 
-/* ซ่อนช่องอินพุตระบบ (hidden inputs) */
+/* ซ่อนช่องอินพุตระบบ (hidden inputs) แบบถาวรไม่ให้มีแถบโผล่มากวนใจ */
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_welcome"]),
 div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     display: none !important;
@@ -51,6 +51,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     100% { background-position: 0% 50%; }
 }
 
+/* AURORA GLOW EFFECT OVERLAYS */
 .stApp::before {
     content: '';
     position: fixed;
@@ -77,6 +78,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     z-index: 1;
 }
 
+/* GLOBAL SHOOTING STARS ANIMATION */
 @keyframes shootingStar {
     0% { transform: translateX(0) translateY(0); opacity: 1; }
     100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
@@ -94,6 +96,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     pointer-events: none;
 }
 
+/* BREAKING NEWS TICKER BANNER */
 .breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #00F5D4, #8B0000);
     border: 1px solid #FFD166;
@@ -137,8 +140,21 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     z-index: 2;
 }
 
-.hero-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2rem; font-weight: 700; color: #F0E9FA; margin: 0; }
-.hero-subtitle { font-size: 0.8rem; color: #4CC9F0; margin-top: 0.2rem; letter-spacing: 1.5px; text-transform: uppercase; }
+.hero-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #F0E9FA;
+    margin: 0;
+}
+
+.hero-subtitle {
+    font-size: 0.8rem;
+    color: #4CC9F0;
+    margin-top: 0.2rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
 
 .metric-card {
     background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(76,201,240,0.25));
@@ -152,8 +168,21 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     box-shadow: 0 0 15px rgba(123,44,191,0.2);
 }
 
-.metric-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 700; color: #FFD166; line-height: 1; }
-.metric-label { font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
+.metric-number {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #FFD166;
+    line-height: 1;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: #4CC9F0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.3rem;
+}
 
 .section-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -210,6 +239,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
 .stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
 
+<!-- GLOBAL SCRIPT FOR SHOOTING STARS -->
 <script>
 window.addEventListener('DOMContentLoaded', (event) => {
     for (let i = 0; i < 18; i++) {
@@ -377,7 +407,6 @@ body {
 }
 .and { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: #4CC9F0; margin: 0.1rem 0; }
 .subtitle { font-size: 0.75rem; color: #00F5D4; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.8rem; animation: shimmer 2s ease-in-out infinite; }
-.moon-quote { font-size: 0.85rem; color: #FFD166; font-style: italic; margin-top: 0.4rem; font-family: 'DM Sans', sans-serif; letter-spacing: 0.5px; }
 .stars { font-size: 1.2rem; letter-spacing: 0.4rem; margin: 0.5rem 0; animation: shimmer 2s ease-in-out infinite; }
 
 .pin-section {
@@ -468,7 +497,6 @@ body {
     <div class="and">&amp;</div>
     <div class="title">Dawis</div>
     <div class="subtitle">Our Private Little World 💜</div>
-    <div class="moon-quote">🌙 "The moon is beautiful, isn't it?" ✨</div>
     </div>
     <div class="pin-section">
         <span class="lock-icon">🔐</span>
@@ -1342,10 +1370,10 @@ with tab_timeline:
     </html>
     """, height=700, scrolling=True)
 
-# ======== TAB 5: GALAXY HEART 3D ========
+# ======== TAB 5: GALAXY HEART 3D ANIMATION ========
 with tab_galaxy:
-    st.markdown('<div class="section-title">Galaxy Heart 3D 🌌💖</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.0rem;">Happy Anniversary! A 3D particle galaxy rotating into a glowing heart in space ✨</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Galaxy Heart Animation 🌌💖</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.0rem;">Watch the galaxy align into our glowing heart... ✨</div>', unsafe_allow_html=True)
 
     components.html("""
     <!DOCTYPE html>
@@ -1353,13 +1381,24 @@ with tab_galaxy:
     <head>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
-    body { background: transparent; margin: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; font-family: 'Pacifico', cursive; }
-    h1 { color: #E0AAFF; font-size: 2.2rem; margin-bottom: 0px; text-shadow: 0 0 20px rgba(199,125,255,0.8); z-index: 2; letter-spacing: 2px; }
-    canvas { display: block; filter: drop-shadow(0 0 25px rgba(217,4,41,0.5)); z-index: 1; }
+    body { background: transparent; margin: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
+    #textOverlay {
+        position: absolute;
+        top: 25px;
+        font-family: 'Pacifico', cursive;
+        color: #E0AAFF;
+        font-size: 2.5rem;
+        text-shadow: 0 0 25px rgba(199,125,255,0.8);
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 2s ease-in-out;
+        letter-spacing: 2px;
+    }
+    canvas { display: block; z-index: 1; }
     </style>
     </head>
     <body>
-    <h1>Happy Anniversary 💜</h1>
+    <div id="textOverlay">Happy Anniversary 💜</div>
     <canvas id="galaxyCanvas"></canvas>
     <script>
     const canvas = document.getElementById('galaxyCanvas');
@@ -1373,59 +1412,80 @@ with tab_galaxy:
     resize();
 
     let particles = [];
-    const numParticles = 4000;
+    const numParticles = 4500;
+    let animProgress = 0; // ควบคุมจังหวะการรวมร่าง (0 = กระจาย/กาแล็กซี่, 1 = รวมเป็นหัวใจ)
 
     for (let i = 0; i < numParticles; i++) {
-        let isHeart = i < 2200;
+        let isHeart = i < 2500;
         let p = {
             isHeart: isHeart,
-            baseX: 0, baseY: 0, baseZ: 0,
+            // จุดเริ่มต้น (กระจัดกระจายแบบกาแล็กซี่หมุนวน)
+            x: (Math.random() - 0.5) * canvas.width * 1.5,
+            y: (Math.random() - 0.5) * canvas.height * 1.5,
+            z: (Math.random() - 0.5) * 500,
+            
+            // จุดเป้าหมาย (รูปร่างหัวใจ 3D)
+            targetX: 0, targetY: 0, targetZ: 0,
+            
             color: Math.random() > 0.3 ? (Math.random() > 0.5 ? '#FF4D6D' : '#C77DFF') : '#00F5D4',
-            size: Math.random() * 1.6 + 0.4
+            size: Math.random() * 1.6 + 0.5
         };
 
         if (isHeart) {
             let t = Math.random() * Math.PI * 2;
             let hx = 16 * Math.pow(Math.sin(t), 3);
             let hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-            p.baseX = hx * 13;
-            p.baseY = hy * 13 - 20;
-            p.baseZ = (Math.random() - 0.5) * 50;
+            p.targetX = hx * 14;
+            p.targetY = hy * 14 - 10;
+            p.targetZ = (Math.random() - 0.5) * 60;
         } else {
+            // ส่วนที่เหลือยังคงเป็นวงแหวนกาแล็กซี่หมุนรอบนอก
             let angle = Math.random() * Math.PI * 2;
-            let r = Math.random() * 240 + 30;
-            p.baseX = Math.cos(angle) * r;
-            p.baseY = Math.sin(angle) * r * 0.25 + 110;
-            p.baseZ = (Math.random() - 0.5) * 70;
+            let r = Math.random() * 260 + 50;
+            p.targetX = Math.cos(angle) * r;
+            p.targetY = Math.sin(angle) * r * 0.3 + 100;
+            p.targetZ = (Math.random() - 0.5) * 80;
         }
         particles.push(p);
     }
 
     let rotY = 0;
 
+    setTimeout(() => {
+        document.getElementById('textOverlay').style.opacity = '1';
+    }, 1000);
+
     function animate() {
-        ctx.fillStyle = 'rgba(10, 4, 26, 0.3)';
+        ctx.fillStyle = 'rgba(10, 4, 26, 0.25)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         let cx = canvas.width / 2;
         let cy = canvas.height / 2;
 
-        rotY += 0.01;
+        rotY += 0.008;
+
+        // ค่อยๆ เพิ่มค่าอนิมิชันให้ดาวพุ่งมารวมร่าง (หยุดที่ความเร็วสมูท)
+        if (animProgress < 1) {
+            animProgress += 0.004;
+        }
 
         particles.forEach(p => {
-            let x = p.baseX;
-            let y = p.baseY;
-            let z = p.baseZ;
+            // คำนวณตำแหน่งเคลื่อนตัวจากจุดกระจาย (x,y,z) ไปยังเป้าหมาย (targetX, targetY, targetZ)
+            let currentX = p.x + (p.targetX - p.x) * easeOutExpo(animProgress);
+            let currentY = p.y + (p.targetY - p.y) * easeOutExpo(animProgress);
+            let currentZ = p.z + (p.targetZ - p.z) * easeOutExpo(animProgress);
 
+            // หมุน 3D รอบแกน Y
             let cos = Math.cos(rotY);
             let sin = Math.sin(rotY);
-            let x1 = x * cos - z * sin;
-            let z1 = z * cos + x * sin;
+            let x1 = currentX * cos - currentZ * sin;
+            let z1 = currentZ * cos + currentX * sin;
 
+            // โปรเจกต์ลงจอภาพ 2D
             let fov = 400;
             let scale = fov / (fov + z1 + 300);
             let screenX = cx + x1 * scale;
-            let screenY = cy + y * scale;
+            let screenY = cy + currentY * scale;
 
             if (scale > 0) {
                 ctx.fillStyle = p.color;
@@ -1436,6 +1496,11 @@ with tab_galaxy:
         });
 
         requestAnimationFrame(animate);
+    }
+
+    // ฟังก์ชันช่วยให้การรวมร่างมีความสมูทนุ่มนวล
+    function easeOutExpo(x) {
+        return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
     }
 
     animate();
