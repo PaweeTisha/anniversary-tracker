@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import sqlite3
 import pandas as pd
-from datetime import datetime, date, timedelta
+from datetime import datetime, date
 import plotly.graph_objects as go
 import base64
 
@@ -76,12 +76,47 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     100% { background-position: 0% 50%; }
 }
 
+.stApp::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0,245,212,0.12) 0%, rgba(76,201,240,0.08) 30%, transparent 70%);
+    animation: auroraShimmer 10s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes auroraShimmer {
+    0% { transform: translateY(-20px) scale(1); opacity: 0.6; }
+    100% { transform: translateY(20px) scale(1.1); opacity: 1; }
+}
+
 .block-container {
     padding-top: 3.5rem !important;
     padding-bottom: 2rem !important;
     max-width: 1250px !important;
     position: relative;
     z-index: 1;
+}
+
+@keyframes shootingStar {
+    0% { transform: translateX(0) translateY(0); opacity: 1; }
+    100% { transform: translateX(-600px) translateY(600px); opacity: 0; }
+}
+
+.shooting-star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #00F5D4;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px #00F5D4, 0 0 25px 6px #4CC9F0;
+    animation: shootingStar linear infinite;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .breaking-news-bar {
@@ -155,7 +190,29 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
     position: relative;
     z-index: 2;
 }
+
+.stTextInput input, .stTextArea textarea, .stSelectbox select {
+    background: rgba(30, 15, 60, 0.85) !important;
+    border: 1px solid rgba(76,201,240,0.5) !important;
+    color: #F0E9FA !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+}
 </style>
+
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+    for (let i = 0; i < 18; i++) {
+        let star = document.createElement('div');
+        star.className = 'shooting-star';
+        star.style.top = Math.random() * 70 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDuration = (2 + Math.random() * 4) + 's';
+        star.style.animationDelay = (Math.random() * 5) + 's';
+        document.body.appendChild(star);
+    }
+});
+</script>
 """, unsafe_allow_html=True)
 
 # ---- DATABASE & STATS ----
@@ -169,6 +226,7 @@ def init_db():
         description TEXT,
         type TEXT DEFAULT 'milestone'
     )''')
+    
     c.execute("DROP TABLE IF EXISTS milestones")
     c.execute('''CREATE TABLE IF NOT EXISTS milestones (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -177,6 +235,7 @@ def init_db():
         description TEXT,
         type TEXT DEFAULT 'milestone'
     )''')
+    
     default_milestones = [
         ("First Liked Story ✨", "2025-07-27", "The day you first liked my IG story", "start"),
         ("First Date 🍿", "2025-08-15", "Our first movie and food date", "date"),
@@ -198,7 +257,7 @@ def get_milestones():
     return df
 
 def calculate_stats():
-    today = (datetime.utcnow() + timedelta(hours=10)).date()
+    today = date.today()
     start_date = date(2025, 7, 27)
     official_date = date(2025, 8, 22)
     army_date = date(2026, 4, 20)
@@ -214,10 +273,9 @@ def calculate_stats():
         "days_to_anniversary": (next_anniversary - today).days,
         "days_since_army": (today - army_date).days if today >= army_date else 0,
         "next_anniversary": next_anniversary,
-        "today": today
     }
 
-# ---- PASSWORD LOGIN & WELCOME SCREEN FOR DAWIS (ORIGINAL DESIGN) ----
+# ---- PASSWORD LOGIN & WELCOME SCREEN FOR DAWIS ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -519,8 +577,7 @@ if not check_password():
     st.stop()
 
 # ---- BREAKING NEWS LOGIC ----
-stats = calculate_stats()
-today_date = stats["today"]
+today_date = date.today()
 is_anniversary_season = (today_date.month == 8 and today_date.day in [21, 22])
 
 if "show_breaking_news" not in st.session_state:
@@ -548,14 +605,14 @@ if is_anniversary_season and st.session_state.show_breaking_news:
     <div class="news-overlay" id="newsModal">
         <div class="news-modal">
             <div class="news-header">🚨 BREAKING NEWS 🚨</div>
-            <div class="news-title">Happy Anniversary Day! 🎉💜</div>
+            <div class="news-title">Upcoming Anniversary Alert! 💜</div>
             <div class="news-desc">
-                Today is August 22, 2026! Our special 1-year anniversary celebration with fireworks is officially live!
+                Get ready for special dates, love capsules, and epic card duels!
             </div>
             <div class="warning-box">
-                ⚠️ ENJOY THE FIREWORKS & OUR SPECIAL WORLD! 🎆✨
+                ⚠️ WARNING: TODAY IS OUR SPECIAL ANNIVERSARY! DO NOT MISS IT! 🚨🔥
             </div>
-            <button class="ack-btn" onclick="closeModal()">Let's Celebrate! 🚀</button>
+            <button class="ack-btn" onclick="closeModal()">Acknowledge & Enter 🚀</button>
         </div>
     </div>
     <script>
@@ -574,9 +631,9 @@ if is_anniversary_season and st.session_state.show_breaking_news:
     with col_bn1:
         st.markdown("""
         <div class="breaking-news-bar" style="margin-bottom: 0px;">
-            <div class="breaking-badge">🔴 HAPPY ANNIVERSARY</div>
+            <div class="breaking-badge">🔴 BREAKING NEWS</div>
             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #FFFFFF; font-weight: 600;">
-                🎆 TODAY IS AUGUST 22, 2026! CELEBRATING OUR SPECIAL DAY WITH FIREWORKS! 💜🎉
+                ⚠️ WARNING: TODAY IS OUR SPECIAL ANNIVERSARY! Stay tuned for card duels and memories! 💜🪖
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -585,8 +642,9 @@ if is_anniversary_season and st.session_state.show_breaking_news:
             st.session_state.show_breaking_news = False
             st.rerun()
 
-# ---- INIT ----
+# ---- INIT & STATS ----
 init_db()
+stats = calculate_stats()
 
 # ---- NAVIGATION BUTTON BOXES ----
 if "active_tab" not in st.session_state:
@@ -608,7 +666,7 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
     st.markdown("""
     <div style="text-align: center; padding: 1.5rem 0; width: 100%;">
         <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5); text-align: center;">Get Some Luck! 🍀</h1>
-        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px; text-align: center;">Happy Anniversary! A bright sunflower bouquet and good luck for my favorite enemy. 😜</p>
+        <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px; text-align: center;">Well done! A bright sunflower bouquet and good luck for my favorite enemy. 😜</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -633,16 +691,34 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
             max-width: 420px;
             width: 100%;
         }
-        .img-container { position: relative; display: inline-block; cursor: pointer; }
-        .flower-img {
-            width: 180px; height: 180px; object-fit: cover; border-radius: 50%;
-            border: 4px solid #FFD166; box-shadow: 0 0 25px rgba(255,215,0,0.6);
-            animation: float 3s ease-in-out infinite; transition: transform 0.3s ease;
+        .img-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
         }
-        .flower-img:hover { transform: scale(1.08) rotate(3deg); }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+        .flower-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #FFD166;
+            box-shadow: 0 0 25px rgba(255,215,0,0.6);
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+        .flower-img:hover {
+            transform: scale(1.08) rotate(3deg);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
         .floating-icon {
-            position: absolute; font-size: 1.4rem; animation: floatIcon 2.4s ease-in-out infinite; pointer-events: none; opacity: 0;
+            position: absolute;
+            font-size: 1.4rem;
+            animation: floatIcon 2.4s ease-in-out infinite;
+            pointer-events: none;
+            opacity: 0;
         }
         @keyframes floatIcon {
             0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; }
@@ -652,6 +728,7 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
         .icon-2 { top: 0px; right: 10px; animation-delay: 0.6s; }
         .icon-3 { bottom: 10px; left: 5px; animation-delay: 1.2s; }
         .icon-4 { bottom: 0px; right: 15px; animation-delay: 1.8s; }
+        
         .rival-title { font-size: 1.3rem; color: #FFD166; font-weight: 700; margin: 1rem 0 0.5rem 0; }
         .rival-desc { font-size: 0.95rem; color: #F0E9FA; line-height: 1.6; font-weight: 500; min-height: 75px; }
         .click-hint { font-size: 0.7rem; color: #4CC9F0; margin-top: 0.6rem; font-style: italic; }
@@ -668,20 +745,20 @@ if st.session_state.active_tab == "🍀 Get Some Luck":
                 </div>
                 <div class="rival-title">For my No.1 enemy 🤭</div>
                 <div class="rival-desc" id="teaseText">
-                    Sunflowers and a 4-leaf clover for my sunshine! Happy Anniversary! Let's keep driving each other nuts for a long, long time. 🍀💜
+                    Sunflowers and a 4-leaf clover for my sunshine! Thanks for staying loyal, bright, and lucky through every single season. Let's keep driving each other nuts for a long, long time. 🍀💜
                 </div>
                 <div class="click-hint">(Click the bouquet for a surprise message 🍀)</div>
             </div>
             <script>
             const teases = [
-                "Sunflowers and a 4-leaf clover for my sunshine! Happy Anniversary! Let's keep driving each other nuts for a long, long time. 🍀💜",
-                "Happy Anniversary! Warning: Clicking these flowers won't make you win our card duels! 😤✨",
-                "You're like a 4-leaf clover—hard to find, incredibly lucky to have, and stubborn as heck! Happy Anniversary! 🍀😜",
-                "Happy Anniversary! Teasing you is my full-time job, but loving you is my absolute favorite hobby. 💚",
-                "Happy Anniversary! Even when you're being super moody, you're still the only person I want to talk to. 🤫555",
-                "Happy Anniversary! No matter how crazy work/study is, I'm always cheering for you from the sidelines. 🌟",
-                "Happy Anniversary! I built this whole digital world just so you'd remember how amazing you are... and to flex my coding skills! 💻😎",
-                "Happy Anniversary! You + Me = The most chaotic, unstoppable team in the universe. Let's conquer everything together! 🚀💜"
+                "Sunflowers and a 4-leaf clover for my sunshine! Thanks for staying loyal, bright, and lucky through every single season. Let's keep driving each other nuts for a long, long time. 🍀💜",
+                "Warning: Clicking these flowers won't make you win our card duels! 😤 But you're still my favorite lucky charm. ✨",
+                "You're like a 4-leaf clover—hard to find, incredibly lucky to have, and stubborn as heck! 🍀😜",
+                "Teasing you is my full-time job, but loving you is my absolute favorite hobby. 💚",
+                "Even when you're being super moody, you're still the only person I want to talk to. (Don't let this go to your head!) 🤫555",
+                "No matter how hard things get or how crazy work/study is, I'm always cheering for you from the sidelines. You've got this! 🌟",
+                "I built this whole digital world just so you'd remember how amazing you are... and because I wanted to flex my coding skills to my favorite rival! 💻😎",
+                "You + Me = The most chaotic, unstoppable team in the universe. Let's conquer everything together! 🚀💜"
             ];
             let index = 0;
             function changeTease() {
@@ -728,6 +805,7 @@ elif st.session_state.active_tab == "💌 Love Capsule":
     @keyframes floatLetter { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     .open-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: all 0.2s; }
     .open-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #9D4EDD, #4CC9F0); }
+    
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999; }
     .modal-content { background: #1E0B36; color: #00F5D4; padding: 2.4rem 2rem; border-radius: 24px; text-align: center; max-width: 330px; width: 90%; box-shadow: 0 0 40px rgba(0,245,212,0.4); border: 2px solid #00F5D4; animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
     @keyframes popUp { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
@@ -743,6 +821,7 @@ elif st.session_state.active_tab == "💌 Love Capsule":
         <div style="color:#4CC9F0; font-size:0.75rem; font-weight:600; margin-bottom:1.5rem; letter-spacing:0.5px;">Open a note from me ✨</div>
         <button class="open-btn" onclick="openLetter()">Open Letter 💌</button>
     </div>
+
     <div class="modal" id="modal">
         <div class="modal-content">
             <div style="font-size: 2.2rem;">💌</div>
@@ -751,24 +830,27 @@ elif st.session_state.active_tab == "💌 Love Capsule":
             <button class="close-btn" onclick="closeModal()">Got it</button>
         </div>
     </div>
+
     <script>
     const messages = [
-        "Happy Anniversary! The moon is beautiful, isn't it? I love you so much!",
-        "Happy Anniversary! Keep crushing your goals today. I am so proud of you!",
-        "Happy Anniversary! You and me make an unstoppable team. Let us conquer everything!",
-        "Happy Anniversary! Sending you the biggest hug and all my energy today!",
-        "Happy Anniversary! No matter how tough it gets, I have your back forever.",
-        "Happy Anniversary! You are my favorite distraction and my greatest motivation.",
-        "Happy Anniversary! Go get them, soldier! Make me proud today and always.",
-        "Happy Anniversary! Everything is going to be amazing. I believe in you!",
-        "Happy Anniversary! So proud of the hard worker you are. You're truly incredible!"
+        "The moon is beautiful, isn't it? I love you so much, my favorite rival!",
+        "Keep crushing your goals today. I am so proud of you!",
+        "You and me make an unstoppable team. Let us conquer everything!",
+        "Sending you the biggest hug and all my energy today!",
+        "No matter how tough it gets, I have your back forever.",
+        "You are my favorite distraction and my greatest motivation.",
+        "Go get them, soldier! Make me proud today and always.",
+        "Everything is going to be amazing. I believe in you!",
+        "So proud of the hard worker you are. You're truly incredible!"
     ];
+
     function openLetter() {
         const randomMsg = messages[Math.floor(Math.random() * messages.length)];
         document.getElementById('secretMsg').innerText = randomMsg;
         document.getElementById('modalSub').innerText = "Secret Note Unlocked";
         document.getElementById('modal').style.display = 'flex';
     }
+
     function closeModal() {
         document.getElementById('modal').style.display = 'none';
     }
@@ -790,33 +872,43 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
     <style>
     body { background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Outfit', sans-serif; }
     .duel-arena { text-align: center; background: rgba(30,15,60,0.75); border: 1px solid rgba(0,245,212,0.4); border-radius: 20px; padding: 1.2rem 1.5rem; backdrop-filter: blur(12px); box-shadow: 0 0 30px rgba(123,44,191,0.4); max-width: 600px; width: 100%; position: relative; }
+    
     #pickerPhase { display: block; }
     .card-options { display: flex; justify-content: center; gap: 8px; margin: 0.6rem 0; flex-wrap: wrap; }
     .option-card {
-        width: 85px; height: 120px; background: linear-gradient(135deg, #7B2CBF, #1E0B36);
-        border: 2px solid #00F5D4; border-radius: 8px; display: flex; flex-direction: column;
-        align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s;
-        padding: 4px; color: #F0E9FA; box-shadow: 0 0 10px rgba(0,245,212,0.2); font-weight: 600;
+        width: 85px; height: 120px;
+        background: linear-gradient(135deg, #7B2CBF, #1E0B36);
+        border: 2px solid #00F5D4; border-radius: 8px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        cursor: pointer; transition: transform 0.2s; padding: 4px; color: #F0E9FA;
+        box-shadow: 0 0 10px rgba(0,245,212,0.2); font-weight: 600;
     }
     .option-card:hover { transform: translateY(-5px) scale(1.05); border-color: #FFD166; box-shadow: 0 0 15px rgba(255,209,102,0.4); }
+    
     #battlePhase { display: none; }
     .players-container { display: flex; justify-content: space-around; align-items: center; gap: 15px; margin-bottom: 0.8rem; }
     .player-box { background: rgba(10,4,26,0.7); border: 2px solid rgba(0,245,212,0.3); border-radius: 14px; padding: 0.8rem; width: 48%; text-align: center; transition: all 0.3s; }
     .player-box.active-turn { border-color: #FFD166; box-shadow: 0 0 20px rgba(255,209,102,0.6); background: rgba(123,44,191,0.4); }
+    
     .player-name { font-size: 0.85rem; color: #FFD166; font-weight: 700; margin-bottom: 0.3rem; }
     .hp-text { font-size: 0.8rem; color: #F0E9FA; font-weight: 600; margin-bottom: 0.6rem; }
+    
     .card-container { perspective: 1000px; display: inline-block; cursor: pointer; }
     .mtg-card { 
-        width: 110px; height: 150px; background: linear-gradient(135deg, #7B2CBF, #1E0B36); 
-        border: 2px solid #00F5D4; border-radius: 10px; display: flex; flex-direction: column; 
-        align-items: center; justify-content: center; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; 
+        width: 110px; height: 150px; 
+        background: linear-gradient(135deg, #7B2CBF, #1E0B36); 
+        border: 2px solid #00F5D4; border-radius: 10px; 
+        display: flex; flex-direction: column; align-items: center; justify-content: center; 
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; 
         box-shadow: 0 0 15px rgba(0,245,212,0.3); user-select: none; margin: 0 auto; font-weight: 600;
     }
     .mtg-card.tapped { transform: rotate(90deg) scale(1.03); border-color: #FF6B6B; box-shadow: -12px 8px 20px rgba(0,0,0,0.6); }
+    
     .turn-indicator { font-size: 0.95rem; color: #FFD166; font-weight: 700; margin-bottom: 0.5rem; }
     .action-btn { background: linear-gradient(135deg, #7B2CBF, #00F5D4); color: #0A041A; border: none; border-radius: 10px; padding: 0.5rem 1.5rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; box-shadow: 0 0 15px rgba(0,245,212,0.4); transition: transform 0.2s; margin-top: 0.4rem; }
     .action-btn:hover { transform: scale(1.05); }
     .game-log { font-size: 0.75rem; color: #4CC9F0; margin-top: 0.6rem; font-style: italic; min-height: 30px; font-weight: 500; }
+    
     .win-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,4,26,0.85); backdrop-filter: blur(6px); justify-content: center; align-items: center; z-index: 9999; }
     .win-content { background: linear-gradient(135deg, #7B2CBF, #1E0B36); color: #F0E9FA; padding: 2.5rem 2rem; border-radius: 24px; text-align: center; max-width: 380px; width: 90%; box-shadow: 0 0 50px rgba(0,245,212,0.6); border: 3px solid #00F5D4; animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     .win-title { font-size: 1.6rem; font-weight: 700; color: #FFD166; margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,209,102,0.6); }
@@ -868,6 +960,7 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
                 </div>
             </div>
         </div>
+
         <div id="battlePhase">
             <div class="turn-indicator" id="turnText">Turn: Player 1 (Paweetida)</div>
             <div class="players-container">
@@ -900,6 +993,7 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
             <div class="game-log" id="gameLog">Click your card to Tap (Attack/Heal), then End Turn to pick a new card! ✨</div>
         </div>
     </div>
+
     <div class="win-modal" id="winModal">
         <div class="win-content">
             <div style="font-size: 3rem;">🎉🏆✨</div>
@@ -908,6 +1002,7 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
             <button class="restart-btn" onclick="location.reload()">Play Again 🔄</button>
         </div>
     </div>
+
     <script>
     let currentTurn = 1;
     let p1Hp = 20;
@@ -1014,108 +1109,8 @@ elif st.session_state.active_tab == "⚔️ Battle Phase":
     </html>
     """, height=440, scrolling=False)
 
-# ======== TAB 3: STATS (WITH FIREWORKS CANVAS) ========
+# ======== TAB 3: STATS ========
 elif st.session_state.active_tab == "📊 Our Stats":
-    # ฝังแคนวาสพลุสุดอลังการไว้ที่หน้า Stats ด้านใน
-    components.html("""
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <style>
-    body { background: transparent; margin: 0; overflow: hidden; }
-    canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 999; }
-    </style>
-    </head>
-    <body>
-    <canvas id="fireworksCanvas"></canvas>
-    <script>
-    const canvas = document.getElementById('fireworksCanvas');
-    const ctx = canvas.getContext('2d');
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Firework {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = canvas.height;
-            this.targetY = Math.random() * (canvas.height * 0.5);
-            this.speed = 5 + Math.random() * 4;
-            this.particles = [];
-            this.exploded = false;
-            this.color = `hsl(${Math.random() * 360}, 100%, 65%)`;
-        }
-        update() {
-            if (!this.exploded) {
-                this.y -= this.speed;
-                if (this.y <= this.targetY) {
-                    this.exploded = true;
-                    for (let i = 0; i < 80; i++) {
-                        let angle = Math.random() * Math.PI * 2;
-                        let speed = Math.random() * 7;
-                        this.particles.push({
-                            x: this.x, y: this.y,
-                            vx: Math.cos(angle) * speed,
-                            vy: Math.sin(angle) * speed,
-                            alpha: 1,
-                            color: this.color
-                        });
-                    }
-                }
-            } else {
-                this.particles.forEach(p => {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.vy += 0.05;
-                    p.alpha -= 0.012;
-                });
-                this.particles = this.particles.filter(p => p.alpha > 0);
-            }
-        }
-        draw() {
-            if (!this.exploded) {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-                ctx.fill();
-            } else {
-                this.particles.forEach(p => {
-                    ctx.save();
-                    ctx.globalAlpha = p.alpha;
-                    ctx.fillStyle = p.color;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
-                });
-            }
-        }
-    }
-
-    let fireworks = [];
-    function loop() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if (Math.random() < 0.08) {
-            fireworks.push(new Firework());
-        }
-        fireworks.forEach((fw, index) => {
-            fw.update();
-            fw.draw();
-            if (fw.exploded && fw.particles.length === 0) {
-                fireworks.splice(index, 1);
-            }
-        });
-        requestAnimationFrame(loop);
-    }
-    loop();
-    </script>
-    </body>
-    </html>
-    """, height=0, scrolling=False)
-
     st.markdown(f"""
     <div class="hero-section">
         <div style="font-size:2.2rem; margin-bottom:0.2rem">💜 🪖</div>
