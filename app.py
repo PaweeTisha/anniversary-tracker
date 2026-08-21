@@ -452,7 +452,7 @@ stats = calculate_stats()
 # ---- TABS ----
 tab_capsule, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["💌 Love Capsule", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
-# ======== TAB 0: LOVE CAPSULE (Strictly Monolingual Randomization per Note) ========
+# ======== TAB 0: LOVE CAPSULE (Glassmorphism Styled Popup) ========
 with tab_capsule:
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
@@ -470,12 +470,12 @@ with tab_capsule:
     .open-btn { background: linear-gradient(135deg, #6B3FA0, #C9A84C); color: white; border: none; border-radius: 14px; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(107,63,160,0.5); transition: all 0.2s; }
     .open-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #7B4FB0, #D9B85C); }
     
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); justify-content: center; align-items: center; z-index: 999; }
-    .modal-content { background: #FAFAFA; color: #1A1A2E; padding: 2.2rem 1.8rem; border-radius: 20px; text-align: center; max-width: 320px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.6); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 10, 46, 0.65); backdrop-filter: blur(6px); justify-content: center; align-items: center; z-index: 999; }
+    .modal-content { background: rgba(240, 233, 250, 0.95); color: #3D1A6E; padding: 2.2rem 1.8rem; border-radius: 20px; text-align: center; max-width: 320px; width: 90%; box-shadow: 0 20px 40px rgba(61, 26, 110, 0.4); border: 1px solid rgba(176, 143, 212, 0.5); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
     @keyframes popUp { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     .msg-box { font-size: 1.05rem; font-weight: 700; color: #3D1A6E; margin: 1.2rem 0; line-height: 1.5; }
-    .close-btn { background: #6B3FA0; color: white; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-    .close-btn:hover { background: #4A5C3A; }
+    .close-btn { background: linear-gradient(135deg, #6B3FA0, #4A5C3A); color: white; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(107,63,160,0.3); }
+    .close-btn:hover { transform: scale(1.05); }
     </style>
     </head>
     <body>
