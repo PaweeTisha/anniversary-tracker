@@ -9,7 +9,7 @@ import base64
 # ---- PAGE CONFIG ----
 st.set_page_config(page_title="Paweetida & Dawis 💜", page_icon="💜", layout="wide", initial_sidebar_state="collapsed")
 
-# ---- CUSTOM CSS (AURORA THEME + GLOBAL SHOOTING STARS) ----
+# ---- CUSTOM CSS (AURORA THEME + FLOATING EMOJIS + GLOBAL SHOOTING STARS) ----
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
@@ -37,6 +37,22 @@ st.markdown("""
     max-width: 1250px !important;
 }
 
+/* FLOATING EMOJIS (Aurora Style) */
+.floating-emoji { 
+    position: fixed; 
+    font-size: 1.5rem; 
+    animation: floatUp linear infinite; 
+    pointer-events: none; 
+    z-index: 0; 
+    opacity: 0.7; 
+}
+@keyframes floatUp { 
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 
+    10% { opacity: 0.7; } 
+    90% { opacity: 0.7; } 
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } 
+}
+
 /* GLOBAL SHOOTING STARS ANIMATION */
 @keyframes shootingStar {
     0% { transform: translateX(0) translateY(0); opacity: 1; }
@@ -55,7 +71,7 @@ st.markdown("""
     pointer-events: none;
 }
 
-/* BREAKING NEWS TICKER BANNER (Aurora Glow) */
+/* BREAKING NEWS TICKER BANNER */
 .breaking-news-bar {
     background: linear-gradient(90deg, #8B0000, #00F5D4, #8B0000);
     border: 1px solid #FFD166;
@@ -197,11 +213,11 @@ st.markdown("""
 .stTabs [aria-selected="true"] { color: #00F5D4 !important; border-bottom: 2px solid #FFD166 !important; }
 </style>
 
-<!-- GLOBAL SHOOTING STARS SCRIPT -->
+<!-- GLOBAL FLOATING EMOJIS & SHOOTING STARS SCRIPT -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const starCount = 15;
-    for (let i = 0; i < starCount; i++) {
+    // Shooting Stars
+    for (let i = 0; i < 15; i++) {
         let star = document.createElement('div');
         star.className = 'shooting-star';
         star.style.top = Math.random() * 60 + 'vh';
@@ -209,6 +225,19 @@ document.addEventListener("DOMContentLoaded", function() {
         star.style.animationDuration = (2.5 + Math.random() * 4) + 's';
         star.style.animationDelay = (Math.random() * 5) + 's';
         document.body.appendChild(star);
+    }
+    
+    // Floating Emojis
+    const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
+    for (let i = 0; i < 20; i++) {
+        let el = document.createElement('div');
+        el.className = 'floating-emoji';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = (5 + Math.random() * 8) + 's';
+        el.style.animationDelay = (Math.random() * 8) + 's';
+        el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+        document.body.appendChild(el);
     }
 });
 </script>
@@ -303,7 +332,7 @@ def calculate_stats():
         "next_anniversary": next_anniversary,
     }
 
-# ---- PASSWORD LOGIN (With Shooting Stars, Original Emojis & "The moon is beautiful") ----
+# ---- PASSWORD LOGIN (With Floating Emojis, Shooting Stars & Moon Quote) ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -356,6 +385,9 @@ body {
     box-shadow: 0 0 8px 2px #00F5D4, 0 0 20px 4px #4CC9F0;
     animation: shootingStar linear infinite; z-index: 0; pointer-events: none;
 }
+.floating-emoji { position: fixed; font-size: 1.5rem; animation: floatUp linear infinite; pointer-events: none; z-index: 0; opacity: 0.7; }
+@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+
 @keyframes bounce { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 25% { transform: translateY(-15px) rotate(3deg); } 50% { transform: translateY(-8px) rotate(-2deg); } 75% { transform: translateY(-20px) rotate(4deg); } }
 @keyframes bounce2 { 0%, 100% { transform: translateY(0px) rotate(3deg); } 25% { transform: translateY(-20px) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(2deg); } 75% { transform: translateY(-15px) rotate(-4deg); } }
 @keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.2); } 60% { transform: scale(1); } }
@@ -439,6 +471,7 @@ body {
 </head>
 <body>
     <script>
+    // Login Shooting Stars
     for (let i = 0; i < 12; i++) {
         let star = document.createElement('div');
         star.className = 'login-shooting-star';
@@ -447,6 +480,18 @@ body {
         star.style.animationDuration = (2 + Math.random() * 3) + 's';
         star.style.animationDelay = (Math.random() * 4) + 's';
         document.body.appendChild(star);
+    }
+    // Login Floating Emojis
+    const emojis = ['💐','🍀','🪐','🌜','🌹','🌻','☃️','🌟','💜','💚','🌷','🌹','💙','❄️','⭐','🤍','☃️','💛','🧡','❤️','🌻','🍀','🌷','🌐','🌻','💻','📡','🛜','🍀','💜','🤍','❄️'];
+    for (let i = 0; i < 20; i++) {
+        let el = document.createElement('div');
+        el.className = 'floating-emoji';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = (5 + Math.random() * 8) + 's';
+        el.style.animationDelay = (Math.random() * 8) + 's';
+        el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+        document.body.appendChild(el);
     }
     </script>
     <div style="position:relative; z-index:1;">
@@ -555,10 +600,10 @@ components.html("""
         <div class="news-header">🚨 BREAKING NEWS 🚨</div>
         <div class="news-title">Upcoming Anniversary Alert! 💜</div>
         <div class="news-desc">
-            Get ready for special dates, love capsules, and epic card duels! 🌙
+            Get ready for special dates, love capsules, and epic card duels!
         </div>
         <div class="warning-box">
-            ⚠️ WARNING: "The moon is beautiful, isn't it?" DO NOT MISS IT! 🚨✨
+            ⚠️ WARNING: DO NOT FORGET OUR SPECIAL DATE! DO NOT MISS IT! 🚨🔥
         </div>
         <button class="ack-btn" onclick="closeNews()">Acknowledge & Enter 🚀</button>
     </div>
@@ -576,7 +621,7 @@ function closeNews() {
 init_db()
 stats = calculate_stats()
 
-# ---- BREAKING NEWS TICKER BANNER (With Moon Quote) ----
+# ---- BREAKING NEWS TICKER BANNER ----
 st.markdown("""
 <div class="breaking-news-bar">
     <div class="breaking-badge">🔴 BREAKING NEWS</div>
