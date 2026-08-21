@@ -143,7 +143,7 @@ div[data-testid="stTextInput"]:has(input[aria-label="hidden_pin"]) {
 .metric-card {
     background: linear-gradient(135deg, rgba(123,44,191,0.5), rgba(76,201,240,0.25));
     border: 1px solid rgba(0,245,212,0.3);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 1rem;
     text-align: center;
     backdrop-filter: blur(8px);
@@ -226,14 +226,26 @@ def init_db():
         description TEXT,
         type TEXT DEFAULT 'milestone'
     )''')
-    c.execute("SELECT COUNT(*) FROM milestones")
-    if c.fetchone()[0] == 0:
-        default_milestones = [
-            ("First Liked Story ✨", "2025-07-27", "The day you first liked my IG story", "start"),
-            ("Official Couple 💜", "2025-08-22", "The day we became official", "anniversary"),
-            ("Dawis Enlists Army 🪖", "2026-04-20", "Dawis joined the Australian Army", "milestone"),
-        ]
-        c.executemany("INSERT INTO milestones (title, date, description, type) VALUES (?,?,?,?)", default_milestones)
+    
+    c.execute("DROP TABLE IF EXISTS milestones")
+    c.execute('''CREATE TABLE IF NOT EXISTS milestones (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        date TEXT NOT NULL,
+        description TEXT,
+        type TEXT DEFAULT 'milestone'
+    )''')
+    
+    default_milestones = [
+        ("First Liked Story ✨", "2025-07-27", "The day you first liked my IG story", "start"),
+        ("First Date 🍿", "2025-08-15", "Our first movie and food date", "date"),
+        ("Official Couple 💜", "2025-08-22", "The day we became official", "anniversary"),
+        ("NZ 1st Trip 🏔️", "2026-03-29", "1st trip together in NZ", "trip"),
+        ("Dawis Enlists Army 🪖", "2026-04-20", "Dawis joined the Australian Army", "milestone"),
+        ("Dawis HBD 🎂", "2026-06-29", "Happy Birthday Dawis", "hbd"),
+        ("Paweetida HBD 🎂", "2026-07-16", "Happy Birthday Paweetida", "hbd"),
+    ]
+    c.executemany("INSERT INTO milestones (title, date, description, type) VALUES (?,?,?,?)", default_milestones)
     conn.commit()
     conn.close()
 
@@ -620,10 +632,10 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---- TABS (เหลือเฉพาะ Love Capsule, Battle Phase, Stats) ----
+# ---- TABS ----
 tab_capsule, tab_battle, tab_stats = st.tabs(["💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"])
 
-# ======== TAB 0: LOVE CAPSULE (แยกภาษา สเปน/อังกฤษ ชัดเจน + หลากหลาย) ========
+# ======== TAB 0: LOVE CAPSULE ========
 with tab_capsule:
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #4CC9F0; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
@@ -668,15 +680,12 @@ with tab_capsule:
 
     <script>
     const messages = [
-        // Spanish Messages (ภาษาสเปนล้วน แยกชัดเจน)
         "¡Muchísima suerte hoy! Vas a lograr cosas increíbles.",
         "Eres el mejor de todos, mi amor.",
         "A triunfar hoy y siempre, campeón.",
         "Te amo con todo mi corazón.",
         "Eres mi persona favorita en este mundo.",
         "¡A por todas! Confío plenamente en ti.",
-        
-        // English Messages (ภาษาอังกฤษล้วน แยกชัดเจน)
         "The moon is beautiful, isn't it? I love you so much, my favorite rival!",
         "Keep crushing your goals today. I am so proud of you!",
         "You and me make an unstoppable team. Let us conquer everything!",
@@ -977,27 +986,27 @@ with tab_stats:
     <head>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
-    body { background: transparent; margin: 0; font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; padding: 5px; }
+    body { background: transparent; margin: 0; font-family: 'DM Sans', sans-serif; display: flex; justify-content: center; align-items: center; width: 100%; padding: 0; }
     .live-card {
         background: linear-gradient(135deg, rgba(123,44,191,0.4), rgba(0,245,212,0.2));
         border: 1px solid rgba(0,245,212,0.3);
-        border-radius: 12px;
-        padding: 1.2rem 1.5rem;
+        border-radius: 16px;
+        padding: 1.5rem 1rem;
         text-align: center;
         backdrop-filter: blur(8px);
         width: 100%;
-        max-width: 1000px;
+        box-sizing: border-box;
     }
     .main-title { font-size: 0.75rem; color: #4CC9F0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 500; }
     .main-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.8rem; font-weight: 700; color: #FFD166; line-height: 1; margin-bottom: 0.2rem; }
     .main-unit { font-size: 0.9rem; color: #F0E9FA; margin-bottom: 1rem; font-weight: 500; }
-    .sub-grid { display: flex; justify-content: center; gap: 10px; }
+    .sub-grid { display: flex; justify-content: center; gap: 12px; }
     .sub-box {
         background: rgba(10,4,26,0.6);
         border: 1px solid rgba(0,245,212,0.3);
-        border-radius: 8px;
-        padding: 0.5rem 0.8rem;
-        min-width: 80px;
+        border-radius: 12px;
+        padding: 0.6rem 1rem;
+        min-width: 85px;
         text-align: center;
     }
     .sub-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; color: #F0E9FA; line-height: 1.1; }
@@ -1046,63 +1055,53 @@ with tab_stats:
         </script>
     </body>
     </html>
-    """, height=190, scrolling=False)
+    """, height=195, scrolling=False)
 
     st.markdown("<div style='margin-top:0.4rem'></div>", unsafe_allow_html=True)
 
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["weeks_together"]}</div><div class="metric-label">Weeks Together</div><div class="metric-desc">{stats["months_together"]} months of us 🌙</div></div>', unsafe_allow_html=True)
     with col2:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_to_anniversary"]}</div><div class="metric-label">Days to Anniversary</div><div class="metric-desc">22 Aug {stats["next_anniversary"].year} 🎉</div></div>', unsafe_allow_html=True)
     with col3:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_first"]}</div><div class="metric-label">Days Since We Met</div><div class="metric-desc">27 Jul 2025 (first liked story ✨)</div></div>', unsafe_allow_html=True)
-    with col4:
-        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_together"]}</div><div class="metric-label">Total Days</div><div class="metric-desc">Counting every single day 💜</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_army"]}</div><div class="metric-label">Days in Army Service</div><div class="metric-desc">Dawis in Australian Army 🪖</div></div>', unsafe_allow_html=True)
 
-    st.markdown("<div style='margin-top:0.6rem'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
-    col_a, col_b = st.columns([1, 2])
-    with col_a:
-        st.markdown(f"""
-        <div class="army-badge">
-            <div style="font-size:1.8rem">🪖</div>
-            <div style="font-size:1.4rem; font-family:'Playfair Display',serif; color:#FFD166; font-weight:700;">{stats['days_since_army']}</div>
-            <div style="font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; color:#00F5D4;">Days in Service</div>
-            <div style="font-size:0.8rem; margin-top:0.2rem; color:#F0E9FA;">Dawis in Australian Army (20 Apr 2026)</div>
-        </div>""", unsafe_allow_html=True)
+    milestones_df = get_milestones()
+    if not milestones_df.empty:
+        milestones_df['date'] = pd.to_datetime(milestones_df['date'])
+        fig = go.Figure()
+        
+        positions = ['top center' if i % 2 == 0 else 'bottom center' for i in range(len(milestones_df))]
+        colors = ['#FFD166', '#00F5D4', '#4CC9F0', '#FF6B6B', '#C77DFF', '#FFE188', '#2EE8CC']
+        
+        for i, row in milestones_df.iterrows():
+            fig.add_trace(go.Scatter(
+                x=[row['date']], y=[1.0],
+                mode='markers+text',
+                marker=dict(size=14, color=colors[i % len(colors)], symbol='diamond'),
+                text=[row['title']], 
+                textposition=positions[i],
+                textfont=dict(color='#F0E9FA', size=10, family='DM Sans'),
+                showlegend=False
+            ))
+        
+        fig.add_shape(type='line',
+            x0=milestones_df['date'].min() - pd.Timedelta(days=15), 
+            x1=milestones_df['date'].max() + pd.Timedelta(days=15),
+            y0=1.0, y1=1.0,
+            line=dict(color='rgba(0,245,212,0.6)', width=2.5))
 
-    with col_b:
-        milestones_df = get_milestones()
-        if not milestones_df.empty:
-            milestones_df['date'] = pd.to_datetime(milestones_df['date'])
-            fig = go.Figure()
-            colors = ['#FFD166', '#00F5D4', '#4CC9F0']
-            positions = ['top center', 'bottom center', 'top center']
-            
-            for i, row in milestones_df.iterrows():
-                fig.add_trace(go.Scatter(
-                    x=[row['date']], y=[1.0],
-                    mode='markers+text',
-                    marker=dict(size=12, color=colors[i % 3], symbol='diamond'),
-                    text=[row['title']], 
-                    textposition=positions[i % 3],
-                    textfont=dict(color='#F0E9FA', size=8.5),
-                    showlegend=False
-                ))
-            
-            fig.add_shape(type='line',
-                x0=milestones_df['date'].min(), x1=date.today(),
-                y0=1.0, y1=1.0,
-                line=dict(color='rgba(0,245,212,0.5)', width=2))
-
-            fig.update_layout(
-                title=dict(text='Our Journey Together', font=dict(color='#F0E9FA', size=11)),
-                paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-                yaxis=dict(visible=False, range=[0.3, 1.7]), xaxis=dict(showgrid=False, color='#4CC9F0'),
-                height=150, margin=dict(l=10, r=10, t=30, b=10)
-            )
-            st.plotly_chart(fig, use_container_width=True)
+        fig.update_layout(
+            title=dict(text='Our Journey Together Timeline 🗺️', font=dict(color='#FFD166', size=13, family='Plus Jakarta Sans')),
+            paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+            yaxis=dict(visible=False, range=[0.2, 1.8]), 
+            xaxis=dict(showgrid=False, color='#4CC9F0', tickfont=dict(size=10)),
+            height=220, margin=dict(l=20, r=20, t=40, b=15)
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
     progress = max(0, min(1, 1 - (stats['days_to_anniversary'] / 365)))
     st.progress(progress)
