@@ -452,7 +452,7 @@ stats = calculate_stats()
 # ---- TABS ----
 tab_capsule, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["💌 Love Capsule", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
-# ======== TAB 0: LOVE CAPSULE (Pure English or Pure Spanish per card) ========
+# ======== TAB 0: LOVE CAPSULE (Strictly Monolingual Randomization per Note) ========
 with tab_capsule:
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
@@ -482,40 +482,42 @@ with tab_capsule:
     <div class="capsule-container">
         <div class="letter-icon">✉️</div>
         <div style="font-family:'Plus Jakarta Sans',sans-serif; color:#F0E9FA; font-size:1.3rem; font-weight:700; margin-bottom:0.3rem;">Love Capsule Letter</div>
-        <div style="color:#B08FD4; font-size:0.75rem; margin-bottom:1.5rem; letter-spacing:0.5px;">¡Buena suerte! Open a note from me ✨</div>
+        <div style="color:#B08FD4; font-size:0.75rem; margin-bottom:1.5rem; letter-spacing:0.5px;">Open a note from me ✨</div>
         <button class="open-btn" onclick="openLetter()">Open Letter 💌</button>
     </div>
 
     <div class="modal" id="modal">
         <div class="modal-content">
             <div style="font-size: 2.2rem;">💌</div>
-            <div style="font-size:0.7rem; color:#6B3FA0; text-transform:uppercase; font-weight:700; letter-spacing:1.5px; margin-top:0.4rem;">Secret Note Unlocked</div>
+            <div style="font-size:0.7rem; color:#6B3FA0; text-transform:uppercase; font-weight:700; letter-spacing:1.5px; margin-top:0.4rem;" id="modalSub">Secret Note Unlocked</div>
             <div class="msg-box" id="secretMsg">...</div>
-            <button class="close-btn" onclick="closeModal()">Got it / ¡Listo!</button>
+            <button class="close-btn" id="closeBtn" onclick="closeModal()">Got it</button>
         </div>
     </div>
 
     <script>
     const messages = [
-        "I love you so much! Keep crushing your goals, my favorite rival!",
-        "¡Muchísima suerte hoy! You'll need it when competing against me 😜✨",
-        "I admire you so much. Proud of you every single day, soldier! 🪖💜",
-        "¡Eres el mejor! Even if you are a stubborn little trouble-maker 🤭",
-        "Everything is going to be amazing. Sending you all my love and energy! 🌟",
-        "You + Me = Unstoppable team. (And yes, I am definitely the brain 🤭💜)",
-        "¡Qué tengas un día increíble! Sending you a giant hug and a playful punch 🤗🥊",
-        "No matter how tough it gets, I've got your back forever. Let's conquer it all! 🚀",
-        "¡Te quiero un montón! Now go ace it so I can proudly brag about you 😎🏆",
-        "A triunfar hoy. But remember who is actually in charge here 👑😏",
-        "So proud of the hard worker you are. You are truly incredible, my love! 💫",
-        "Warning: High level of cuteness and unstoppable support ahead! ⚠️💜",
-        "¡A por todas, soldado! Make me proud, or prepare to face the consequences 🪖👀",
-        "You are my favorite distraction and my greatest motivation. I love you! 🪐"
+        { lang: "en", text: "I love you so much! Keep crushing your goals, my favorite rival!", btn: "Got it" },
+        { lang: "es", text: "¡Muchísima suerte hoy! You'll definitely need it when competing against me 😜✨", btn: "¡Listo!" },
+        { lang: "en", text: "I admire you so much. Proud of you every single day, soldier! 🪖💜", btn: "Got it" },
+        { lang: "es", text: "¡Eres el mejor! Even if you are a stubborn little trouble-maker 🤭", btn: "¡Listo!" },
+        { lang: "en", text: "Everything is going to be amazing. Sending you all my love and energy! 🌟", btn: "Got it" },
+        { lang: "es", text: "You + Me = Unstoppable team. (And yes, I am definitely the brain 🤭💜)", btn: "¡Listo!" },
+        { lang: "en", text: "¡Qué tengas un día increíble! Sending you a giant hug and a playful punch 🤗🥊", btn: "Got it" },
+        { lang: "es", text: "No matter how tough it gets, I've got your back forever. Let's conquer it all! 🚀", btn: "¡Listo!" },
+        { lang: "en", text: "¡Te quiero un montón! Now go ace it so I can proudly brag about you 😎🏆", btn: "Got it" },
+        { lang: "es", text: "A triunfar hoy. But remember who is actually in charge here 👑😏", btn: "¡Listo!" },
+        { lang: "en", text: "So proud of the hard worker you are. You are truly incredible, my love! 💫", btn: "Got it" },
+        { lang: "es", text: "Warning: High level of cuteness and unstoppable support ahead! ⚠️💜", btn: "¡Listo!" },
+        { lang: "en", text: "¡A por todas, soldado! Make me proud, or prepare to face the consequences 🪖👀", btn: "Got it" },
+        { lang: "es", text: "You are my favorite distraction and my greatest motivation. I love you! 🪐", btn: "¡Listo!" }
     ];
 
     function openLetter() {
-        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-        document.getElementById('secretMsg').innerText = randomMsg;
+        const item = messages[Math.floor(Math.random() * messages.length)];
+        document.getElementById('secretMsg').innerText = item.text;
+        document.getElementById('closeBtn').innerText = item.btn;
+        document.getElementById('modalSub').innerText = item.lang === 'es' ? "Mensaje Secreto Desbloqueado" : "Secret Note Unlocked";
         document.getElementById('modal').style.display = 'flex';
     }
 
