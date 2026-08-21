@@ -36,28 +36,45 @@ init_db()
 if "auth" not in st.session_state: st.session_state.auth = False
 if "view" not in st.session_state: st.session_state.view = "login"
 
-# ---- AUTH ----
+# ---- AUTH (Clean HTML Login without trailing Streamlit inputs) ----
 if not st.session_state.auth:
-    # หน้า Login สวยๆ ที่คุณชอบ
+    login_code = st.text_input("code", type="password", label_visibility="collapsed")
+    
     components.html("""
-    <div style="text-align:center; padding:100px; color:white; font-family:sans-serif;">
-        <h1>Enter Secret Code</h1>
-        <input type="password" id="p" style="padding:10px; border-radius:10px; border:none; width:300px;"><br><br>
-        <button onclick="if(document.getElementById('p').value=='220825') { 
-            const p=window.parent.document; 
-            const i=p.querySelector('input[type=password]'); 
-            i.value='220825'; i.dispatchEvent(new Event('input', {bubbles:true})); 
-        }" style="padding:10px 30px; border-radius:10px; cursor:pointer;">Enter</button>
+    <div style="text-align:center; padding:80px; color:white; font-family:sans-serif;">
+        <h1 style="font-family:'Plus Jakarta Sans',sans-serif; color:#00F5D4; margin-bottom:20px;">Enter Secret Code</h1>
+        <input type="password" id="p" placeholder="Enter code..." style="padding:12px 20px; border-radius:12px; border:2px solid #00F5D4; background:rgba(10,4,26,0.8); color:white; font-size:1.2rem; width:280px; outline:none; text-align:center;"><br><br>
+        <button onclick="
+            let val = document.getElementById('p').value;
+            if(val == '220825') {
+                const parentDoc = window.parent.document;
+                const inputs = parentDoc.querySelectorAll('input[type=password]');
+                inputs.forEach(input => {
+                    let nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+                    nativeSetter.call(input, '220825');
+                    input.dispatchEvent(new Event('input', {bubbles: true}));
+                });
+            } else {
+                alert('Wrong code, try again! 💜');
+            }
+        " style="background:linear-gradient(135deg, #7B2CBF, #00F5D4); color:#0A041A; border:none; border-radius:12px; padding:12px 35px; font-weight:800; font-size:1.1rem; cursor:pointer; box-shadow:0 0 15px rgba(0,245,212,0.4);">Enter Our World 💜</button>
     </div>
-    """, height=400)
-    if st.text_input("code", type="password", label_visibility="collapsed") == "220825":
-        st.session_state.auth = True; st.session_state.view = "welcome"; st.rerun()
+    """, height=350, scrolling=False)
+
+    if login_code == "220825":
+        st.session_state.auth = True
+        st.session_state.view = "welcome"
+        st.rerun()
     st.stop()
 
 # ---- NAVIGATION ----
 if st.session_state.view == "welcome":
-    st.markdown("<h1 style='text-align:center;'>Welcome back, my favorite rival! 💜</h1>", unsafe_allow_html=True)
-    if st.button("💐 Get Flowers & Enter"): st.session_state.view = "menu"; st.rerun()
+    st.markdown("<h1 style='text-align:center; margin-top:50px;'>Welcome back, my favorite rival! 💜</h1>", unsafe_allow_html=True)
+    col_w1, col_w2, col_w3 = st.columns([1, 2, 1])
+    with col_w2:
+        if st.button("💐 Get Flowers & Enter", use_container_width=True): 
+            st.session_state.view = "menu"
+            st.rerun()
 
 elif st.session_state.view == "menu":
     st.markdown("<h1 style='text-align:center;'>Get Flowers! 🌷</h1>", unsafe_allow_html=True)
@@ -65,23 +82,32 @@ elif st.session_state.view == "menu":
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        if st.button("🍒 Journey & Stats", use_container_width=True): st.session_state.view = "stats"; st.rerun()
+        if st.button("🍒 Journey & Stats", use_container_width=True): 
+            st.session_state.view = "stats"
+            st.rerun()
     with col2:
-        if st.button("💌 Love Capsule", use_container_width=True): st.session_state.view = "capsule"; st.rerun()
+        if st.button("💌 Love Capsule", use_container_width=True): 
+            st.session_state.view = "capsule"
+            st.rerun()
     with col3:
-        if st.button("⚔️ Battle Arena", use_container_width=True): st.session_state.view = "battle"; st.rerun()
+        if st.button("⚔️ Battle Arena", use_container_width=True): 
+            st.session_state.view = "battle"
+            st.rerun()
 
 elif st.session_state.view == "stats":
     st.write("## 📊 Our Journey & Stats")
-    # (ที่นี่คือส่วน Stats ที่คุณทำไว้)
-    if st.button("← Back to Menu"): st.session_state.view = "menu"; st.rerun()
+    if st.button("← Back to Menu"): 
+        st.session_state.view = "menu"
+        st.rerun()
 
 elif st.session_state.view == "capsule":
     st.write("## 💌 Love Capsule")
-    # (ที่นี่คือส่วน Capsule ที่คุณทำไว้)
-    if st.button("← Back to Menu"): st.session_state.view = "menu"; st.rerun()
+    if st.button("← Back to Menu"): 
+        st.session_state.view = "menu"
+        st.rerun()
 
 elif st.session_state.view == "battle":
     st.write("## ⚔️ Battle Arena")
-    # (ที่นี่คือส่วน Battle ที่คุณทำไว้)
-    if st.button("← Back to Menu"): st.session_state.view = "menu"; st.rerun()
+    if st.button("← Back to Menu"): 
+        st.session_state.view = "menu"
+        st.rerun()
