@@ -635,9 +635,9 @@ st.markdown("""
 
 # ---- NAVIGATION BUTTON BOXES ----
 if "active_tab" not in st.session_state:
-    st.session_state.active_tab = "🍀 Get Clover"
+    st.session_state.active_tab = "🍀 Get Some Luck"
 
-nav_tabs = ["🍀 Get Clover", "💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"]
+nav_tabs = ["🍀 Get Some Luck", "💌 Love Capsule", "⚔️ Battle Phase", "📊 Our Stats"]
 
 cols = st.columns(len(nav_tabs))
 for i, tab_name in enumerate(nav_tabs):
@@ -648,18 +648,18 @@ for i, tab_name in enumerate(nav_tabs):
 
 st.markdown("<hr style='border: 0.5px solid rgba(0,245,212,0.3); margin: 1rem 0 1.5rem 0;'>", unsafe_allow_html=True)
 
-# ======== TAB 0: GET CLOVER & SUNFLOWER BOUQUET ========
-if st.session_state.active_tab == "🍀 Get Clover":
+# ======== TAB 0: GET SOME LUCK & SUNFLOWER BOUQUET ========
+if st.session_state.active_tab == "🍀 Get Some Luck":
     st.markdown("""
     <div style="text-align: center; padding: 1.5rem 0; width: 100%;">
-        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5); text-align: center;">Get Lucky Clover! 🍀</h1>
+        <h1 style="color: #FFD166; font-size: 2.8rem; font-weight: 700; margin-bottom: 0.2rem; text-shadow: 0 0 20px rgba(255,209,102,0.5); text-align: center;">Get Some Luck!</h1>
         <p style="color: #4CC9F0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px; text-align: center;">Well done! A bright sunflower bouquet and good luck for my favorite enemy. 😜</p>
     </div>
     """, unsafe_allow_html=True)
 
     col_f1, col_f2, col_f3 = st.columns([1, 2, 1])
     with col_f2:
-        # Sunflower bouquet with multi-colored floating icons (💜, 💖, ✨, 🍀, 💙)
+        # Sunflower bouquet with colorful multi floating icons & surprise messages
         components.html("""
         <!DOCTYPE html>
         <html>
