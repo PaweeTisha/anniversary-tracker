@@ -1048,7 +1048,7 @@ with tab_stats:
 
     st.markdown("<div style='margin-top:0.4rem'></div>", unsafe_allow_html=True)
 
-    # 4 การ์ดสถิติครบถ้วน
+    # 4 การ์ดสถิติครบถ้วน (รวมการ์ด 390 วัน และการ์ดวันเข้ากรม)
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["weeks_together"]}</div><div class="metric-label">Weeks Together</div><div class="metric-desc">{stats["months_together"]} months of us 🌙</div></div>', unsafe_allow_html=True)
@@ -1061,7 +1061,7 @@ with tab_stats:
 
     st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
-    # กราฟ Timeline แสดงผลครบถ้วนรวมทั้ง Anniversary 2026
+    # กราฟ Timeline แสดงผลครบถ้วน
     milestones_df = get_milestones()
     if not milestones_df.empty:
         milestones_df['date'] = pd.to_datetime(milestones_df['date'])
