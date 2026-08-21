@@ -449,10 +449,10 @@ if not check_password():
 init_db()
 stats = calculate_stats()
 
-# ---- TABS (Love Capsule First) ----
+# ---- TABS ----
 tab_capsule, tab_stats, tab_memories, tab_timeline, tab_add = st.tabs(["💌 Love Capsule", "📊 Our Stats", "💜 Memories", "📸 Timeline", "➕ Add Memory"])
 
-# ======== TAB 0: LOVE CAPSULE (Letter & Coupon Drawer) ========
+# ======== TAB 0: LOVE CAPSULE (Extended Sweet & Spicy / Support & Banter Messages) ========
 with tab_capsule:
     st.markdown('<div class="section-title">Love Capsule — Open a Secret Note 💌</div>', unsafe_allow_html=True)
     st.markdown('<div style="color: #B08FD4; font-size: 0.9rem; margin-bottom: 1.5rem;">Pick a letter to reveal a supportive message or a playful tease from your favorite rival! ✨</div>', unsafe_allow_html=True)
@@ -471,7 +471,7 @@ with tab_capsule:
     .open-btn:hover { transform: scale(1.06); background: linear-gradient(135deg, #7B4FB0, #D9B85C); }
     
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); justify-content: center; align-items: center; z-index: 999; }
-    .modal-content { background: #FAFAFA; color: #1A1A2E; padding: 2.2rem 1.8rem; border-radius: 20px; text-align: center; max-width: 310px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.6); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
+    .modal-content { background: #FAFAFA; color: #1A1A2E; padding: 2.2rem 1.8rem; border-radius: 20px; text-align: center; max-width: 320px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.6); animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
     @keyframes popUp { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     .msg-box { font-size: 1.05rem; font-weight: 700; color: #3D1A6E; margin: 1.2rem 0; line-height: 1.5; }
     .close-btn { background: #6B3FA0; color: white; border: none; border-radius: 10px; padding: 0.6rem 1.8rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
@@ -503,8 +503,14 @@ with tab_capsule:
         "¡Eres el mejor! (Even if you're a stubborn little trouble-maker 🤭)",
         "Todo saldrá bien. ¡Mucho éxito hoy y siempre, mi amor! 🌟",
         "You + Me = Unstoppable team. (And yes, I'm the brain, you're the brawn 🤭💜)",
-        "¡Muchísima suerte! Te mando un abrazo gigante y un codazo de cariñito 🤗🥊",
-        "No matter how tough it gets, I've got your back forever. ¡A por todas! 🚀"
+        "¡Muchísima suerte! Te mando un abrazo giganteและหมัดฮุคเบาๆ 1 ที 🤗🥊",
+        "No matter how tough it gets, I've got your back forever. ¡A por todas! 🚀",
+        "Te quiero un montón. Now go ace it so I can brag about you! 😎🏆",
+        "¡A triunfar! Pero recuerda quién manda en esta relación 👑😏",
+        "So proud of the hard worker you are. ¡Eres increíble, mi vida! 💫",
+        "Warning: High level of cuteness and unstoppable support ahead! ⚠️💜",
+        "¡A por todas, soldado! Make me proud, or else... 🪖👀",
+        "You are my favorite distraction and my greatest motivation. ¡Te amo! 🪐"
     ];
 
     function openLetter() {
