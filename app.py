@@ -239,7 +239,7 @@ def get_milestones():
     return df
 
 def calculate_stats():
-    # คำนวณเวลาตามโซน Brisbane (UTC+10)
+    # คำนวณวันตามเวลา Brisbane (UTC+10)
     today = (datetime.utcnow() + timedelta(hours=10)).date()
     start_date = date(2025, 7, 27)
     official_date = date(2025, 8, 22)
@@ -259,7 +259,7 @@ def calculate_stats():
         "today": today
     }
 
-# ---- PASSWORD LOGIN & WELCOME SCREEN FOR DAWIS (ORIGINAL DESIGN) ----
+# ---- PASSWORD LOGIN & WELCOME SCREEN FOR DAWIS ----
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -1222,7 +1222,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
     </head>
     <body>
         <div class="live-card">
-            <div class="main-title">Since Day One (Official Couple) 💜 (Happy 1-Year Anniversary! 🎉)</div>
+            <div class="main-title">Since Day One (Official Couple) 💜</div>
             <div class="main-number">364</div>
             <div class="main-unit">Days</div>
             <div class="sub-grid">
@@ -1241,8 +1241,8 @@ elif st.session_state.active_tab == "📊 Our Stats":
             </div>
         </div>
         <script>
-        // ใช้เวลาท้องถิ่นของเครื่อง (Brisbane) เพื่อนับถอยหลังสู่วันถัดไป
-        const targetDate = new Date("2026-08-23T00:00:00");
+        // นับถอยหลังถึงสิ้นสุดวันครบรอบวันนี้ (23 August 2026 เวลา 00:00:00 ตามเวลา Brisbane)
+        const targetDate = new Date("2026-08-23T00:00:00+10:00");
         function updateCounter() {{
             const now = new Date();
             const diff = targetDate - now;
@@ -1283,7 +1283,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
     with col4:
         st.markdown(f'<div class="metric-card"><div class="metric-number">{stats["days_since_army"]}</div><div class="metric-label">Days in Army Service</div><div style="font-size:0.8rem; color:#F0E9FA; font-weight:600; margin-top:0.3rem;">Dawis in Army 🪖</div></div>', unsafe_allow_html=True)
 
-    st.markdown("<div style='margin-top:0.8rem'>""" + '</div>', unsafe_allow_html=True)
+    st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
     milestones_df = get_milestones()
     if not milestones_df.empty:
