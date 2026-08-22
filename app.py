@@ -1222,7 +1222,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
     </head>
     <body>
         <div class="live-card">
-            <div class="main-title">Since Day One (Official Couple) 💜</div>
+            <div class="main-title">Since Day One (Official Couple) 💜 (Happy 1-Year Anniversary! 🎉)</div>
             <div class="main-number">364</div>
             <div class="main-unit">Days</div>
             <div class="sub-grid">
@@ -1241,7 +1241,7 @@ elif st.session_state.active_tab == "📊 Our Stats":
             </div>
         </div>
         <script>
-        // นับถอยหลังถึงสิ้นสุดวันครบรอบวันนี้ (23 August 2026 เวลา 00:00:00 ตามเวลา Brisbane)
+        // นับถอยหลังถึงสิ้นสุดวันครบรอบวันนี้ (23 August 2026 00:00:00 ตามเวลา Brisbane)
         const targetDate = new Date("2026-08-23T00:00:00+10:00");
         function updateCounter() {{
             const now = new Date();
